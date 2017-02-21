@@ -2,7 +2,7 @@
  * Created by PhamTinh on 2/19/2017.
  */
 import React, {Component} from 'react'
-import LoginForm from './LoginForm'
+import LoginForm from '../../components/auth/LoginForm'
 import {connect} from 'react-redux'
 import {loginRequest} from '../../actions/login/LoginAction'
 

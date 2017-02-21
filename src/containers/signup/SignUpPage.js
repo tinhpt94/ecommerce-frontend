@@ -3,7 +3,7 @@
  */
 
 import React, {Component} from 'react';
-import SignUpForm from './SignUpForm';
+import SignUpForm from '../../components/signup/SignUpForm';
 import {connect} from 'react-redux';
 import {userSignUpRequest} from '../../actions/signup/SignUpAction'
 

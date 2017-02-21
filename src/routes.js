@@ -3,9 +3,9 @@
  */
 import React from 'react'
 import {Route} from 'react-router'
-import SignUpPage from './components/auth/SignUpPage'
-import App from './components/App'
-import LoginPage from './components/auth/LoginPage'
+import SignUpPage from './containers/signup/SignUpPage'
+import App from './containers/App'
+import LoginPage from './containers/login/LoginPage'
 
 export default (
   <Route path="/" component={App}>
