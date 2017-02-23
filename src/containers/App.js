@@ -2,7 +2,8 @@
  * Created by PhamTinh on 2/18/2017.
  */
 import React from 'react'
-import NavigationBar from '../components/navigation/NavigationBar'
+import NavigationBar from '../components/shared/navigation/NavigationBar'
+import Footer from '../components/shared/footer/Footer'
 import injectTapEventPlugin from 'react-tap-event-plugin'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 
@@ -15,6 +16,7 @@ export default class App extends React.Component {
         <div className="container">
           <NavigationBar />
           {this.props.children}
+          <Footer />
         </div>
       </MuiThemeProvider>
     )
