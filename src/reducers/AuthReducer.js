@@ -28,12 +28,12 @@ export default function user(state = DEFAULT_AUTH, action) {
       });
     case types.LOGGED_SUCCESSFULLY:
       return state.merge({
-      	username: action.response.username,
-      	email: action.response.email,
-      	role: action.response.role,
-      	name: action.response.name,
-      	phone: action.response.phone,
-      	address: action.response.address,
+        username: action.response.username,
+        email: action.response.email,
+        role: action.response.role,
+        name: action.response.name,
+        phone: action.response.phone,
+        address: action.response.address,
         error: null,
         isLoggingIn: false,
         isLoggedIn: true
@@ -42,3 +42,4 @@ export default function user(state = DEFAULT_AUTH, action) {
     default:
       return state;
   }
+}
