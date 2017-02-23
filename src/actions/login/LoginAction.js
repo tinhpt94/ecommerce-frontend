@@ -11,6 +11,6 @@ export function loginRequest(userData) {
 
   console.log(userData);
   return dispatch => {
-    return axios.post("http://localhost:8080/api/login" + "?username=" + userData.username + "&password=" + userData.password)
+    return axios.post("http://localhost:8080/api/login", userData)
   }
 }
