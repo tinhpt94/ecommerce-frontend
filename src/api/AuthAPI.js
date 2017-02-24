@@ -1,6 +1,5 @@
-import * as types from './constants';
 import axios from 'axios';
-import AuthActions from './actions/AuthActions';
+import AuthActions from '../actions/auth/AuthActions';
 
 const BASE_URL = 'http://localhost:8080/api/';
 

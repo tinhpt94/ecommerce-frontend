@@ -2,7 +2,7 @@
  * Created by PhamTinh on 2/18/2017.
  */
 
-import { LOGIN_ATTEMPT, LOGGED_FAILED, LOGGED_SUCCESSFULLY } from '../constants/AuthActionTypes';
+import {LOGIN_ATTEMPT, LOGGED_FAILED, LOGGED_SUCCESSFULLY} from '../../constants/AuthActionTypes';
 
 export function loginError(error) {
   return { error, type: LOGGED_FAILED };

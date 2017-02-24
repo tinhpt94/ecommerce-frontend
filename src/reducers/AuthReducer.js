@@ -1,7 +1,7 @@
-import * as types from '../constants';
+import * as types from '../constants/types';
 import Immutable from 'seamless-immutable';
 
-const DEFAULT_AUTH = new Immutable.Map({
+const DEFAULT_AUTH = new Immutable({
   username: '',
   email: '',
   role: '',

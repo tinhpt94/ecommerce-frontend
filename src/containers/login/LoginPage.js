@@ -4,16 +4,17 @@
 import React, {Component} from 'react'
 import LoginForm from '../../components/auth/LoginForm'
 import {connect} from 'react-redux'
-import {login} from '../../api/AuthAPI'
+import {bindActionCreators} from 'redux'
+import * as actions from '../../actions'
 
 class LoginPage extends Component {
   render() {
-    const {login} = this.props;
+    const {loginRequest} = this.props.actions;
     return(
       <div>
         <div className="row">
           <div className="col-md-4 col-md-offset-4">
-            <LoginForm login={login}/>
+            <LoginForm login={loginRequest}/>
           </div>
         </div>
       </div>
@@ -25,4 +26,11 @@ LoginPage.propTypes = {
   login: React.PropTypes.func.isRequired
 };
 
-export default connect((state) => {return {}}, {login})(LoginPage)
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(actions.auth, dispatch),
+    dispatch
+  };
+}
+
+export default connect(mapDispatchToProps)(LoginPage)
