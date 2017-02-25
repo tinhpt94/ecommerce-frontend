@@ -2,7 +2,7 @@
  * Created by tinhpt on 2/21/17.
  */
 import React from 'react'
-
+import {Link} from 'react-router'
 
 export default class ProductItem extends React.Component {
   render() {
@@ -10,10 +10,10 @@ export default class ProductItem extends React.Component {
 
     return(
       <div className="product-item">
-        <div className="col-md-3 product-left">
+        <div className="col-md-3">
           <div className="product-main">
             <Link to={"/product-detail" + id}>
-              <image className="img-responsive">{image}</image>
+              <img className="img-responsive" src={image}/>
             </Link>
 
             <div className="product-bottom">

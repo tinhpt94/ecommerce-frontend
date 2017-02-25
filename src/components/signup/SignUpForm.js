@@ -5,11 +5,20 @@ import React from 'react'
 import {browserHistory} from 'react-router'
 import TextFieldGroup from '../common/TextFieldGroup'
 import ValidateSignUp from './ValidateSignUp'
+import SignUpService from '../../services/SignUpService'
+import SignUpStore from '../../stores/SignUpStore'
 
 class SignUpForm extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
+    this.state = this._getState();
+    this.onChange = this.onChange.bind(this);
+    this._onChange = this._onChange.bind(this);
+    this.submit = this.submit.bind(this)
+  }
+
+  _getState() {
+    return {
       username: '',
       password: '',
       passwordConfirmation: '',
@@ -17,11 +26,23 @@ class SignUpForm extends React.Component {
       name: '',
       address: '',
       phone: '',
-      errors: {},
-      isLoading: false
-    };
-    this.onChange = this.onChange.bind(this);
-    this.submit = this.submit.bind(this)
+      errors: {}
+    }
+  }
+
+  _onChange() {
+    this.setState(this._getState);
+  }
+
+  componentDidMount() {
+    if (SignUpStore.isSuccess()) {
+      browserHistory.push("/login");
+    }
+    SignUpStore.addChangeListener(this._onChange);
+  }
+
+  componentWillUnMount() {
+    SignUpStore.removeChangeListener(this._onChange);
   }
 
   isValid() {
@@ -45,13 +66,7 @@ class SignUpForm extends React.Component {
   submit(e) {
     e.preventDefault();
     if (this.isValid()) {
-      this.setState({errors: {}, isLoading: true});
-      this.props.userSignUpRequest(this.state).then(
-        () => {
-          browserHistory.push("/");
-        },
-        ({data}) => this.setState({errors: data, isLoading: false})
-      );
+      SignUpService.signUp(this.state)
     }
   }
   render() {

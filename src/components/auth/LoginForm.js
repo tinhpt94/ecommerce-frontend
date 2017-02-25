@@ -1,23 +1,42 @@
-/**
- * Created by PhamTinh on 2/19/2017.
- */
 import React from 'react'
 import TextFieldGroup from '../common/TextFieldGroup'
 import ValidateLogin from './ValidateLogin'
+import LoginService from '../../services/LoginService'
+import LoginStore from '../../stores/LoginStore'
 import {browserHistory} from 'react-router'
 
 class LoginForm extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      username: "",
-      password: "",
-      errors: {},
-      isLoading: false
-    };
-
+    this.state = this._getState();
+    this._onChange = this._onChange.bind(this);
     this.onChange = this.onChange.bind(this);
     this.submit = this.submit.bind(this);
+  }
+
+  _getState() {
+    return {
+      username: "",
+      password: "",
+      errors: {}
+    };
+  }
+
+  _onChange() {
+    this.setState(this._getState());
+  }
+
+  componentDidMount() {
+    if (LoginStore.userLoggedIn) {
+      browserHistory.push('/');
+    } else {
+      browserHistory.push('/login');
+    }
+    LoginStore.addChangeListener(this._onChange);
+  }
+
+  componentWillUnMount() {
+    LoginStore.removeChangeListener(this._onChange);
   }
 
   isValid() {
@@ -39,14 +58,17 @@ class LoginForm extends React.Component {
   submit(e) {
     e.preventDefault();
     if (this.isValid()) {
-      this.setState({errors: {}, isLoading: true});
-      this.props.loginRequest(this.state).then(
-        (user) => {
-          console.log(user);
-          browserHistory.push("/");
-        },
-        ({data}) => this.setState({errors: data, isLoading: false})
-      );
+      LoginService.login(this.state.username, this.state.password);
+    }
+  }
+
+  get errorMessage() {
+    if (this.state.errors) {
+      return (
+        <div className="text-danger form-group error">
+          Login false! Plz check your password or ID.
+        </div>
+      )
     }
   }
 

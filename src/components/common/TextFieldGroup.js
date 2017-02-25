@@ -18,7 +18,7 @@ const TextFieldGroup = ({field, value, label, error, type, onChange}) => {
       {error && <span className="help-block">{error}</span>}
     </div>
   )
-}
+};
 
 TextFieldGroup.propTypes = {
   field: React.PropTypes.string.isRequired,
@@ -27,10 +27,10 @@ TextFieldGroup.propTypes = {
   error: React.PropTypes.string,
   type: React.PropTypes.string.isRequired,
   onChange: React.PropTypes.func.isRequired
-}
+};
 
 TextFieldGroup.defaultProps = {
   type: 'text'
-}
+};
 
 export default TextFieldGroup

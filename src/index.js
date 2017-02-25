@@ -1,21 +1,21 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import {Router, browserHistory} from 'react-router'
-import routes from './routes';
-import thunk from 'redux-thunk'
-import {createStore, applyMiddleware, compose } from 'redux'
-import {Provider} from 'react-redux'
-import rootReducer from './reducers/rootReducer'
+import React from "react";
+import ReactDOM from "react-dom";
+import {Router, Route, IndexRoute, Link} from "react-router";
+import {browserHistory} from 'react-router'
+import Main from "./components/Main";
+import LoginPage from "./components/auth/LoginPage";
+import SignUpPage from './components/signup/SignUpPage'
+import ProductPage from './components/product/Products'
 
-const store = createStore(rootReducer,
-  compose(
-    applyMiddleware(thunk),
-    window.devToolsExtension ? window.devToolsExtension() : f => f)
+let history = browserHistory;
+
+let routes = (
+  <Route path="/" component={Main}>
+    <IndexRoute component={ProductPage}/>
+    <Route path="login" component={LoginPage}/>
+    <Route path="signup" component={SignUpPage}/>
+  </Route>
 );
 
-ReactDOM.render(
-  <Provider store={store}>
-    <Router history={browserHistory} routes={routes}/>
-  </Provider>,
-  document.getElementById('root')
-);
+
+ReactDOM.render(<Router history={history}>{routes}</Router>, document.getElementById('root'));
