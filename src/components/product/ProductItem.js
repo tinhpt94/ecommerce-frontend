@@ -18,13 +18,12 @@ export default class ProductItem extends React.Component {
 
             <div className="product-bottom">
               <h3>{name}</h3>
-            </div>
-
-            <h4>
+              <h4>
               <span className="item_add">
                 <span className="item-price">{price}</span>
               </span>
-            </h4>
+              </h4>
+            </div>
           </div>
         </div>
       </div>
