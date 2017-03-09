@@ -1,9 +1,9 @@
-import React from 'react'
-import TextFieldGroup from '../common/TextFieldGroup'
-import ValidateLogin from './ValidateLogin'
-import LoginService from '../../services/LoginService'
-import LoginStore from '../../stores/LoginStore'
-import {browserHistory} from 'react-router'
+import React from "react";
+import TextFieldGroup from "../common/TextFieldGroup";
+import ValidateLogin from "./ValidateLogin";
+import LoginService from "../../services/LoginService";
+import LoginStore from "../../stores/LoginStore";
+import {browserHistory} from "react-router";
 
 class LoginForm extends React.Component {
   constructor(props) {
@@ -18,7 +18,8 @@ class LoginForm extends React.Component {
     return {
       username: "",
       password: "",
-      errors: {}
+      errors: {},
+      errorServer: LoginStore.loginError()
     };
   }
 
@@ -63,7 +64,7 @@ class LoginForm extends React.Component {
   }
 
   get errorMessage() {
-    if (this.state.errors) {
+    if (this.state.errorServer) {
       return (
         <div className="text-danger form-group error">
           Login false! Plz check your password or ID.
@@ -76,7 +77,7 @@ class LoginForm extends React.Component {
     return(
       <form onSubmit={this.submit}>
         <h1>Sign up form</h1>
-
+        {this.errorMessage}
         <TextFieldGroup
           field="username"
           value={this.state.username}

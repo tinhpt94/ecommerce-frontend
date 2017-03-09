@@ -1,32 +1,31 @@
-import SignUpAction from "../actions/SignUpAction";
-import SignUpConstant from "../constants/SignUpConstant";
+import MenuAction from "../actions/MenuAction";
+import MenuConstant from "../constants/MenuConstant";
 import GlobalConstant from "../constants/GlobalConstant";
 import axios from "axios";
 
-class SignUpService {
-  signUp(user) {
+class MenuService {
+  fetchMenu() {
     axios({
       baseURL: GlobalConstant.BASE_API,
-      url: SignUpConstant.URL,
-      method: 'POST',
-      type: 'json',
+      url: MenuConstant.URL,
+      method: 'GET',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
-      },
-      data: user
+      }
     }).then(function (response) {
       switch (response.status) {
         case 200:
-          SignUpAction.signUp();
+          MenuAction.fetchMenu(response.data);
           break;
-        default :
-          break;
+
+        default:
+          break
       }
     }).catch(function (error) {
       console.log(error);
-    })
+    });
   }
 }
 
-export default new SignUpService()
+export default new MenuService()

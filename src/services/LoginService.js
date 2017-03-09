@@ -1,10 +1,12 @@
 import LoginAction from "../actions/LoginAction";
 import LoginConstant from "../constants/LoginConstant";
-import axios from 'axios'
+import GlobalConstant from "../constants/GlobalConstant";
+import axios from "axios";
 
 class LoginService {
   login(username, password) {
     axios({
+      baseURL: GlobalConstant.BASE_API,
       url: LoginConstant.URL,
       method: 'POST',
       type: 'json',
@@ -20,8 +22,7 @@ class LoginService {
       switch (response.status) {
         case 200:
           LoginAction.loginUser({
-            id: response.data.id,
-            userame: response.data.username,
+            username: response.data.username,
             role: response.data.role,
             email: response.data.email,
             name: response.data.name,
@@ -29,20 +30,17 @@ class LoginService {
             address: response.data.address
           });
           break;
-        case 401:
-          LoginAction.loginUser({});
-          break;
-        case 400:
-          LoginAction.error(response.error);
-          break;
         default :
           break;
       }
+    }).catch(function (error) {
+      LoginAction.error(error.response.data);
     })
   }
 
   logout() {
     axios({
+      baseURL: GlobalConstant.BASE_API,
       url: LoginConstant.URL,
       method: 'DELETE',
       crossOrigin: true,

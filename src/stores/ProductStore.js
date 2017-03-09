@@ -1,10 +1,11 @@
-import BaseStore from './BaseStore'
-import ProductConstant from '../constants/ProductConstant'
+import BaseStore from "./BaseStore";
+import ProductConstant from "../constants/ProductConstant";
 
 class ProductStore extends BaseStore {
   constructor() {
     super();
     this.products = null;
+    this.selectedProduct = null;
     this.subscribe(() => this.handler.bind(this));
   }
 
@@ -14,6 +15,9 @@ class ProductStore extends BaseStore {
         this.products = action.products;
         this.emitChange();
         break;
+      case ProductConstant.FETCH_BY_ID:
+        this.selectedProduct = action.product;
+        this.emitChange();
       default :
         break;
     }
@@ -21,6 +25,10 @@ class ProductStore extends BaseStore {
 
   fetchAll() {
     return this.products;
+  }
+
+  getSelectedProduct() {
+    return this.selectedProduct;
   }
 
 }

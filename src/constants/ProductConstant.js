@@ -1,6 +1,7 @@
 const ProductConstant = {
   FETCH_ALL: "FETCH_ALL",
-  URL: "http://localhost:8080/api/products"
+  FETCH_BY_ID: "FETCH_BY_ID",
+  URL: "products/"
 };
 
 export default ProductConstant

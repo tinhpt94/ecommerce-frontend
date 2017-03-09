@@ -1,6 +1,7 @@
-import React from 'react'
-import NavigationBar from './shared/navigation/NavigationBar'
-import Footer from './shared/footer/Footer'
+import React from "react";
+import NavigationBar from "./shared/navigation/NavigationBar";
+import Footer from "./shared/footer/Footer";
+import Header from "./shared/header/Header";
 
 export default class Main extends React.Component {
 
@@ -10,6 +11,7 @@ export default class Main extends React.Component {
         <div id="header">
           <div className="container">
             <NavigationBar />
+            <Header/>
           </div>
         </div>
         <div className="container" id="contents">

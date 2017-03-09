@@ -1,10 +1,10 @@
 /**
  * Created by PhamTinh on 2/18/2017.
  */
-import React from 'react'
-import {Link} from 'react-router'
-import LoginStore from '../../../stores/LoginStore'
-import LoginService from '../../../services/LoginService'
+import React from "react";
+import {Link} from "react-router";
+import LoginStore from "../../../stores/LoginStore";
+import LoginService from "../../../services/LoginService";
 
 export default class NavigationBar extends React.Component {
 
@@ -59,7 +59,7 @@ export default class NavigationBar extends React.Component {
     if (this.state.userLoggedIn) {
       return (
         <ul className="nav navbar-nav navbar-right">
-          <li>Welcome {LoginStore.userLoggedIn.name}</li>
+          <li>Welcome {this.state.userLoggedIn.username}</li>
           <li>
             <button className="btn btn-default" onClick={this.logout}>Logout</button>
           </li>

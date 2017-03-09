@@ -1,10 +1,10 @@
-import BaseStore from './BaseStore'
-import LoginConstant from '../constants/LoginConstant'
+import BaseStore from "./BaseStore";
+import LoginConstant from "../constants/LoginConstant";
 
 class LoginStore extends BaseStore {
   constructor() {
     super();
-    this.userLoggedIn = null;
+    this.userLoggedIn = localStorage.getItem("user") || null;
     this.error = null;
     this.subscribe(() => this.handler.bind(this));
   }
@@ -21,7 +21,7 @@ class LoginStore extends BaseStore {
         this.emitChange();
         break;
       case LoginConstant.ERROR:
-        this.error = action.errors;
+        this.error = action.error;
         this.emitChange();
         break;
       default :
@@ -32,7 +32,7 @@ class LoginStore extends BaseStore {
     return this.userLoggedIn
   }
 
-  LoginError() {
+  loginError() {
     return this.error
   }
 

@@ -1,12 +1,13 @@
-import faker from 'faker'
-import ProductAction from '../actions/ProductAction'
-import ProductConstant from '../constants/ProductConstant'
-import axios from 'axios'
+import ProductAction from "../actions/ProductAction";
+import ProductConstant from "../constants/ProductConstant";
+import GlobalConstant from "../constants/GlobalConstant";
+import axios from "axios";
 
 class ProductService {
 
   fetchAll() {
     axios({
+      baseURL: GlobalConstant.BASE_API,
       url: ProductConstant.URL,
       method: 'GET',
       headers: {
@@ -38,6 +39,29 @@ class ProductService {
     //   )
     // }
     // ProductAction.fetchAll(products);
+  }
+
+  fetchByCode(code) {
+    axios({
+      baseURL: GlobalConstant.BASE_API,
+      url: ProductConstant.URL + code,
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      }
+    }).then(function (response) {
+      switch (response.status) {
+        case 200:
+          ProductAction.fetchByCode(response.data);
+          break;
+
+        default:
+          break;
+      }
+    }).catch(function (error) {
+      console.log(error);
+    })
   }
 }
 

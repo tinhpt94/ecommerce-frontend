@@ -126,6 +126,10 @@ body a {
   border: none;
 }
 
+.item-price {
+  border-bottom: 1px solid #E6E6E6;
+}
+
 .grid_1 img {
   margin-bottom: 1em;
 }
@@ -716,6 +720,11 @@ figure.effect-bubba:hover p, figure.effect-bubba:hover h2 {
   border: 1px solid #ECEAEA;
 }
 
+.product-item .col-md-3 {
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
 .product {
   padding: 3em 0px 6em 0px;
 }
@@ -957,6 +966,11 @@ a.mask {
 .infor-top {
   border-bottom: 1px solid #DEDEDE;
   padding-bottom: 3em;
+}
+
+.infor-product {
+  border-bottom: 1px solid #E6E6E6;
+  padding-bottom: 5px;
 }
 
 /*--information-end--*/
@@ -3751,3 +3765,8 @@ h3.ghj {
 }
 
 /*--media-quaries-end-here--*/
+
+.social-group {
+  padding-top: 5px;
+}
+

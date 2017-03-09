@@ -1,5 +1,5 @@
-import Dispatcher from '../dispatcher/Dispatcher'
-import LoginConstant from '../constants/LoginConstant'
+import Dispatcher from "../dispatcher/Dispatcher";
+import LoginConstant from "../constants/LoginConstant";
 
 export default {
   loginUser: (user) => {
@@ -10,7 +10,7 @@ export default {
     });
 
     if (savedUser !== user) {
-      localStorage.setItem('user', user);
+      localStorage.setItem('user', JSON.stringify(user));
     }
   },
 
