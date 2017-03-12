@@ -59,7 +59,7 @@ export default class NavigationBar extends React.Component {
     if (this.state.userLoggedIn) {
       return (
         <ul className="nav navbar-nav navbar-right">
-          <li>Welcome {this.state.userLoggedIn.username}</li>
+          <li>Welcome {this.state.userLoggedIn.name}</li>
           <li>
             <button className="btn btn-default" onClick={this.logout}>Logout</button>
           </li>

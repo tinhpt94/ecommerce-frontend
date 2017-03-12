@@ -1,12 +1,9 @@
-import EventEmitter from 'events';
-import Dispatcher from '../dispatcher/Dispatcher';
+import EventEmitter from "events";
+import Dispatcher from "../dispatcher/Dispatcher";
 
 const CHANGE_EVENT = 'change';
 
 export default class BaseStory extends EventEmitter {
-  constructor() {
-    super();
-  }
 
   subscribe(actionSubscribe) {
     this._dispatchToken = Dispatcher.register(actionSubscribe());

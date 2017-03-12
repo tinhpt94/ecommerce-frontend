@@ -4,8 +4,11 @@ import ProductConstant from "../constants/ProductConstant";
 class ProductStore extends BaseStore {
   constructor() {
     super();
-    this.products = null;
+    this.products = [];
     this.selectedProduct = null;
+    this.productByBrand = [];
+    this.productByType = [];
+    this.productByMadeIn = [];
     this.subscribe(() => this.handler.bind(this));
   }
 
@@ -18,6 +21,23 @@ class ProductStore extends BaseStore {
       case ProductConstant.FETCH_BY_ID:
         this.selectedProduct = action.product;
         this.emitChange();
+        break;
+      case ProductConstant.FETCH_BY_ID_NOT_FOUND:
+        this.selectedProduct = null;
+        this.emitChange();
+        break;
+      case ProductConstant.FETCH_BY_BRAND:
+        this.productByBrand = action.products;
+        this.emitChange();
+        break;
+      case ProductConstant.FETCH_BY_TYPE:
+        this.productByType = action.products;
+        this.emitChange();
+        break;
+      case ProductConstant.FETCH_BY_MADEIN:
+        this.productByMadeIn = action.products;
+        this.emitChange();
+        break;
       default :
         break;
     }
@@ -25,6 +45,18 @@ class ProductStore extends BaseStore {
 
   fetchAll() {
     return this.products;
+  }
+
+  fetchByType() {
+    return this.productByType;
+  }
+
+  fetchByBrand() {
+    return this.productByBrand;
+  }
+
+  fetchByMadeIn() {
+    return this.productByMadeIn;
   }
 
   getSelectedProduct() {

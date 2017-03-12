@@ -6,6 +6,9 @@ import LoginPage from "./components/auth/LoginPage";
 import SignUpPage from "./components/signup/SignUpPage";
 import ProductPage from "./components/product/Products";
 import ProductDetail from "./components/product/ProductDetail";
+import ProductByBrand from "./components/product/ProductByBrand";
+import ProductByType from "./components/product/ProductByType";
+import ProductByMadeIn from "./components/product/ProductByMadeIn";
 import "./style.css";
 import "./memenu.css";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -18,9 +21,9 @@ let routes = (
     <Route path="login" component={LoginPage}/>
     <Route path="signup" component={SignUpPage}/>
     <Route path="/products/:code" component={ProductDetail}/>
-    <Route path="/brand/:code" component={}/>
-    <Route path="/made-in/:code" component={}/>
-    <Route path="/product-type/:code" component={}/>
+    <Route path="/brand/:code" component={ProductByBrand}/>
+    <Route path="/made-in/:code" component={ProductByMadeIn}/>
+    <Route path="/product-type/:code" component={ProductByType}/>
   </Route>
 );
 

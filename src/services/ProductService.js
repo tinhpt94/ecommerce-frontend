@@ -12,19 +12,16 @@ class ProductService {
       method: 'GET',
       headers: {
         'Accept': 'application/json',
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json'
       }
     }).then(function (response) {
       switch (response.status) {
         case 200:
           ProductAction.fetchAll(response.data);
           break;
-
         default:
           break
       }
-    }).catch(function (error) {
-      console.log(error);
     });
     // fake data
     // const size = 50;
@@ -48,19 +45,78 @@ class ProductService {
       method: 'GET',
       headers: {
         'Accept': 'application/json',
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json'
       }
     }).then(function (response) {
       switch (response.status) {
         case 200:
           ProductAction.fetchByCode(response.data);
           break;
-
         default:
           break;
       }
     }).catch(function (error) {
-      console.log(error);
+      ProductAction.fetchByCodeNotFound();
+    })
+  }
+
+  fetchByBrand(code) {
+    axios({
+      baseURL: GlobalConstant.BASE_API,
+      url: ProductConstant.URL + "brand/" + code,
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      }
+    }).then(function (response) {
+      switch (response.status) {
+        case 200:
+          ProductAction.fetchByBrand(response.data);
+          break;
+        default:
+          break;
+      }
+    })
+  }
+
+  fetchByType(code) {
+    axios({
+      baseURL: GlobalConstant.BASE_API,
+      url: ProductConstant.URL + "product-type/" + code,
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      }
+    }).then(function (response) {
+      switch (response.status) {
+        case 200:
+          ProductAction.fetchByType(response.data);
+          break;
+        default:
+          break;
+      }
+    })
+  }
+
+  fetchByMadeIn(code) {
+    axios({
+      baseURL: GlobalConstant.BASE_API,
+      url: ProductConstant.URL + "made-in/" + code,
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      }
+    }).then(function (response) {
+      switch (response.status) {
+        case 200:
+          ProductAction.fetchByMadeIn(response.data);
+          break;
+        default:
+          break;
+      }
     })
   }
 }

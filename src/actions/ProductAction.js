@@ -14,5 +14,32 @@ export default {
       actionType: ProductConstant.FETCH_BY_ID,
       product: product
     })
+  },
+
+  fetchByCodeNotFound: () => {
+    Dispatcher.dispatch({
+      actionType: ProductConstant.FETCH_BY_ID_NOT_FOUND
+    })
+  },
+
+  fetchByBrand: (products) => {
+    Dispatcher.dispatch({
+      actionType: ProductConstant.FETCH_BY_BRAND,
+      products: products
+    })
+  },
+
+  fetchByType: (products) => {
+    Dispatcher.dispatch({
+      actionType: ProductConstant.FETCH_BY_TYPE,
+      products: products
+    })
+  },
+
+  fetchByMadeIn: (products) => {
+    Dispatcher.dispatch({
+      actionType: ProductConstant.FETCH_BY_MADEIN,
+      products: products
+    })
   }
 }

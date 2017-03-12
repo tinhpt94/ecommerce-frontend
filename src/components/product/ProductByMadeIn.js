@@ -1,6 +1,6 @@
 import React from "react";
-import NoAvailableProduct from "./NoAvailableProduct";
 import ProductListComponent from "./ProductListComponent";
+import NoAvailableProduct from "./NoAvailableProduct";
 import ProductFilter from "./ProductFilter";
 import ProductStore from "../../stores/ProductStore";
 import ProductService from "../../services/ProductService";
@@ -8,7 +8,7 @@ import FilterStore from "../../stores/FilterStore";
 import FilterAction from "../../actions/FilterAction";
 import {filterByProps} from "./FilterHandler";
 
-class Products extends React.Component {
+class ProductByMadeIn extends React.Component {
   constructor(props) {
     super(props);
     this.state = this._getState();
@@ -18,10 +18,11 @@ class Products extends React.Component {
 
   _getState() {
     return {
-      products: ProductStore.fetchAll(),
+      products: ProductStore.fetchByMadeIn(),
       searchName: FilterStore.getSearchName(),
       filterProps: FilterStore.getFilterProperties(),
-      activePage: 1
+      activePage: 1,
+      code: this.props.params.code
     }
   }
 
@@ -30,9 +31,13 @@ class Products extends React.Component {
   }
 
   componentDidMount() {
-    ProductService.fetchAll();
+    ProductService.fetchByMadeIn(this.state.code);
     ProductStore.addChangeListener(this._onChange);
     FilterStore.addChangeListener(this._onChange);
+  }
+
+  componentWillReceiveProps(newProps) {
+    ProductService.fetchByMadeIn(newProps.params.code);
   }
 
   componentWillUnMount() {
@@ -76,4 +81,4 @@ class Products extends React.Component {
   }
 }
 
-export default Products
+export default ProductByMadeIn

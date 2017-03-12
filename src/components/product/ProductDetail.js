@@ -4,6 +4,7 @@ import ProductStore from "../../stores/ProductStore";
 import ProductService from "../../services/ProductService";
 import FacebookProvider, {Like} from "react-facebook";
 import GlobalConstant from "../../constants/GlobalConstant";
+import NoAvailableProduct from "./NoAvailableProduct";
 
 export default class ProductDetail extends React.Component {
   constructor(props) {
@@ -39,14 +40,9 @@ export default class ProductDetail extends React.Component {
   }
 
   validateNumber(event) {
-    let key = window.event ? event.keyCode : event.which;
-    if (event.keyCode === 8 || event.keyCode === 46) {
-      return true;
-    } else if (key < 48 || key > 57) {
-      return false;
-    } else {
-      return true;
-    }
+    const evt = (event) ? event : window.event;
+    const charCode = (evt.which) ? evt.which : evt.keyCode;
+    return !(charCode > 31 && (charCode < 48 || charCode > 57));
   };
 
   render() {
@@ -61,13 +57,7 @@ export default class ProductDetail extends React.Component {
 
   get productInfo() {
     if (this.state.product === null) {
-      return (
-        <div className="row">
-          <div className="col-md-12">
-            <h3>Không tìm thấy sản phẩm</h3>
-          </div>
-        </div>
-      )
+      return <NoAvailableProduct />
     } else {
       return (
         <div className="product-detail">
@@ -90,7 +80,7 @@ export default class ProductDetail extends React.Component {
 
               <div className="row">
                 <div className="col-md-4">
-                  <input className="form-control" type="text" onKeyPress={this.validateNumber}/>
+                  <input className="form-control" type="number"/>
                 </div>
                 <div className="col-md-6">
                   <button className="btn btn-danger form-control">
@@ -112,7 +102,7 @@ export default class ProductDetail extends React.Component {
 
           <div className="row">
             <div className="col-md-12">
-              <h2 className="infor-product">Thông số kỹ thuật</h2>
+              <h2 className="infor-product">Thông tin chi tiết</h2>
               <div className="clearfix"></div>
 
             </div>

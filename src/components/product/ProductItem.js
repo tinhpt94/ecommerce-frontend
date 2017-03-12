@@ -7,7 +7,7 @@ export default class ProductItem extends React.Component {
 
     return(
       <div className="product-item">
-        <div className="col-md-3">
+        <div className="col-md-4">
           <div className="product-main">
             <Link to={"/products/" + code}>
               <img className="img-responsive" src={image}/>
