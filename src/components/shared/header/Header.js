@@ -2,8 +2,8 @@ import React, {Component} from "react";
 import {Link} from "react-router";
 import $ from "jquery";
 import "../../../memenu";
-import FilterStore from "../../../stores/FilterStore";
-import FilterAction from "../../../actions/FilterAction";
+import FilterStore from "../../../stores/FilterSortStore";
+import FilterAction from "../../../actions/FilterSortAction";
 import MenuService from "../../../services/MenuService";
 import MenuStore from "../../../stores/MenuStore";
 
@@ -59,7 +59,7 @@ class Header extends Component {
             <div className="col-md-9 header-left">
               <div className="top-nav">
                 <ul className="memenu skyblue">
-                  <li className="active"><Link to="/">Home</Link></li>
+                  <li><Link to="/">Home</Link></li>
                   <li className="grid"><a href="#">Menu</a>
                     <div className="mepanel">
                       <div className="row">

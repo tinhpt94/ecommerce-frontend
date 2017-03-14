@@ -1,7 +1,7 @@
 import React, {Component} from "react";
-import {filterBrand, filterMadeIn, filterProductType} from "./FilterHandler";
-import FilterAction from "../../actions/FilterAction";
-import FilterStore from "../../stores/FilterStore";
+import {filterBrand, filterMadeIn, filterProductType} from "./FilterSortHandler";
+import FilterAction from "../../actions/FilterSortAction";
+import FilterStore from "../../stores/FilterSortStore";
 
 class ProductFilter extends Component {
   constructor(props) {

@@ -1,0 +1,8 @@
+const FilterSortConstant = {
+  FILTER_NAME: 'FILTER_NAME',
+  FILTER_BY_PROPERTIES: 'FILTER_BY_PROPERTIES',
+  REMOVE_FILTER: 'REMOVE_FILTER',
+  ORDER_CHANGE: 'ORDER_CHANGE'
+};
+
+export default FilterSortConstant

@@ -1,5 +1,5 @@
 import BaseStore from "./BaseStore";
-import FilterConstant from "../constants/FilterConstant";
+import FilterSortConstant from "../constants/FilterSortConstant";
 
 const DEFAULT_FILTER = {
   brand: "",
@@ -10,26 +10,31 @@ const DEFAULT_FILTER = {
   rating: ""
 };
 
-class FilterStore extends BaseStore {
+class FilterSortStore extends BaseStore {
   constructor() {
     super();
     this.searchName = "";
     this.properties = DEFAULT_FILTER;
+    this.orderBy = "price-low-to-high";
     this.subscribe(() => this.handler.bind(this));
   }
 
   handler(action) {
     switch (action.actionType) {
-      case FilterConstant.FILTER_NAME:
+      case FilterSortConstant.FILTER_NAME:
         this.searchName = action.searchName;
         this.emitChange();
         break;
-      case FilterConstant.FILTER_BY_PROPERTIES:
+      case FilterSortConstant.FILTER_BY_PROPERTIES:
         this.properties = action.properties;
         this.emitChange();
         break;
-      case FilterConstant.REMOVE_FILTER:
+      case FilterSortConstant.REMOVE_FILTER:
         this.properties = DEFAULT_FILTER;
+        this.emitChange();
+        break;
+      case FilterSortConstant.ORDER_CHANGE:
+        this.orderBy = action.orderBy;
         this.emitChange();
         break;
       default :
@@ -44,6 +49,10 @@ class FilterStore extends BaseStore {
   getFilterProperties() {
     return this.properties;
   }
+
+  getOrderBy() {
+    return this.orderBy;
+  }
 }
 
-export default new FilterStore()
+export default new FilterSortStore()
