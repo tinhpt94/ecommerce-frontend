@@ -3,3 +3,12 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
+
+.cart-item {
+  vertical-align: middle !important;
+}
+
+.cart-total {
+  vertical-align: middle;
+  padding-right: 10px;
+}

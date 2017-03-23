@@ -9,12 +9,18 @@ import ProductDetail from "./components/product/ProductDetail";
 import ProductByBrand from "./components/product/ProductByBrand";
 import ProductByType from "./components/product/ProductByType";
 import ProductByMadeIn from "./components/product/ProductByMadeIn";
+import ConfirmOrder from "./components/cart/ConfirmOrder";
+import Cart from "./components/cart/Cart";
+import "./index.css";
 import "./style.css";
 import "./memenu.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "font-awesome/css/font-awesome.min.css";
+import injectTapEventPlugin from "react-tap-event-plugin";
+
+injectTapEventPlugin();
 
 let history = browserHistory;
-
 let routes = (
   <Route path="/" component={Main}>
     <IndexRoute component={ProductPage}/>
@@ -24,6 +30,8 @@ let routes = (
     <Route path="/brand/:code" component={ProductByBrand}/>
     <Route path="/made-in/:code" component={ProductByMadeIn}/>
     <Route path="/product-type/:code" component={ProductByType}/>
+    <Route path="/cart" component={Cart}/>
+    <Route path="/confirm-order" component={ConfirmOrder}/>
   </Route>
 );
 

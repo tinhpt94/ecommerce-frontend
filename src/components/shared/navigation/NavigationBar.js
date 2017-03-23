@@ -1,10 +1,8 @@
-/**
- * Created by PhamTinh on 2/18/2017.
- */
 import React from "react";
 import {Link} from "react-router";
 import LoginStore from "../../../stores/LoginStore";
 import LoginService from "../../../services/LoginService";
+import CartStore from "../../../stores/CartStore";
 
 export default class NavigationBar extends React.Component {
 
@@ -18,6 +16,7 @@ export default class NavigationBar extends React.Component {
   _getState() {
     return {
       userLoggedIn: LoginStore.loggedInUser(),
+      totalProduct: CartStore.getTotalProduct(),
       route: window.location.pathname
     };
   }
@@ -28,10 +27,12 @@ export default class NavigationBar extends React.Component {
 
   componentDidMount() {
     LoginStore.addChangeListener(this._onChange);
+    CartStore.addChangeListener(this._onChange);
   }
 
   componentWillUnmount() {
     LoginStore.removeChangeListener(this._onChange);
+    CartStore.removeChangeListener(this._onChange);
   }
 
   logout(e) {
@@ -44,7 +45,7 @@ export default class NavigationBar extends React.Component {
       <nav className="navbar navbar-default">
         <div className="container-fluid">
           <div className="navbar-header">
-            <Link className="navbar-brand" to="/">WATCHES</Link>
+            <Link className="navbar-brand" to="/">Ecommerce</Link>
           </div>
 
           <div className="collapse navbar-collapse">
@@ -59,15 +60,17 @@ export default class NavigationBar extends React.Component {
     if (this.state.userLoggedIn) {
       return (
         <ul className="nav navbar-nav navbar-right">
-          <li>Welcome {this.state.userLoggedIn.name}</li>
+          <li><Link to="/cart">Giỏ hàng <span className="badge">{this.state.totalProduct}</span></Link></li>
+          <li><a>Welcome {this.state.userLoggedIn.name}</a></li>
           <li>
-            <button className="btn btn-default" onClick={this.logout}>Logout</button>
+            <a className="btn btn-default" onClick={this.logout}>Logout</a>
           </li>
         </ul>
       )
     } else {
       return (
         <ul className="nav navbar-nav navbar-right">
+          <li><Link to="/cart">Giỏ hàng <span className="badge">{this.state.totalProduct}</span></Link></li>
           <li><Link to="/login">Login</Link></li>
           <li><Link to="/signup">Sign up</Link></li>
         </ul>

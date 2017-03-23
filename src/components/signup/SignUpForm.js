@@ -1,12 +1,12 @@
 /**
  * Created by PhamTinh on 2/18/2017.
  */
-import React from 'react'
-import {browserHistory} from 'react-router'
-import TextFieldGroup from '../common/TextFieldGroup'
-import ValidateSignUp from './ValidateSignUp'
-import SignUpService from '../../services/SignUpService'
-import SignUpStore from '../../stores/SignUpStore'
+import React from "react";
+import {browserHistory} from "react-router";
+import TextFieldGroup from "../common/TextFieldGroup";
+import ValidateSignUp from "./ValidateSignUp";
+import SignUpService from "../../services/SignUpService";
+import SignUpStore from "../../stores/SignUpStore";
 
 class SignUpForm extends React.Component {
   constructor(props) {
@@ -39,6 +39,10 @@ class SignUpForm extends React.Component {
       browserHistory.push("/login");
     }
     SignUpStore.addChangeListener(this._onChange);
+  }
+
+  componentDidUpdate() {
+
   }
 
   componentWillUnMount() {

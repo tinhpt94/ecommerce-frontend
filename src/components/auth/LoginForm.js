@@ -40,6 +40,12 @@ class LoginForm extends React.Component {
     LoginStore.removeChangeListener(this._onChange);
   }
 
+  componentDidUpdate() {
+    if (LoginStore.loggedInUser()) {
+      browserHistory.push('/');
+    }
+  }
+
   isValid() {
     const {errors, isValid} = ValidateLogin(this.state);
     if (!isValid) {

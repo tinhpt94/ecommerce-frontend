@@ -4,6 +4,7 @@ import ProductStore from "../../stores/ProductStore";
 import ProductService from "../../services/ProductService";
 import FacebookProvider, {Like} from "react-facebook";
 import GlobalConstant from "../../constants/GlobalConstant";
+import CartAction from "../../actions/CartAction";
 import NoAvailableProduct from "./NoAvailableProduct";
 
 export default class ProductDetail extends React.Component {
@@ -13,12 +14,15 @@ export default class ProductDetail extends React.Component {
     this._onChange = this._onChange.bind(this);
     this.ratingChanged = this.ratingChanged.bind(this);
     this.validateNumber = this.validateNumber.bind(this);
+    this.addToCart = this.addToCart.bind(this);
+    this.onInputChange = this.onInputChange.bind(this);
   }
 
   _getState() {
     return {
       product: ProductStore.getSelectedProduct(),
-      code: this.props.params.code
+      code: this.props.params.code,
+      quantity: 1
     }
   }
 
@@ -44,6 +48,18 @@ export default class ProductDetail extends React.Component {
     const charCode = (evt.which) ? evt.which : evt.keyCode;
     return !(charCode > 31 && (charCode < 48 || charCode > 57));
   };
+
+  onInputChange(e) {
+    this.setState({
+      quantity: e.target.value
+    })
+  }
+
+  addToCart(e) {
+    let addedProduct = this.state.product;
+    addedProduct.quantity = this.state.quantity;
+    CartAction.addToCart(addedProduct);
+  }
 
   render() {
     return (
@@ -80,10 +96,11 @@ export default class ProductDetail extends React.Component {
 
               <div className="row">
                 <div className="col-md-4">
-                  <input className="form-control" type="number"/>
+                  <input className="form-control" type="number" value={this.state.quantity}
+                         onChange={this.onInputChange}/>
                 </div>
                 <div className="col-md-6">
-                  <button className="btn btn-danger form-control">
+                  <button className="btn btn-danger form-control" onClick={e => this.addToCart.call()}>
                     <span className="icon"><i className="fa fa-shopping-cart"/></span>
                     <span className="text">Thêm vào giỏ hàng</span>
                   </button>
