@@ -6,6 +6,7 @@ import FacebookProvider, {Like} from "react-facebook";
 import GlobalConstant from "../../constants/GlobalConstant";
 import CartAction from "../../actions/CartAction";
 import NoAvailableProduct from "./NoAvailableProduct";
+import FroalaEditorView from "react-froala-wysiwyg/FroalaEditorView";
 
 export default class ProductDetail extends React.Component {
   constructor(props) {
@@ -30,9 +31,12 @@ export default class ProductDetail extends React.Component {
     this.setState(this._getState());
   }
 
+  componentWillMount() {
+    ProductStore.addChangeListener(this._onChange);
+  }
+
   componentDidMount() {
     ProductService.fetchByCode(this.state.code);
-    ProductStore.addChangeListener(this._onChange);
   }
 
   componentWillUnMount() {
@@ -120,8 +124,7 @@ export default class ProductDetail extends React.Component {
           <div className="row">
             <div className="col-md-12">
               <h2 className="infor-product">Thông tin chi tiết</h2>
-              <div className="clearfix"></div>
-
+              <FroalaEditorView model={this.state.product.description}/>
             </div>
           </div>
 

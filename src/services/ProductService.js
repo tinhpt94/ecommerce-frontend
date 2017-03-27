@@ -56,7 +56,7 @@ class ProductService {
           break;
       }
     }).catch(function (error) {
-      ProductAction.fetchByCodeNotFound();
+      if (error.response && error.response.status === 404) ProductAction.fetchByCodeNotFound();
     })
   }
 
@@ -117,6 +117,75 @@ class ProductService {
         default:
           break;
       }
+    })
+  }
+
+  addNew(product) {
+    axios({
+      baseURL: GlobalConstant.BASE_API,
+      url: ProductConstant.URL,
+      method: "POST",
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      data: {
+        name: product.name,
+        price: product.price,
+        image_url: product.image_url,
+        description: product.description,
+        brand: parseInt(product.brand),
+        made_in: parseInt(product.made_in),
+        product_type: parseInt(product.product_type),
+        discount: product.discount,
+        quantity: product.quantity,
+        rating: product.rating
+      }
+    }).then(response => {
+      switch (response.status) {
+        case 201:
+          ProductAction.addNewSuccess();
+          break;
+        default:
+          break;
+      }
+    }).catch(error => {
+      ProductAction.addNewError();
+    })
+  }
+
+  edit(product) {
+    axios({
+      baseURL: GlobalConstant.BASE_API,
+      url: ProductConstant.URL,
+      method: "PUT",
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      data: {
+        id: product.id,
+        name: product.name,
+        price: product.price,
+        image_url: product.image_url,
+        description: product.description,
+        brand: product.brand,
+        made_in: product.made_in,
+        product_type: product.product_type,
+        discount: product.discount,
+        quantity: product.quantity,
+        rating: product.rating
+      }
+    }).then(response => {
+      switch (response.status) {
+        case 200:
+          ProductAction.editSuccess();
+          break;
+        default:
+          break;
+      }
+    }).catch(error => {
+      ProductAction.editError()
     })
   }
 }

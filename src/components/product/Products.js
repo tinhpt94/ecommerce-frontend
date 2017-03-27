@@ -7,6 +7,7 @@ import ProductStore from "../../stores/ProductStore";
 import ProductService from "../../services/ProductService";
 import FilterSortStore from "../../stores/FilterSortStore";
 import {filterByProps, sortProduct} from "./FilterSortHandler";
+import FilterSortAction from "../../actions/FilterSortAction";
 
 class Products extends React.Component {
   constructor(props) {
@@ -32,12 +33,19 @@ class Products extends React.Component {
     this.setState(this._getState())
   }
 
-  componentDidMount() {
-    ProductService.fetchAll();
+  componentWillMount() {
     ProductStore.addChangeListener(this._onChange);
     FilterSortStore.addChangeListener(this._onChange);
   }
 
+  componentDidMount() {
+    ProductService.fetchAll();
+  }
+
+  componentWillUnMount() {
+    FilterSortAction.removeFilters();
+    FilterSortStore.removeChangeListener(this._onChange);
+  }
 
   handleSelect(eventKey) {
     this.setState({

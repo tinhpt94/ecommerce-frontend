@@ -1,11 +1,12 @@
 import React, {Component} from "react";
+import AuthenticatedUser from "../common/AuthenticatedUser";
 import {Table} from "react-bootstrap";
 import CartStore from "../../stores/CartStore";
 import CartAction from "../../actions/CartAction";
 import {FormattedNumber} from "react-intl";
 import {Link} from "react-router";
 
-class Cart extends Component {
+export default AuthenticatedUser(class Cart extends Component {
 
   constructor(props) {
     super(props);
@@ -29,8 +30,12 @@ class Cart extends Component {
     this.setState(this._getState());
   }
 
-  componentDidMount() {
+  componentWillMount() {
     CartStore.addChangeListener(this._onChange);
+  }
+
+  componentDidMount() {
+
   }
 
   componentWillUnMount() {
@@ -112,6 +117,4 @@ class Cart extends Component {
       </div>
     )
   }
-}
-
-export default Cart
+})

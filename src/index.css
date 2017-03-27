@@ -12,3 +12,7 @@ body {
   vertical-align: middle;
   padding-right: 10px;
 }
+
+.filter {
+  position: static;
+}

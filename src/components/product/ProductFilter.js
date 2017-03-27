@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import {filterBrand, filterMadeIn, filterProductType} from "./FilterSortHandler";
 import FilterAction from "../../actions/FilterSortAction";
 import FilterStore from "../../stores/FilterSortStore";
+import Checkbox from "material-ui/Checkbox";
 
 class ProductFilter extends Component {
   constructor(props) {
@@ -22,12 +23,12 @@ class ProductFilter extends Component {
     this.setState(this._getState())
   }
 
-  componentDidMount() {
+  componentWillMount() {
     FilterStore.addChangeListener(this._onChange)
   }
 
   componentWillUnMount() {
-    FilterStore.removeChangeListener(this._onChange)
+    FilterStore.removeChangeListener(this._onChange);
   }
 
   filterCheckBoxChange(e, key) {
@@ -54,9 +55,8 @@ class ProductFilter extends Component {
           <h3>Thương hiệu</h3>
           <ul>
             {brands.length > 0 ? brands.map((brand, index) => {
-                return <li key={index}><label>
-                  <input type="checkbox" onChange={e => this.filterCheckBoxChange(e, "brand")} name={brand}
-                         disabled={this.checkSelected("brand", brand)}/> {brand}</label></li>
+                return <li key={index}><Checkbox onCheck={e => this.filterCheckBoxChange(e, "brand")} name={brand}
+                                                 label={brand} disabled={this.checkSelected("brand", brand)}/></li>
               }) : null}
           </ul>
         </div>
@@ -64,9 +64,8 @@ class ProductFilter extends Component {
           <h3>Loại sản phẩm</h3>
           <ul>
             {types.length > 0 ? types.map((type, index) => {
-                return <li key={index}><label>
-                  <input type="checkbox" onChange={e => this.filterCheckBoxChange(e, "type")} name={type}
-                         disabled={this.checkSelected("type", type)}/> {type}</label></li>
+                return <li key={index}><Checkbox onCheck={e => this.filterCheckBoxChange(e, "type")} name={type}
+                                                 label={type} disabled={this.checkSelected("type", type)}/></li>
               }) : null}
           </ul>
         </div>
@@ -74,9 +73,8 @@ class ProductFilter extends Component {
           <h3>Xuất xứ</h3>
           <ul>
             {madeIns.length > 0 ? madeIns.map((madeIn, index) => {
-                return <li key={index}><label>
-                  <input type="checkbox" onChange={e => this.filterCheckBoxChange(e, "madeIn")} name={madeIn}
-                         disabled={this.checkSelected("madeIn", madeIn)}/> {madeIn}</label></li>
+                return <li key={index}><Checkbox onCheck={e => this.filterCheckBoxChange(e, "madeIn")} name={madeIn}
+                                                 label={madeIn} disabled={this.checkSelected("madeIn", madeIn)}/></li>
               }) : null}
           </ul>
         </div>
@@ -84,42 +82,42 @@ class ProductFilter extends Component {
         <div className="filter-rating">
           <h3>Đánh giá</h3>
           <ul>
-            <li><label><input type="checkbox" name="1" disabled={this.checkSelected("rating", "1")}
-                              onChange={e => this.filterCheckBoxChange(e, "rating")}/> >= 1 star </label></li>
-            <li><label><input type="checkbox" name="2" disabled={this.checkSelected("rating", "2")}
-                              onChange={e => this.filterCheckBoxChange(e, "rating")}/> >= 2 stars </label></li>
-            <li><label><input type="checkbox" name="3" disabled={this.checkSelected("rating", "3")}
-                              onChange={e => this.filterCheckBoxChange(e, "rating")}/> >= 3 stars </label></li>
-            <li><label><input type="checkbox" name="4" disabled={this.checkSelected("rating", "4")}
-                              onChange={e => this.filterCheckBoxChange(e, "rating")}/> >= 4 stars </label></li>
+            <li><Checkbox onCheck={e => this.filterCheckBoxChange(e, "rating")} name="1"
+                          label=">= 1 star" disabled={this.checkSelected("rating", "1")}/></li>
+            <li><Checkbox onCheck={e => this.filterCheckBoxChange(e, "rating")} name="2"
+                          label=">= 2 star" disabled={this.checkSelected("rating", "2")}/></li>
+            <li><Checkbox onCheck={e => this.filterCheckBoxChange(e, "rating")} name="3"
+                          label=">= 3 star" disabled={this.checkSelected("rating", "3")}/></li>
+            <li><Checkbox onCheck={e => this.filterCheckBoxChange(e, "rating")} name="4"
+                          label=">= 4 star" disabled={this.checkSelected("rating", "4")}/></li>
           </ul>
         </div>
 
         <div className="filter-price">
           <h3>Khoảng giá</h3>
           <ul>
-            <li><label><input type="checkbox" name="100000" disabled={this.checkSelected("price", "100000")}
-                              onChange={e => this.filterCheckBoxChange(e, "price")}/> 100.000 - 200.000</label></li>
-            <li><label><input type="checkbox" name="200000" disabled={this.checkSelected("price", "200000")}
-                              onChange={e => this.filterCheckBoxChange(e, "price")}/> 200.000 - 300.000</label></li>
-            <li><label><input type="checkbox" name="300000" disabled={this.checkSelected("price", "300000")}
-                              onChange={e => this.filterCheckBoxChange(e, "price")}/> 300.000 - 400.000</label></li>
-            <li><label><input type="checkbox" name="400000" disabled={this.checkSelected("price", "400000")}
-                              onChange={e => this.filterCheckBoxChange(e, "price")}/> > 400.000</label></li>
+            <li><Checkbox onCheck={e => this.filterCheckBoxChange(e, "price")} name="100000"
+                          label="100,000 - 200,000" disabled={this.checkSelected("price", "100000")}/></li>
+            <li><Checkbox onCheck={e => this.filterCheckBoxChange(e, "price")} name="200000"
+                          label="200,000 - 300,000" disabled={this.checkSelected("price", "200000")}/></li>
+            <li><Checkbox onCheck={e => this.filterCheckBoxChange(e, "price")} name="300000"
+                          label="300,000 - 400,000" disabled={this.checkSelected("price", "300000")}/></li>
+            <li><Checkbox onCheck={e => this.filterCheckBoxChange(e, "price")} name="400000"
+                          label="400,000 - 500,000" disabled={this.checkSelected("price", "400000")}/></li>
           </ul>
         </div>
 
         <div className="filter-discount">
           <h3>Giảm giá</h3>
           <ul>
-            <li><label><input type="checkbox" name="10" disabled={this.checkSelected("discount", "10")}
-                              onChange={e => this.filterCheckBoxChange(e, "discount")}/> >= 10% </label></li>
-            <li><label><input type="checkbox" name="20" disabled={this.checkSelected("discount", "20")}
-                              onChange={e => this.filterCheckBoxChange(e, "discount")}/> >= 20% </label></li>
-            <li><label><input type="checkbox" name="30" disabled={this.checkSelected("discount", "30")}
-                              onChange={e => this.filterCheckBoxChange(e, "discount")}/> >= 30% </label></li>
-            <li><label><input type="checkbox" name="40" disabled={this.checkSelected("discount", "40")}
-                              onChange={e => this.filterCheckBoxChange(e, "discount")}/> >= 40% </label></li>
+            <li><Checkbox onCheck={e => this.filterCheckBoxChange(e, "discount")} name="10"
+                          label=">= 10%" disabled={this.checkSelected("discount", "10")}/></li>
+            <li><Checkbox onCheck={e => this.filterCheckBoxChange(e, "discount")} name="20"
+                          label=">= 20%" disabled={this.checkSelected("discount", "20")}/></li>
+            <li><Checkbox onCheck={e => this.filterCheckBoxChange(e, "discount")} name="30"
+                          label=">= 30%" disabled={this.checkSelected("discount", "30")}/></li>
+            <li><Checkbox onCheck={e => this.filterCheckBoxChange(e, "discount")} name="40"
+                          label=">= 40%" disabled={this.checkSelected("discount", "40")}/></li>
           </ul>
         </div>
 

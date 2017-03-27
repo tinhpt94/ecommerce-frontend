@@ -9,6 +9,8 @@ class ProductStore extends BaseStore {
     this.productByBrand = [];
     this.productByType = [];
     this.productByMadeIn = [];
+    this.addNewSuccess = false;
+    this.editSuccess = false;
     this.subscribe(() => this.handler.bind(this));
   }
 
@@ -36,6 +38,22 @@ class ProductStore extends BaseStore {
         break;
       case ProductConstant.FETCH_BY_MADEIN:
         this.productByMadeIn = action.products;
+        this.emitChange();
+        break;
+      case ProductConstant.ADD_NEW_SUCCESS:
+        this.addNewSuccess = true;
+        this.emitChange();
+        break;
+      case ProductConstant.ADD_NEW_ERROR:
+        this.addNewSuccess = false;
+        this.emitChange();
+        break;
+      case ProductConstant.EDIT_SUCCESS:
+        this.editSuccess = true;
+        this.emitChange();
+        break;
+      case ProductConstant.EDIT_ERROR:
+        this.editSuccess = false;
         this.emitChange();
         break;
       default :

@@ -17,8 +17,10 @@ class LoginService {
       data: {
         username: username,
         password: password
-      }
-    }).then(function (response) {
+      },
+      crossDomain: true,
+      withCredentials: true
+    }).then(function (response, data) {
       switch (response.status) {
         case 200:
           LoginAction.loginUser({
@@ -43,11 +45,12 @@ class LoginService {
       baseURL: GlobalConstant.BASE_API,
       url: LoginConstant.URL,
       method: 'DELETE',
-      crossOrigin: true,
       headers: {
         'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      }
+        'Content-Type': 'application/json'
+      },
+      crossDomain: true,
+      withCredentials: true
     }).then(function (response) {
       switch (response.status) {
         case 200:
@@ -55,6 +58,49 @@ class LoginService {
           break;
         default :
           break;
+      }
+    })
+  }
+
+  isAuthenticated() {
+    axios({
+      baseURL: GlobalConstant.BASE_API,
+      url: LoginConstant.URL,
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      withCredentials: true
+    }).then(function (response) {
+      switch (response.status) {
+        case 200:
+          LoginAction.loginUser({
+            username: response.data.username,
+            role: response.data.role,
+            email: response.data.email,
+            name: response.data.name,
+            phone: response.data.phone,
+            address: response.data.address
+          });
+          break;
+        default :
+          break;
+      }
+    }).catch(error => {
+      if (error.response) {
+        switch (error.response.status) {
+          case 401:
+            LoginAction.logout();
+            break;
+          case 403:
+            LoginAction.logout();
+            break;
+          default:
+            break;
+        }
+      } else {
+        LoginAction.logout()
       }
     })
   }

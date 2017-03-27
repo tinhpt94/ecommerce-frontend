@@ -1,5 +1,6 @@
 import BaseStore from "./BaseStore";
 import FilterSortConstant from "../constants/FilterSortConstant";
+import {LOCATION_CHANGE} from "react-router-redux";
 
 const DEFAULT_FILTER = {
   brand: "",
@@ -9,6 +10,7 @@ const DEFAULT_FILTER = {
   discount: "",
   rating: ""
 };
+
 
 class FilterSortStore extends BaseStore {
   constructor() {
@@ -35,6 +37,12 @@ class FilterSortStore extends BaseStore {
         break;
       case FilterSortConstant.ORDER_CHANGE:
         this.orderBy = action.orderBy;
+        this.emitChange();
+        break;
+      case LOCATION_CHANGE:
+        this.properties = DEFAULT_FILTER;
+        this.orderBy = "price-low-to-high";
+        this.searchName = "";
         this.emitChange();
         break;
       default :

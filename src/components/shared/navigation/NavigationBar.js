@@ -43,7 +43,7 @@ export default class NavigationBar extends React.Component {
   render() {
     return (
       <nav className="navbar navbar-default">
-        <div className="container-fluid">
+        <div className="container">
           <div className="navbar-header">
             <Link className="navbar-brand" to="/">Ecommerce</Link>
           </div>

@@ -32,10 +32,13 @@ class ProductByBrand extends React.Component {
     this.setState(this._getState())
   }
 
-  componentDidMount() {
-    ProductService.fetchByBrand(this.state.code);
+  componentWillMount() {
     ProductStore.addChangeListener(this._onChange);
     FilterSortStore.addChangeListener(this._onChange);
+  }
+
+  componentDidMount() {
+    ProductService.fetchByBrand(this.state.code);
   }
 
   componentWillReceiveProps(newProps) {

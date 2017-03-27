@@ -32,10 +32,13 @@ class ProductByMadeIn extends React.Component {
     this.setState(this._getState())
   }
 
-  componentDidMount() {
-    ProductService.fetchByMadeIn(this.state.code);
+  componentWillMount() {
     ProductStore.addChangeListener(this._onChange);
     FilterSortStore.addChangeListener(this._onChange);
+  }
+
+  componentDidMount() {
+    ProductService.fetchByMadeIn(this.state.code);
   }
 
   componentWillReceiveProps(newProps) {

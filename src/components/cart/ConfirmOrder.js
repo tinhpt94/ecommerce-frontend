@@ -34,8 +34,12 @@ class ConfirmOrder extends Component {
     this.setState(this._getState());
   }
 
-  componentDidMount() {
+  componentWillMount() {
     LoginStore.addChangeListener(this._onChange)
+  }
+
+  componentDidMount() {
+
   }
 
   componentWillUnMount() {
@@ -123,7 +127,6 @@ class ConfirmOrder extends Component {
           <div className="col-md-6 col-md-offset-3 text-right">
             <RaisedButton secondary={true} label="Đặt hàng" onTouchTap={this.submit}/>
           </div>
-
         </div>
       </div>
     )

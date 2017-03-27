@@ -41,5 +41,29 @@ export default {
       actionType: ProductConstant.FETCH_BY_MADEIN,
       products: products
     })
+  },
+
+  addNewSuccess: () => {
+    Dispatcher.dispatch({
+      actionType: ProductConstant.ADD_NEW_SUCCESS
+    })
+  },
+
+  addNewError: () => {
+    Dispatcher.dispatch({
+      actionType: ProductConstant.ADD_NEW_ERROR
+    })
+  },
+
+  editSuccess: () => {
+    Dispatcher.dispatch({
+      actionType: ProductConstant.EDIT_SUCCESS
+    })
+  },
+
+  editError: () => {
+    Dispatcher.dispatch({
+      actionType: ProductConstant.EDIT_ERROR
+    })
   }
 }
