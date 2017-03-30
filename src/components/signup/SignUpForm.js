@@ -45,7 +45,7 @@ class SignUpForm extends React.Component {
 
   }
 
-  componentWillUnMount() {
+  componentWillUnmount() {
     SignUpStore.removeChangeListener(this._onChange);
   }
 

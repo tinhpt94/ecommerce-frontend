@@ -16,3 +16,229 @@ body {
 .filter {
   position: static;
 }
+
+.navbar-default {
+  background-color: #F94E18 !important;
+  border-color: #E7E7E7;
+}
+
+/* title */
+.navbar-default .navbar-brand {
+  color: #FFFFFF !important;
+}
+
+.navbar-default .navbar-brand:hover,
+.navbar-default .navbar-brand:focus {
+  color: #000000;
+  background-color: rgba(0, 0, 0, .1);
+}
+
+/* link */
+.navbar-default .navbar-nav > li > a {
+  color: #FFFFFF !important;
+}
+
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:focus {
+  color: #333;
+}
+
+.navbar-default .navbar-nav > .active > a,
+.navbar-default .navbar-nav > .active > a:hover,
+.navbar-default .navbar-nav > .active > a:focus {
+  color: #555;
+  background-color: #E7E7E7;
+}
+
+.navbar-default .navbar-nav > .open > a,
+.navbar-default .navbar-nav > .open > a:hover,
+.navbar-default .navbar-nav > .open > a:focus {
+  color: #555;
+  background-color: #D5D5D5;
+}
+
+/* caret */
+.navbar-default .navbar-nav > .dropdown > a .caret {
+  border-top-color: #777;
+  border-bottom-color: #777;
+}
+
+.navbar-default .navbar-nav > .dropdown > a:hover .caret,
+.navbar-default .navbar-nav > .dropdown > a:focus .caret {
+  border-top-color: #333;
+  border-bottom-color: #333;
+}
+
+.navbar-default .navbar-nav > .open > a .caret,
+.navbar-default .navbar-nav > .open > a:hover .caret,
+.navbar-default .navbar-nav > .open > a:focus .caret {
+  border-top-color: #555;
+  border-bottom-color: #555;
+}
+
+/* mobile version */
+.navbar-default .navbar-toggle {
+  border-color: #DDD;
+}
+
+.navbar-default .navbar-toggle:hover,
+.navbar-default .navbar-toggle:focus {
+  background-color: #DDD;
+}
+
+.navbar-default .navbar-toggle .icon-bar {
+  background-color: #CCC;
+}
+
+@media (max-width: 767px) {
+  .navbar-default .navbar-nav .open .dropdown-menu > li > a {
+    color: #777;
+  }
+
+  .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover,
+  .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
+    color: #333;
+  }
+}
+
+.text-box {
+  background: #fdfdfd;
+  border: 1px solid #e8e8e8;
+  border-radius: .4rem;
+  height: 40px;
+  transition: border-color .25s ease;
+  outline: 0;
+  position: relative;
+  cursor: text;
+}
+
+.text-box.search {
+  border-radius: 2rem;
+  min-width: 200px;
+  vertical-align: middle;
+}
+
+.icon {
+  position: relative;
+}
+
+.text-box .icon {
+  height: 40px;
+  width: 40px;
+  text-align: center;
+  padding: 8px 0;
+  float: left;
+}
+
+.text-box .input {
+  height: 24px;
+  margin: 8px;
+  padding: 0;
+  overflow: hidden;
+  width: auto;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  border: none;
+  outline: 0;
+  line-height: 24px;
+  background: 0 0;
+}
+
+.search-input {
+  width: 100%;
+  border: none;
+}
+
+.product-items {
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+.product-item .col-md- * {
+  padding-bottom: 10px;
+}
+
+.product-items .col-md- *:last-child {
+  padding-bottom: 0;
+}
+
+.create-product {
+  height: 300px;
+  background: 0 0 !important;
+  border: .2rem dashed #bababa;
+  position: relative;
+  box-shadow: none !important;
+}
+
+.create-product .button {
+  display: block;
+  margin: 10px auto;
+}
+
+.create-product > .button {
+  width: 4.8rem;
+  height: 4.8rem;
+  position: absolute;
+  left: 50%;
+  top: 45%;
+  margin: -24px 0 0 -24px;
+  text-align: center;
+  background: #00bfa5;
+  border-radius: 100%;
+  box-shadow: 0 0.8rem 1.6rem rgba(0, 0, 0, .09);
+  background-color: white;
+}
+
+.img-wrap {
+  position: relative;
+  display: inline-block;
+  border: 1px red solid;
+  font-size: 0;
+}
+
+.img-wrap .delete {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  z-index: 100;
+  background-color: #FFF;
+  padding: 5px 2px 2px;
+  color: #000;
+  font-weight: bold;
+  cursor: pointer;
+  opacity: .2;
+  text-align: center;
+  font-size: 22px;
+  line-height: 10px;
+  border-radius: 50%;
+}
+
+.img-wrap:hover .delete {
+  opacity: 1;
+}
+
+.product-main {
+  margin-bottom: 30px;
+}
+
+.product-main .img-responsive {
+  width: 100%;
+  height: 200px;
+}
+
+.no-margin-right {
+  margin-right: 0 !important;
+}
+
+.side-bar a {
+  color: rgb(68, 68, 68);
+}
+
+.side-bar a:hover {
+  text-decoration: none;
+  color: #E91E63;
+}
+
+.biSbhE:hover {
+  color: #E91E63;
+}

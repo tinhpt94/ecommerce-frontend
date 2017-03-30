@@ -41,7 +41,7 @@ class Header extends Component {
     MenuService.fetchMenu();
   }
 
-  componentWillUnMount() {
+  componentWillUnmount() {
     FilterStore.removeChangeListener(this._onChange);
     MenuStore.removeChangeListener(this._onChange);
   }

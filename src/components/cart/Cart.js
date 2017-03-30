@@ -38,7 +38,7 @@ export default AuthenticatedUser(class Cart extends Component {
 
   }
 
-  componentWillUnMount() {
+  componentWillUnmount() {
     CartStore.removeChangeListener(this._onChange);
   }
 

@@ -39,7 +39,7 @@ export default class ProductDetail extends React.Component {
     ProductService.fetchByCode(this.state.code);
   }
 
-  componentWillUnMount() {
+  componentWillUnmount() {
     ProductStore.removeChangeListener(this._onChange)
   }
 

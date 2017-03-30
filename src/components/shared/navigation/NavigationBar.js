@@ -3,6 +3,8 @@ import {Link} from "react-router";
 import LoginStore from "../../../stores/LoginStore";
 import LoginService from "../../../services/LoginService";
 import CartStore from "../../../stores/CartStore";
+import {IconMenu, IconButton, ToolbarGroup, MenuItem} from "material-ui";
+import NavigationExpandMoreIcon from "material-ui/svg-icons/navigation/expand-more";
 
 export default class NavigationBar extends React.Component {
 
@@ -60,16 +62,26 @@ export default class NavigationBar extends React.Component {
     if (this.state.userLoggedIn) {
       return (
         <ul className="nav navbar-nav navbar-right">
+          <li><Link to="/compare-product">So sánh</Link></li>
           <li><Link to="/cart">Giỏ hàng <span className="badge">{this.state.totalProduct}</span></Link></li>
           <li><a>Welcome {this.state.userLoggedIn.name}</a></li>
-          <li>
-            <a className="btn btn-default" onClick={this.logout}>Logout</a>
-          </li>
+          <li><ToolbarGroup>
+            <IconMenu anchorOrigin={{vertical: 'bottom', horizontal: 'left'}}
+                      iconButtonElement={
+                        <IconButton touch={true}>
+                          <NavigationExpandMoreIcon />
+                        </IconButton>
+                      }
+            >
+              <MenuItem primaryText="Log out" onTouchTap={this.logout}/>
+            </IconMenu>
+          </ToolbarGroup></li>
         </ul>
       )
     } else {
       return (
         <ul className="nav navbar-nav navbar-right">
+          <li><Link to="/compare-product">So sánh</Link></li>
           <li><Link to="/cart">Giỏ hàng <span className="badge">{this.state.totalProduct}</span></Link></li>
           <li><Link to="/login">Login</Link></li>
           <li><Link to="/signup">Sign up</Link></li>

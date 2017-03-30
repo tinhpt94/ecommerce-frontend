@@ -27,7 +27,7 @@ class ProductFilter extends Component {
     FilterStore.addChangeListener(this._onChange)
   }
 
-  componentWillUnMount() {
+  componentWillUnmount() {
     FilterStore.removeChangeListener(this._onChange);
   }
 

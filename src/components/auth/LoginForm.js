@@ -36,13 +36,14 @@ class LoginForm extends React.Component {
     LoginStore.addChangeListener(this._onChange);
   }
 
-  componentWillUnMount() {
+  componentWillUnmount() {
     LoginStore.removeChangeListener(this._onChange);
   }
 
   componentDidUpdate() {
     if (LoginStore.loggedInUser()) {
-      browserHistory.push('/');
+      if (LoginStore.loggedInUser().role === "USER") browserHistory.push('/');
+      else if (LoginStore.loggedInUser().role === "ADMIN") browserHistory.push('/admin');
     }
   }
 

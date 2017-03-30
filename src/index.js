@@ -12,8 +12,10 @@ import ProductByMadeIn from "./components/product/ProductByMadeIn";
 import ConfirmOrder from "./components/cart/ConfirmOrder";
 import Cart from "./components/cart/Cart";
 import AdminLayout from "./components/admin/AdminLayout";
-import AddNewProduct from "./components/admin/AddNewProduct";
-import EditProduct from "./components/admin/EditProduct";
+import AddNewProduct from "./components/admin/product/AddNewProduct";
+import EditProduct from "./components/admin/product/EditProduct";
+import ProductList from "./components/admin/product/ProductList";
+import CompareProduct from "./components/product/CompareProduct";
 import "./index.css";
 import "./style.css";
 import "./memenu.css";
@@ -25,25 +27,29 @@ import injectTapEventPlugin from "react-tap-event-plugin";
 injectTapEventPlugin();
 
 let history = browserHistory;
-let routes = (
-  <Route path="/" component={Main}>
-    <IndexRoute component={ProductPage}/>
-    <Route path="login" component={LoginPage}/>
-    <Route path="signup" component={SignUpPage}/>
-    <Route path="/products/:code" component={ProductDetail}/>
-    <Route path="/brand/:code" component={ProductByBrand}/>
-    <Route path="/made-in/:code" component={ProductByMadeIn}/>
-    <Route path="/product-type/:code" component={ProductByType}/>
-    <Route path="/cart" component={Cart}/>
-    <Route path="/confirm-order" component={ConfirmOrder}/>
-      <Route path="/admin">
-          <IndexRoute component={AdminLayout}/>
 
-      </Route>
-      <Route path="/product/new" component={AddNewProduct}/>
-      <Route path="/products/:code/edit" component={EditProduct}/>
-  </Route>
-);
+const router =
+  <Router history={history}>
+    <Route path="/" component={Main}>
+      <IndexRoute component={ProductPage}/>
+      <Route path="login" component={LoginPage}/>
+      <Route path="signup" component={SignUpPage}/>
+      <Route path="/products/:code" component={ProductDetail}/>
+      <Route path="/brand/:code" component={ProductByBrand}/>
+      <Route path="/made-in/:code" component={ProductByMadeIn}/>
+      <Route path="/product-type/:code" component={ProductByType}/>
+      <Route path="/cart" component={Cart}/>
+      <Route path="/confirm-order" component={ConfirmOrder}/>
+      <Route path="/compare-product" component={CompareProduct}/>
+    </Route>
+
+    <Route path="/admin" component={AdminLayout}>
+      <IndexRoute component={ProductList}/>
+      <Route path="/admin/products/new" component={AddNewProduct}/>
+      <Route path="/admin/products/:code" component={EditProduct}/>
+      <Route path="/admin/products" component={ProductList}/>
+    </Route>
+  </Router>;
 
 
-ReactDOM.render(<Router history={history}>{routes}</Router>, document.getElementById('root'));
+ReactDOM.render(router, document.getElementById('root'));

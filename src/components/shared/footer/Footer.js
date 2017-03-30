@@ -1,7 +1,7 @@
 /**
  * Created by tinhpt on 2/21/17.
  */
-import React from 'react'
+import React from "react";
 
 class Footer extends React.Component {
   render() {
@@ -14,19 +14,19 @@ class Footer extends React.Component {
               <ul>
                 <li>
                   <a href="#">
-                    <span className="fb"></span>
+                    <span className="fb"/>
                     <h6>Facebook</h6>
                   </a>
                 </li>
                 <li>
                   <a href="#">
-                    <span className="twit"></span>
+                    <span className="twit"/>
                     <h6>Twitter</h6>
                   </a>
                 </li>
                 <li>
                   <a href="#">
-                    <span className="google"></span>
+                    <span className="google"/>
                     <h6>Google</h6>
                   </a>
                 </li>

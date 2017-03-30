@@ -56,6 +56,12 @@ class ProductStore extends BaseStore {
         this.editSuccess = false;
         this.emitChange();
         break;
+      case ProductConstant.DELETE:
+        const index = this.products.indexOf(action.product);
+        const tempProducts = this.products.slice(0, index).concat(this.products.slice(index + 1, this.products.length));
+        this.products = tempProducts;
+        this.emitChange();
+        break;
       default :
         break;
     }

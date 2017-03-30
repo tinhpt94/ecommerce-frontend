@@ -1,22 +1,11 @@
 import BaseStore from "./BaseStore";
 import FilterSortConstant from "../constants/FilterSortConstant";
-import {LOCATION_CHANGE} from "react-router-redux";
-
-const DEFAULT_FILTER = {
-  brand: "",
-  type: "",
-  madeIn: "",
-  price: "",
-  discount: "",
-  rating: ""
-};
-
 
 class FilterSortStore extends BaseStore {
   constructor() {
     super();
     this.searchName = "";
-    this.properties = DEFAULT_FILTER;
+    this.properties = this.getDefaultFilter();
     this.orderBy = "price-low-to-high";
     this.subscribe(() => this.handler.bind(this));
   }
@@ -31,18 +20,13 @@ class FilterSortStore extends BaseStore {
         this.properties = action.properties;
         this.emitChange();
         break;
-      case FilterSortConstant.REMOVE_FILTER:
-        this.properties = DEFAULT_FILTER;
+      case FilterSortConstant.REMOVE_FILTER_SORT:
+        this.properties = this.getDefaultFilter();
+        this.orderBy = "price-low-to-high";
         this.emitChange();
         break;
       case FilterSortConstant.ORDER_CHANGE:
         this.orderBy = action.orderBy;
-        this.emitChange();
-        break;
-      case LOCATION_CHANGE:
-        this.properties = DEFAULT_FILTER;
-        this.orderBy = "price-low-to-high";
-        this.searchName = "";
         this.emitChange();
         break;
       default :
@@ -60,6 +44,17 @@ class FilterSortStore extends BaseStore {
 
   getOrderBy() {
     return this.orderBy;
+  }
+
+  getDefaultFilter() {
+    return ({
+      brand: "",
+      type: "",
+      madeIn: "",
+      price: "",
+      discount: "",
+      rating: ""
+    })
   }
 }
 

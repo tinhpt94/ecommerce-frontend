@@ -7,6 +7,7 @@ import {ic_business} from "react-icons-kit/md/ic_business";
 import {ic_business_center} from "react-icons-kit/md/ic_business_center";
 import {ic_format_list_bulleted} from "react-icons-kit/md/ic_format_list_bulleted";
 import {ic_people} from "react-icons-kit/md/ic_people";
+import {Link} from "react-router";
 
 const Icon20 = (props) => (<SvgIcon size={props.size || 20} icon={props.icon}/>);
 
@@ -43,7 +44,7 @@ const SeparatorTitle = (props) => {
 class SideBar extends Component {
   render() {
     return (
-      <div style={{display: 'flex'}}>
+      <div style={{display: 'flex'}} className="side-bar">
         <BaseContainer style={{
           background: '#FFF',
           color: '#444',
@@ -57,8 +58,9 @@ class SideBar extends Component {
               <NavIcon><Icon20 icon={ic_aspect_ratio}/></NavIcon><NavText> Dashboard </NavText>
             </Nav>
 
+
             <Nav id='products'>
-              <NavIcon><Icon20 icon={ic_business_center}/></NavIcon><NavText> Products </NavText>
+              <NavIcon><Icon20 icon={ic_business_center}/></NavIcon><NavText><Link to="/admin/products">Products</Link></NavText>
             </Nav>
             <Nav id='orders'>
               <NavIcon><Icon20 icon={ic_format_list_bulleted}/></NavIcon><NavText> Orders </NavText>

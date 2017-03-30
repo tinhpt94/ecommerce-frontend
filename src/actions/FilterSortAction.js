@@ -16,9 +16,9 @@ export default {
     })
   },
 
-  removeFilters: () => {
+  removeSortFilters: () => {
     Dispatcher.dispatch({
-      actionType: FilterSortConstant.REMOVE_FILTER
+      actionType: FilterSortConstant.REMOVE_FILTER_SORT
     })
   },
 
@@ -27,5 +27,7 @@ export default {
       actionType: FilterSortConstant.ORDER_CHANGE,
       orderBy: orderBy
     })
-  }
+  },
+
+
 }

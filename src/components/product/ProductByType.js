@@ -45,8 +45,8 @@ class ProductByType extends React.Component {
     ProductService.fetchByType(newProps.params.code);
   }
 
-  componentWillUnMount() {
-    FilterSortAction.removeFilters();
+  componentWillUnmount() {
+    FilterSortAction.removeSortFilters();
     ProductStore.removeChangeListener(this._onChange);
     FilterSortStore.removeChangeListener(this._onChange);
   }
@@ -87,7 +87,7 @@ class ProductByType extends React.Component {
           </div>
 
           <div className="col-md-9">
-            <ProductListComponent productList={filteredProduct} {...this.props}/>
+            <ProductListComponent productList={filteredProduct} {...this.props} cols="4"/>
           </div>
 
           <div className="col-md-3">

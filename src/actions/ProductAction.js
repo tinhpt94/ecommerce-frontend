@@ -65,5 +65,12 @@ export default {
     Dispatcher.dispatch({
       actionType: ProductConstant.EDIT_ERROR
     })
+  },
+
+  delete: (product) => {
+    Dispatcher.dispatch({
+      actionType: ProductConstant.DELETE,
+      product
+    })
   }
 }

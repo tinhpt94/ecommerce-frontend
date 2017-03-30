@@ -42,7 +42,7 @@ class ConfirmOrder extends Component {
 
   }
 
-  componentWillUnMount() {
+  componentWillUnmount() {
     LoginStore.removeChangeListener(this._onChange)
   }
 

@@ -9,6 +9,7 @@ const ProductConstant = {
   ADD_NEW_ERROR: "ADD_NEW_ERROR",
   EDIT_SUCCESS: "EDIT_SUCCESS",
   EDIT_ERROR: "EDIT_ERROR",
+  DELETE: "DELETE",
   URL: "products/"
 };
 

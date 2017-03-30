@@ -1,6 +1,7 @@
 import React, {Component} from "react";
-import TextFieldGroup from "../common/TextFieldGroup";
-import ProductService from "../../services/ProductService";
+import AuthenticatedAdmin from "../../common/AuthenticatedAdmin";
+import TextFieldGroup from "../../common/TextFieldGroup";
+import ProductService from "../../../services/ProductService";
 import FroalaEditor from "react-froala-wysiwyg";
 import {FormGroup, FormControl, ControlLabel} from "react-bootstrap";
 import RaisedButton from "material-ui/RaisedButton";
@@ -8,11 +9,12 @@ import ValidateProduct from "./ValidateProduct";
 import Dropzone from "react-dropzone";
 import request from "superagent";
 import FlatButton from "material-ui/FlatButton";
-import CustomizedDialog from "../common/CustomizedDialog";
-import GlobalConstant from "../../constants/GlobalConstant";
-import ProductStore from "../../stores/ProductStore";
+import CustomizedDialog from "../../common/CustomizedDialog";
+import GlobalConstant from "../../../constants/GlobalConstant";
+import ProductStore from "../../../stores/ProductStore";
+import ProductAction from "../../../actions/ProductAction";
 
-class AddNewProduct extends Component {
+export default AuthenticatedAdmin(class AddNewProduct extends Component {
   constructor(props) {
     super(props);
     this.state = this._getState();
@@ -49,7 +51,7 @@ class AddNewProduct extends Component {
     ProductStore.addChangeListener(this._onchange)
   }
 
-  componentWillUnMount() {
+  componentWillUnmount() {
     ProductStore.removeChangeListener(this._onchange)
   }
 
@@ -103,9 +105,7 @@ class AddNewProduct extends Component {
   }
 
   handleCloseDialog() {
-    this.setState({
-      addNewSuccess: false
-    })
+    ProductAction.addNewError()
   }
 
   submit(e) {
@@ -167,7 +167,7 @@ class AddNewProduct extends Component {
               <ControlLabel>Loai san pham</ControlLabel>
               <FormControl componentClass="select" placeholder="select" value={this.state.product_type}
                            onChange={this.onInputChange} name="type">
-                <option value="">select</option>
+                <option value={0}>select</option>
                 <option value={1}>Son</option>
                 <option value={2}>Quần Áo</option>
                 <option value={3}>Giày dép</option>
@@ -184,7 +184,7 @@ class AddNewProduct extends Component {
               <ControlLabel>Thuong hieu</ControlLabel>
               <FormControl componentClass="select" placeholder="select" value={this.state.brand}
                            onChange={this.onInputChange} name="brand">
-                <option value="">select</option>
+                <option value={0}>select</option>
                 <option value={1}>Hot Lips</option>
                 <option value={2}>Christian Louboutin</option>
                 <option value={3}>Colourpop</option>
@@ -199,7 +199,7 @@ class AddNewProduct extends Component {
               <ControlLabel>Xuat xu</ControlLabel>
               <FormControl componentClass="select" placeholder="select" value={this.state.made_in}
                            onChange={this.onInputChange} name="made_in">
-                <option value="">select</option>
+                <option value={0}>select</option>
                 <option value={1}>Anh</option>
                 <option value={2}>Mỹ</option>
                 <option value={3}>Nga</option>
@@ -266,6 +266,4 @@ class AddNewProduct extends Component {
 
     )
   }
-}
-
-export default AddNewProduct
+})

@@ -17,19 +17,19 @@ export default function validateAddNewProduct(data) {
     errors.quantity = "Please insert quantity"
   }
   if (!isNumber(data.rating)) {
-    errors.rating = "Please insert rating"
+    errors.rating = "Please insert valid rating"
   }
-  if (data.price <= 0) {
-    errors.price = "Invalid price"
+  if (data.price < 0) {
+    errors.price = "Please insert valid price"
   }
   if (data.discount < 0) {
-    errors.discount = "Invalid discount"
+    errors.discount = "Please insert valid discount"
   }
-  if (data.quantity <= 0) {
-    errors.quantity = "Invalid quantity"
+  if (data.quantity < 0) {
+    errors.quantity = "Please insert valid quantity"
   }
   if (data.rating < 0) {
-    errors.rating = "Invalid rating"
+    errors.rating = "Please insert valid rating"
   }
   if (!isNumber(data.brand) || data.brand === 0) {
     errors.brand = "Please select brand"
@@ -39,9 +39,6 @@ export default function validateAddNewProduct(data) {
   }
   if (!isNumber(data.product_type) || data.product_type === 0) {
     errors.product_type = "Please select product type"
-  }
-  if (Validator.isEmpty(data.description)) {
-    errors.description = "Please insert description"
   }
   if (Validator.isEmpty(data.image_url)) {
     errors.image_url = "Please select image"

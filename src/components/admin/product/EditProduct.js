@@ -1,6 +1,6 @@
 import React, {Component} from "react";
-import TextFieldGroup from "../common/TextFieldGroup";
-import ProductService from "../../services/ProductService";
+import TextFieldGroup from "../../common/TextFieldGroup";
+import ProductService from "../../../services/ProductService";
 import FroalaEditor from "react-froala-wysiwyg";
 import {FormGroup, FormControl, ControlLabel, Image} from "react-bootstrap";
 import RaisedButton from "material-ui/RaisedButton";
@@ -8,12 +8,15 @@ import ValidateProduct from "./ValidateProduct";
 import Dropzone from "react-dropzone";
 import request from "superagent";
 import FlatButton from "material-ui/FlatButton";
-import CustomizedDialog from "../common/CustomizedDialog";
-import GlobalConstant from "../../constants/GlobalConstant";
-import ProductStore from "../../stores/ProductStore";
-import NoAvailableProduct from "../product/NoAvailableProduct";
+import CustomizedDialog from "../../common/CustomizedDialog";
+import GlobalConstant from "../../../constants/GlobalConstant";
+import ProductStore from "../../../stores/ProductStore";
+import NoAvailableProduct from "../../product/NoAvailableProduct";
+import ProductAction from "../../../actions/ProductAction";
+import AuthenticatedAdmin from "../../common/AuthenticatedAdmin";
 
-class EditProduct extends Component {
+
+export default AuthenticatedAdmin(class EditProduct extends Component {
   constructor(props) {
     super(props);
     this.state = this._getState();
@@ -44,7 +47,7 @@ class EditProduct extends Component {
   }
 
   componentDidMount() {
-    ProductService.fetchByCode(this.state.code);
+    ProductService.fetchById(this.state.code);
   }
 
   componentWillUnMount() {
@@ -126,9 +129,7 @@ class EditProduct extends Component {
   }
 
   handleCloseDialog() {
-    this.setState({
-      editSuccess: false
-    })
+    ProductAction.editError()
   }
 
   submit(e) {
@@ -300,6 +301,4 @@ class EditProduct extends Component {
         </div>)
     }
   }
-}
-
-export default EditProduct
+})

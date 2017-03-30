@@ -60,6 +60,28 @@ class ProductService {
     })
   }
 
+  fetchById(id) {
+    axios({
+      baseURL: GlobalConstant.BASE_API,
+      url: ProductConstant.URL + "id/" + id,
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      }
+    }).then(function (response) {
+      switch (response.status) {
+        case 200:
+          ProductAction.fetchByCode(response.data);
+          break;
+        default:
+          break;
+      }
+    }).catch(function (error) {
+      if (error.response && error.response.status === 404) ProductAction.fetchByCodeNotFound();
+    })
+  }
+
   fetchByBrand(code) {
     axios({
       baseURL: GlobalConstant.BASE_API,
@@ -186,6 +208,41 @@ class ProductService {
       }
     }).catch(error => {
       ProductAction.editError()
+    })
+  }
+
+  delete(product) {
+    axios({
+      baseURL: GlobalConstant.BASE_API,
+      url: ProductConstant.URL,
+      method: "DELETE",
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      data: {
+        id: product.id,
+        name: product.name,
+        price: product.price,
+        image_url: product.image_url,
+        description: product.description,
+        brand: product.brand.id,
+        made_in: product.made_in.id,
+        product_type: product.product_type.id,
+        discount: product.discount,
+        quantity: product.quantity,
+        rating: product.rating
+      }
+    }).then(response => {
+      switch (response.status) {
+        case 200:
+          ProductAction.delete(product);
+          break;
+        default:
+          break;
+      }
+    }).catch(error => {
+      console.log(error);
     })
   }
 }

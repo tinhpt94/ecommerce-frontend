@@ -42,8 +42,8 @@ class Products extends React.Component {
     ProductService.fetchAll();
   }
 
-  componentWillUnMount() {
-    FilterSortAction.removeFilters();
+  componentWillUnmount() {
+    FilterSortAction.removeSortFilters();
     FilterSortStore.removeChangeListener(this._onChange);
   }
 
@@ -113,7 +113,7 @@ class Products extends React.Component {
           </div>
 
           <div className="col-md-9">
-            <ProductListComponent productList={filteredProduct} {...this.props}/>
+            <ProductListComponent productList={filteredProduct} {...this.props} cols={4}/>
           </div>
 
           <div className="col-md-3">

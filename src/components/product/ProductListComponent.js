@@ -19,18 +19,16 @@ class ProductListComponent extends Component {
   }
 
   render() {
-    const {productList} = this.props;
+    const {productList, onDelete} = this.props;
     return (
-      <div id="products">
+      <div className="product-items">
         <div className="row">
           {
             Object.keys(productList).map(productKey => {
               return <ProductItem {...this.props}
                                   key={productKey}
-                                  code={productList[productKey].code}
-                                  name={productList[productKey].name}
-                                  price={productList[productKey].price}
-                                  image={productList[productKey].image_url}
+                                  product={productList[productKey]}
+                                  onDelete={onDelete}
               />
             })}
         </div>

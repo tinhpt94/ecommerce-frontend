@@ -42,7 +42,7 @@ export default (ComposedComponent) => {
     componentDidUpdate() {
       if (!this.state.userLoggedIn) {
         browserHistory.push("/login");
-      } else if (this.state.userLoggedIn.role !== "USER") {
+      } else if (this.state.userLoggedIn.role !== "ADMIN") {
         LoginAction.logout();
       }
     }
