@@ -95,7 +95,7 @@ export default class CompareProduct extends Component {
           <th style={{width: "40%"}}>
             {dataSource && products.length < 2 && <AutoComplete
               hintText="Type anything"
-              dataSource={dataSource}
+              dataSource={dataSource.filter(data => data.valueKey.brand.brand === products[0].brand.brand)}
               onNewRequest={this.handleUpdateInput}
               dataSourceConfig={dataSourceConfig}
             />}
@@ -140,7 +140,7 @@ export default class CompareProduct extends Component {
             <td />}
         </tr>
         <tr>
-          <td></td>
+          <td/>
           <td>
             <button className="btn btn-primary">Thêm sản phẩm vào giỏ hàng</button>
           </td>

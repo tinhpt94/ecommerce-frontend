@@ -16,6 +16,8 @@ import AddNewProduct from "./components/admin/product/AddNewProduct";
 import EditProduct from "./components/admin/product/EditProduct";
 import ProductList from "./components/admin/product/ProductList";
 import CompareProduct from "./components/product/CompareProduct";
+import OrderList from "./components/admin/order/OrderList";
+import OrderDetail from "./components/admin/order/OrderDetail";
 import "./index.css";
 import "./style.css";
 import "./memenu.css";
@@ -48,6 +50,8 @@ const router =
       <Route path="/admin/products/new" component={AddNewProduct}/>
       <Route path="/admin/products/:code" component={EditProduct}/>
       <Route path="/admin/products" component={ProductList}/>
+      <Route path="/admin/orders" component={OrderList}/>
+      <Route path="/admin/orders/:orderId" component={OrderDetail}/>
     </Route>
   </Router>;
 

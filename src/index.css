@@ -149,6 +149,10 @@ body {
   border: none;
 }
 
+.search-input:focus {
+  outline: none;
+}
+
 .product-items {
   margin-top: 8px;
   margin-bottom: 8px;
@@ -230,15 +234,12 @@ body {
   margin-right: 0 !important;
 }
 
-.side-bar a {
-  color: rgb(68, 68, 68);
-}
-
 .side-bar a:hover {
   text-decoration: none;
   color: #E91E63;
 }
 
-.biSbhE:hover {
+.active {
+  text-decoration: none;
   color: #E91E63;
 }

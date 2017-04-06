@@ -36,7 +36,21 @@ class LoginService {
           break;
       }
     }).catch(function (error) {
-      LoginAction.error(error.response.data);
+      if (error.response) {
+        switch (error.response.status) {
+          case 401:
+            LoginAction.error(error.response.data);
+            break;
+          case 403:
+            LoginAction.error(error.response.data);
+            break;
+          default:
+            break;
+        }
+      } else {
+        console.log('Error', error.message);
+      }
+
     })
   }
 

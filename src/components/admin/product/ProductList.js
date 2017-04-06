@@ -54,9 +54,9 @@ export default AuthenticatedAdmin(class ProductList extends Component {
 
   render() {
     const products = this.state.products;
-    const filteredProducts = products.filter(product => {
+    const filteredProducts = products ? products.filter(product => {
       return (String(product.name).toLowerCase().includes(this.state.searchName.trim().toLowerCase()));
-    });
+      }) : undefined;
     return (
       <div className="admin-products">
         <div className="row">
@@ -76,7 +76,7 @@ export default AuthenticatedAdmin(class ProductList extends Component {
           </div>
         </div>
 
-        {filteredProducts.length > 0 ?
+        {filteredProducts ?
           <ProductListComponent onDelete={this.onDelete} productList={filteredProducts} {...this.props} cols="3"/> :
           <NoAvailableProduct/>}
       </div>

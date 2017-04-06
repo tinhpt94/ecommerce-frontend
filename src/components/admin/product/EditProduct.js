@@ -50,7 +50,7 @@ export default AuthenticatedAdmin(class EditProduct extends Component {
     ProductService.fetchById(this.state.code);
   }
 
-  componentWillUnMount() {
+  componentWillUnmount() {
     ProductStore.removeChangeListener(this._onchange)
   }
 

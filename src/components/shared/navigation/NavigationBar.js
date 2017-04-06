@@ -65,17 +65,18 @@ export default class NavigationBar extends React.Component {
           <li><Link to="/compare-product">So sánh</Link></li>
           <li><Link to="/cart">Giỏ hàng <span className="badge">{this.state.totalProduct}</span></Link></li>
           <li><a>Welcome {this.state.userLoggedIn.name}</a></li>
-          <li><ToolbarGroup>
-            <IconMenu anchorOrigin={{vertical: 'bottom', horizontal: 'left'}}
-                      iconButtonElement={
-                        <IconButton touch={true}>
-                          <NavigationExpandMoreIcon />
-                        </IconButton>
-                      }
-            >
-              <MenuItem primaryText="Log out" onTouchTap={this.logout}/>
-            </IconMenu>
-          </ToolbarGroup></li>
+          <li>
+            <ToolbarGroup>
+              <IconMenu anchorOrigin={{vertical: 'bottom', horizontal: 'left'}}
+                        iconButtonElement={
+                          <IconButton touch={true}>
+                            <NavigationExpandMoreIcon />
+                          </IconButton>
+                        }
+              >
+                <MenuItem primaryText="Log out" onTouchTap={this.logout}/>
+              </IconMenu>
+            </ToolbarGroup></li>
         </ul>
       )
     } else {

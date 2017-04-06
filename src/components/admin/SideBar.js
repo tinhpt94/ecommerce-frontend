@@ -6,7 +6,6 @@ import {ic_aspect_ratio} from "react-icons-kit/md/ic_aspect_ratio";
 import {ic_business} from "react-icons-kit/md/ic_business";
 import {ic_business_center} from "react-icons-kit/md/ic_business_center";
 import {ic_format_list_bulleted} from "react-icons-kit/md/ic_format_list_bulleted";
-import {ic_people} from "react-icons-kit/md/ic_people";
 import {Link} from "react-router";
 
 const Icon20 = (props) => (<SvgIcon size={props.size || 20} icon={props.icon}/>);
@@ -55,33 +54,26 @@ class SideBar extends Component {
               <div>Main</div>
             </SeparatorTitle>
             <Nav id='dashboard'>
-              <NavIcon><Icon20 icon={ic_aspect_ratio}/></NavIcon><NavText> Dashboard </NavText>
+              <NavIcon><Icon20 icon={ic_aspect_ratio}/></NavIcon>
+              <NavText> Dashboard </NavText>
             </Nav>
 
+            <Link to="/admin/products" activeClassName="active">
+              <Nav id='products'>
+                <NavIcon><Icon20 icon={ic_business_center}/></NavIcon>
+                <NavText>Products</NavText>
+              </Nav>
+            </Link>
 
-            <Nav id='products'>
-              <NavIcon><Icon20 icon={ic_business_center}/></NavIcon><NavText><Link to="/admin/products">Products</Link></NavText>
-            </Nav>
-            <Nav id='orders'>
-              <NavIcon><Icon20 icon={ic_format_list_bulleted}/></NavIcon><NavText> Orders </NavText>
-            </Nav>
-            <SeparatorTitle>
-              <div> Customers and Sales</div>
-            </SeparatorTitle>
-            <Nav id='customers'>
-              <NavIcon><Icon20 icon={ic_people}/></NavIcon><NavText> Customers </NavText>
-              <Nav id='dashboard2'>
-                <NavIcon><Icon20 size={16} icon={ic_aspect_ratio}/></NavIcon><NavText> Search </NavText>
+            <Link to="/admin/orders" activeClassName="active">
+              <Nav id='orders'>
+                <NavIcon><Icon20 icon={ic_format_list_bulleted}/></NavIcon>
+                <NavText>Orders</NavText>
               </Nav>
-              <Nav id='sales2'>
-                <NavIcon><Icon20 size={16} icon={ic_business}/></NavIcon><NavText> Promote </NavText>
-              </Nav>
-              <Nav id='products2'>
-                <NavIcon><Icon20 size={16} icon={ic_business_center}/></NavIcon><NavText> Social Media </NavText>
-              </Nav>
-            </Nav>
+            </Link>
             <Nav id='sales'>
-              <NavIcon><Icon20 icon={ic_business}/></NavIcon><NavText> Sales </NavText>
+              <NavIcon><Icon20 icon={ic_business}/></NavIcon>
+              <NavText> Sales </NavText>
             </Nav>
           </SideNav>
         </BaseContainer>
