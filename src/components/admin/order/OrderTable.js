@@ -1,7 +1,6 @@
 import React, {Component} from "react";
 import AuthenticatedAdmin from "../../common/AuthenticatedAdmin";
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from "material-ui";
-import moment from "moment";
 import {FormattedNumber} from "react-intl";
 import {browserHistory} from "react-router";
 
@@ -28,7 +27,7 @@ export default AuthenticatedAdmin(class OrderTable extends Component {
           {orders && orders.map((order, index) => {
             return <TableRow key={index}>
               <TableRowColumn>{order.id}</TableRowColumn>
-              <TableRowColumn>{moment(order.created_date).format("DD/MM/YYYY")}</TableRowColumn>
+              <TableRowColumn>{order.created_date}</TableRowColumn>
               <TableRowColumn>{order.customer_name}</TableRowColumn>
               <TableRowColumn><FormattedNumber value={order.total_cost}/></TableRowColumn>
               <TableRowColumn>{order.status}</TableRowColumn>

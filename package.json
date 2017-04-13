@@ -37,6 +37,7 @@
     "react-sidenav": "^2.0.2",
     "react-stars": "^2.1.0",
     "react-tap-event-plugin": "^2.0.1",
+    "recharts": "^0.22.0",
     "styled-components": "^1.4.4",
     "superagent": "^3.5.2",
     "validator": "^6.2.1"

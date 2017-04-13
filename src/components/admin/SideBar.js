@@ -71,10 +71,12 @@ class SideBar extends Component {
                 <NavText>Orders</NavText>
               </Nav>
             </Link>
-            <Nav id='sales'>
-              <NavIcon><Icon20 icon={ic_business}/></NavIcon>
-              <NavText> Sales </NavText>
-            </Nav>
+            <Link to="/admin/report" activeClassName="active">
+              <Nav id='sales'>
+                <NavIcon><Icon20 icon={ic_business}/></NavIcon>
+                <NavText> Report </NavText>
+              </Nav>
+            </Link>
           </SideNav>
         </BaseContainer>
       </div>
