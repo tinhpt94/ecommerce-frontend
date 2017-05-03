@@ -46,13 +46,15 @@ export default AuthenticatedAdmin(class AdminLayout extends Component {
                 </div>
               </nav>
             </div>
-            <div className="content">
+            <div>
               <div className="row no-margin-right">
                 <div className="col-md-2">
                   <SideBar/>
                 </div>
                 <div className="col-md-10">
-                  {this.props.children}
+                  <div className="content">
+                    {this.props.children}
+                  </div>
                 </div>
               </div>
             </div>

@@ -245,6 +245,40 @@ class ProductService {
       console.log(error);
     })
   }
+
+  addComment(comment) {
+    const userId = JSON.parse(localStorage.getItem("user")).id;
+    axios({
+      baseURL: GlobalConstant.BASE_API,
+      url: ProductConstant.URL + "comments/",
+      method: "POST",
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      data: {
+        title: comment.title,
+        content: comment.content,
+        rating: comment.rating,
+        product_id: comment.productId,
+        user_id: userId
+      }
+    }).then(response => {
+      switch (response.status) {
+        case 201:
+          ProductAction.addComment(response.data);
+          break;
+        default:
+          break;
+      }
+    }).catch(error => {
+      if (error.response) {
+
+      } else {
+        console.log(error);
+      }
+    })
+  }
 }
 
 export default new ProductService();

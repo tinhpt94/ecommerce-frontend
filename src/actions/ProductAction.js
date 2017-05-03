@@ -72,5 +72,12 @@ export default {
       actionType: ProductConstant.DELETE,
       product
     })
+  },
+
+  addComment: (comment) => {
+    Dispatcher.dispatch({
+      actionType: ProductConstant.ADD_COMMENT,
+      comment
+    })
   }
 }

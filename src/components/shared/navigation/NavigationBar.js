@@ -74,7 +74,8 @@ export default class NavigationBar extends React.Component {
                           </IconButton>
                         }
               >
-                <MenuItem primaryText="Log out" onTouchTap={this.logout}/>
+                <MenuItem primaryText={<Link to="user">Tài khoản của tôi</Link>}/>
+                <MenuItem primaryText="Đăng xuất" onTouchTap={this.logout}/>
               </IconMenu>
             </ToolbarGroup></li>
         </ul>

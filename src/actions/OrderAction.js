@@ -27,5 +27,12 @@ export default {
     Dispatcher.dispatch({
       actionType: OrderConstant.UPDATE_ORDER_ERROR
     })
+  },
+
+  fetchByUser: (orders) => {
+    Dispatcher.dispatch({
+      actionType: OrderConstant.FETCH_BY_USER,
+      orders
+    })
   }
 }

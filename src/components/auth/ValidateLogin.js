@@ -1,8 +1,5 @@
-/**
- * Created by PhamTinh on 2/19/2017.
- */
-import Validator from 'validator'
-import isEmpty from 'lodash/isEmpty'
+import Validator from "validator";
+import isEmpty from "lodash/isEmpty";
 
 export default function validateSignUp(data) {
   let errors = {};

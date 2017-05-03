@@ -18,7 +18,8 @@ class CartService {
         customer: customer,
         total: total,
         note: note,
-        line_items: lineItems
+        line_items: lineItems,
+        user_id: JSON.parse(localStorage.getItem("user")).id
       }
     }).then(response => {
       switch (response.status) {

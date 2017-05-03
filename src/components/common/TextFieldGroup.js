@@ -1,8 +1,5 @@
-/**
- * Created by PhamTinh on 2/19/2017.
- */
-import React from 'react'
-import classnames from 'classnames'
+import React from "react";
+import classnames from "classnames";
 
 const TextFieldGroup = ({field, value, label, error, type, onChange}) => {
   return(

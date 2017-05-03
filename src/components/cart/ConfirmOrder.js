@@ -35,7 +35,7 @@ class ConfirmOrder extends Component {
   }
 
   componentWillMount() {
-    LoginStore.addChangeListener(this._onChange)
+    CartStore.addChangeListener(this._onChange)
   }
 
   componentDidMount() {
@@ -43,7 +43,7 @@ class ConfirmOrder extends Component {
   }
 
   componentWillUnmount() {
-    LoginStore.removeChangeListener(this._onChange)
+    CartStore.removeChangeListener(this._onChange)
   }
 
   onInputChange(e) {

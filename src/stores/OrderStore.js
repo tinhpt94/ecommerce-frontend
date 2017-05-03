@@ -29,6 +29,10 @@ class OrderStore extends BaseStore {
         this.updateOrderSuccess = false;
         this.emitChange();
         break;
+      case OrderConstant.FETCH_BY_USER:
+        this.orders = action.orders;
+        this.emitChange();
+        break;
       default:
         break;
     }

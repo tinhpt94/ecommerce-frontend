@@ -62,6 +62,10 @@ class ProductStore extends BaseStore {
         this.products = tempProducts;
         this.emitChange();
         break;
+      case ProductConstant.ADD_COMMENT:
+        this.selectedProduct.comments.push(action.comment);
+        this.emitChange();
+        break;
       default :
         break;
     }

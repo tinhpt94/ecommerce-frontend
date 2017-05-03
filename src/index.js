@@ -19,6 +19,8 @@ import CompareProduct from "./components/product/CompareProduct";
 import OrderList from "./components/admin/order/OrderList";
 import OrderDetail from "./components/admin/order/OrderDetail";
 import Report from "./components/admin/order/Report";
+import UserLayOut from "./components/user/UserLayout";
+import UserOrderList from "./components/order/OrderList";
 import "./index.css";
 import "./style.css";
 import "./memenu.css";
@@ -44,6 +46,11 @@ const router =
       <Route path="/cart" component={Cart}/>
       <Route path="/confirm-order" component={ConfirmOrder}/>
       <Route path="/compare-product" component={CompareProduct}/>
+
+      <Route path="user" component={UserLayOut}>
+        <IndexRoute components={UserOrderList}/>
+        <Route path={"orders"} component={UserOrderList}/>
+      </Route>
     </Route>
 
     <Route path="/admin" component={AdminLayout}>

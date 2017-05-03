@@ -59,12 +59,12 @@ class Header extends Component {
             <div className="col-md-9 header-left">
               <div className="top-nav">
                 <ul className="memenu skyblue">
-                  <li><Link to="/">Home</Link></li>
-                  <li className="grid"><a href="#">Menu</a>
+                  <li><Link to="/">Trang chủ</Link></li>
+                  <li className="grid"><a href="#">Danh mục sản phẩm</a>
                     <div className="mepanel">
                       <div className="row">
                         <div className="col1 me-one">
-                          <h4>Brand</h4>
+                          <h4>Thương hiệu</h4>
                           <ul>
                             {brands.length !== 0 ? brands.map((brand, index) => {
                                 return <li key={index}><Link to={"/brand/" + brand.code }>{brand.brand}</Link></li>
@@ -72,7 +72,7 @@ class Header extends Component {
                           </ul>
                         </div>
                         <div className="col1 me-one">
-                          <h4>Product Type</h4>
+                          <h4>Loại sản phẩm</h4>
                           <ul>
                             {productTypes !== 0 ? productTypes.map((type, index) => {
                                 return <li key={index}><Link to={"/product-type/" + type.code }>{type.type_name}</Link>
@@ -81,7 +81,7 @@ class Header extends Component {
                           </ul>
                         </div>
                         <div className="col1 me-one">
-                          <h4>Made In</h4>
+                          <h4>Xuất xứ</h4>
                           <ul>
                             {madeIns.length !== 0 ? madeIns.map((madeIn, index) => {
                                 return <li key={index}><Link to={"/made-in/" + madeIn.code }>{madeIn.made_in}</Link>

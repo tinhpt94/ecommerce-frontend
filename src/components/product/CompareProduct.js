@@ -95,7 +95,7 @@ export default class CompareProduct extends Component {
           <th style={{width: "40%"}}>
             {dataSource && products.length < 2 && <AutoComplete
               hintText="Type anything"
-              dataSource={dataSource.filter(data => data.valueKey.brand.brand === products[0].brand.brand)}
+              dataSource={dataSource}
               onNewRequest={this.handleUpdateInput}
               dataSourceConfig={dataSourceConfig}
             />}
@@ -133,10 +133,12 @@ export default class CompareProduct extends Component {
         <tr>
           <td>Đánh giá</td>
           {products.length > 0 ?
-            <td><Stars count={5} size={24} color2={'#ffd700'} value={3} onChange={this.onStarSelect.bind(this)}/></td> :
+            <td><Stars count={5} size={24} color2={'#ffd700'} value={products[0].rating}
+                       onChange={this.onStarSelect.bind(this)}/></td> :
             <td />}
           {products.length > 1 ?
-            <td><Stars count={5} size={24} color2={'#ffd700'} value={4} onChange={this.onStarSelect.bind(this)}/></td> :
+            <td><Stars count={5} size={24} color2={'#ffd700'} value={products[1].rating}
+                       onChange={this.onStarSelect.bind(this)}/></td> :
             <td />}
         </tr>
         <tr>

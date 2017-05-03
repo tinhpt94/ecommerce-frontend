@@ -20,17 +20,10 @@ class LoginService {
       },
       crossDomain: true,
       withCredentials: true
-    }).then(function (response, data) {
+    }).then(function (response) {
       switch (response.status) {
         case 200:
-          LoginAction.loginUser({
-            username: response.data.username,
-            role: response.data.role,
-            email: response.data.email,
-            name: response.data.name,
-            phone: response.data.phone,
-            address: response.data.address
-          });
+          LoginAction.loginUser(response.data);
           break;
         default :
           break;
@@ -89,14 +82,7 @@ class LoginService {
     }).then(function (response) {
       switch (response.status) {
         case 200:
-          LoginAction.loginUser({
-            username: response.data.username,
-            role: response.data.role,
-            email: response.data.email,
-            name: response.data.name,
-            phone: response.data.phone,
-            address: response.data.address
-          });
+          LoginAction.loginUser(response.data);
           break;
         default :
           break;
