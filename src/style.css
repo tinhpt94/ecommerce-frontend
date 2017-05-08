@@ -425,7 +425,9 @@ span.simpleCart_total {
 /*}*/
 
 .header-bottom {
-  padding: 18px 0px;
+  padding: 8px;
+  background-color: #FFFFFF;
+
 }
 
 /*--end-bottom-header--*/

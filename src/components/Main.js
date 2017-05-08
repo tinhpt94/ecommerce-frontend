@@ -13,13 +13,15 @@ export default class Main extends React.Component {
         <MuiThemeProvider>
           <div id="main">
             <div id="header">
-                <NavigationBar />
+              <NavigationBar />
             </div>
             <div className="container" id="menu-item">
               <Header/>
             </div>
             <div className="container" id="contents">
-              {this.props.children}
+              <div className="contents">
+                {this.props.children}
+              </div>
             </div>
 
             <div className="container" id="footer">

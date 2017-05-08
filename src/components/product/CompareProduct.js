@@ -133,12 +133,11 @@ export default class CompareProduct extends Component {
         <tr>
           <td>Đánh giá</td>
           {products.length > 0 ?
-            <td><Stars count={5} size={24} color2={'#ffd700'} value={products[0].rating}
-                       onChange={this.onStarSelect.bind(this)}/></td> :
+            <td><Stars count={5} size={24} color2={'#ffd700'} value={products[0].rating} edit={false}/></td> :
             <td />}
           {products.length > 1 ?
             <td><Stars count={5} size={24} color2={'#ffd700'} value={products[1].rating}
-                       onChange={this.onStarSelect.bind(this)}/></td> :
+                       onChange={this.onStarSelect.bind(this)} edit={false}/></td> :
             <td />}
         </tr>
         <tr>

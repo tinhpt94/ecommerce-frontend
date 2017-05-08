@@ -159,8 +159,20 @@ body {
   margin-bottom: 8px;
 }
 
-.product-item .col-md- * {
-  padding-bottom: 10px;
+.view-product-item {
+  padding: 1rem 0.5rem 0 0.5rem;
+  box-sizing: border-box;
+}
+
+.product-item-link {
+  text-decoration: none !important;
+  color: rgba(0, 0, 0, 0.8);
+  display: block;
+}
+
+.view-product-item .col-md- * {
+  padding-top: 15px;
+  padding-bottom: 15px;
 }
 
 .product-items .col-md- *:last-child {
@@ -227,6 +239,11 @@ body {
 }
 
 .product-main .img-responsive {
+  width: 100%;
+  height: 200px;
+}
+
+.view-product-item .img-responsive {
   width: 100%;
   height: 200px;
 }
@@ -335,4 +352,191 @@ body {
 
 .margin-top-15 {
   margin-top: 15px;
+}
+
+.login-form {
+  background-color: #FFF;
+  margin-top: 50px;
+  margin-bottom: 100px;
+  padding: 10px 10px 60px 10px;
+}
+
+.contents {
+  margin-top: 20px;
+}
+
+.product-wrapper {
+  background-color: #FFF;
+}
+
+.product-item-full {
+  cursor: pointer;
+  user-select: none;
+  padding: 0;
+  transition: transform cubic-bezier(0.4, 0, 0.6, 1) 0.1s, box-shadow cubic-bezier(0.4, 0, 0.6, 1) 0.1s;
+}
+
+.product-item-shadow {
+  box-shadow: 0 0.1rem 0.2rem 0 rgba(0, 0, 0, 0.1);
+  border-radius: 2px;
+  overflow: visible;
+}
+
+.product-item-shadow .product-item-cover-image {
+  border-top-right-radius: 2px;
+  border-top-left-radius: 2px;
+  overflow: hidden;
+}
+
+.product-item {
+  background-color: white;
+  cursor: pointer;
+  position: relative;
+}
+
+.product-item-cover-image {
+  margin-bottom: .5rem;
+  position: relative;
+}
+
+.image-placeholder {
+  width: 100%;
+  padding-top: 100%;
+  position: relative;
+  background-color: #fafafa;
+}
+
+.product-item-cover-image-background {
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat no-repeat;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  display: block;
+}
+
+.product-item-lower-padding {
+  padding: 0 1rem 1rem 1rem;
+}
+
+.product-item-text-name {
+  overflow: hidden;
+  word-wrap: break-word;
+  line-height: 1.8rem;
+  height: 3.5rem;
+}
+
+.product-item-section-price {
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  height: 2.4rem;
+}
+
+.product-item-full .product-item-section-price {
+  padding: .5rem 0 1.5rem 0;
+}
+
+.product-item-current-price {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  color: #ff5722;
+  flex-shrink: 0;
+  max-width: 100%;
+}
+
+.product-item-current-price-free-shipping {
+  max-width: 100%;
+}
+
+.product-item-spacer {
+  flex: 1;
+}
+
+.product-item .icon-free-shipping {
+  font-size: 2.4rem;
+  height: 2.4rem;
+  flex-shrink: 0;
+  line-height: 1;
+  margin-left: .2rem;
+}
+
+.svg-icon {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  fill: currentColor;
+  position: relative;
+  pointer-events: none;
+}
+
+.product-item-full .product-item-section-actions {
+  display: flex;
+}
+
+.product-item-full .product-item-likes, .product-item-full .product-item-comments {
+  display: flex;
+  align-items: center;
+  color: rgba(0, 0, 0, 0.26);
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.rating-stars {
+  position: relative;
+  display: inline-block;
+}
+
+.product-item-badge-wrapper {
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.shop-badge {
+  display: inline-block;
+  box-sizing: border-box;
+  position: relative;
+  padding: 4px 2px 3px 2px;
+}
+
+.shop-badge-fixed-width {
+  width: 38px;
+  height: 35px;
+}
+
+.shop-badge-new {
+  background-color: rgba(0, 191, 165, 0.85);
+  padding-top: 3px;
+}
+
+.shop-badge-new::after {
+  content: "";
+  width: 0;
+  height: 0;
+  left: 0;
+  bottom: -4px;
+  border-style: solid;
+  position: absolute;
+  border-width: 0 19px 4px 19px;
+  border-color: transparent rgba(0, 191, 165, 0.85) transparent rgba(0, 191, 165, 0.85);
+}
+
+.product-item-badge-wrapper .shop-badge {
+  float: right;
+  margin-left: .5rem;
+}
+
+.shop-badge-new-label {
+  font-size: 1.2rem;
+  text-align: center;
+  color: white;
+  font-weight: bold;
+  line-height: 31px;
+  text-transform: uppercase;
 }

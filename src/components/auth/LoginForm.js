@@ -82,8 +82,8 @@ class LoginForm extends React.Component {
 
   render() {
     return(
-      <form onSubmit={this.submit}>
-        <h1>Sign up form</h1>
+      <form onSubmit={this.submit} className="login-form">
+        <h1 className="text-center">Đăng nhập</h1>
         {this.errorMessage}
         <TextFieldGroup
           field="username"
