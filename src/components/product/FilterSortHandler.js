@@ -24,7 +24,9 @@ export function filterByProps(productList, filterProps) {
     return String(product.brand.brand).includes(filterProps.brand)
       && String(product.product_type.type_name).includes(filterProps.type)
       && String(product.made_in.made_in).includes(filterProps.madeIn)
-      && (filterProps.price === "" || product.price >= parseFloat(filterProps.price));
+      && (filterProps.price === "" || product.price >= parseFloat(filterProps.price))
+      && (filterProps.rating === "" || product.rating >= parseFloat(filterProps.rating))
+      && (filterProps.discount === "" || product.discount >= parseInt(filterProps.discount));
   })
 }
 

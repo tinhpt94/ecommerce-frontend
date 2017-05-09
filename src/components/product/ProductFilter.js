@@ -51,8 +51,8 @@ class ProductFilter extends Component {
 
     return (
       <div className="filter">
-        <div className="filter-brand">
-          <h3>Thương hiệu</h3>
+        <div>
+          <h4 className="filter-title">Thương hiệu</h4>
           <ul>
             {brands.length > 0 ? brands.map((brand, index) => {
                 return <li key={index}><Checkbox onCheck={e => this.filterCheckBoxChange(e, "brand")} name={brand}
@@ -61,7 +61,7 @@ class ProductFilter extends Component {
           </ul>
         </div>
         <div className="filter-type">
-          <h3>Loại sản phẩm</h3>
+          <h4 className="filter-title">Loại sản phẩm</h4>
           <ul>
             {types.length > 0 ? types.map((type, index) => {
                 return <li key={index}><Checkbox onCheck={e => this.filterCheckBoxChange(e, "type")} name={type}
@@ -70,7 +70,7 @@ class ProductFilter extends Component {
           </ul>
         </div>
         <div className="filter-made-in">
-          <h3>Xuất xứ</h3>
+          <h4 className="filter-title">Xuất xứ</h4>
           <ul>
             {madeIns.length > 0 ? madeIns.map((madeIn, index) => {
                 return <li key={index}><Checkbox onCheck={e => this.filterCheckBoxChange(e, "madeIn")} name={madeIn}
@@ -80,7 +80,7 @@ class ProductFilter extends Component {
         </div>
 
         <div className="filter-rating">
-          <h3>Đánh giá</h3>
+          <h4 className="filter-title">Đánh giá</h4>
           <ul>
             <li><Checkbox onCheck={e => this.filterCheckBoxChange(e, "rating")} name="1"
                           label=">= 1 star" disabled={this.checkSelected("rating", "1")}/></li>
@@ -94,7 +94,7 @@ class ProductFilter extends Component {
         </div>
 
         <div className="filter-price">
-          <h3>Khoảng giá</h3>
+          <h4 className="filter-title">Khoảng giá</h4>
           <ul>
             <li><Checkbox onCheck={e => this.filterCheckBoxChange(e, "price")} name="100000"
                           label="100,000 - 200,000" disabled={this.checkSelected("price", "100000")}/></li>
@@ -108,7 +108,7 @@ class ProductFilter extends Component {
         </div>
 
         <div className="filter-discount">
-          <h3>Giảm giá</h3>
+          <h4 className="filter-title">Giảm giá</h4>
           <ul>
             <li><Checkbox onCheck={e => this.filterCheckBoxChange(e, "discount")} name="10"
                           label=">= 10%" disabled={this.checkSelected("discount", "10")}/></li>

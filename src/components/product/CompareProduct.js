@@ -4,6 +4,10 @@ import Stars from "react-stars";
 import ProductStore from "../../stores/ProductStore";
 import ProductService from "../../services/ProductService";
 import AutoComplete from "material-ui/AutoComplete";
+import RaisedButton from "material-ui/RaisedButton";
+import AddShoppingCart from "material-ui/svg-icons/action/add-shopping-cart";
+import {FormattedNumber} from "react-intl";
+import CartAction from "../../actions/CartAction";
 
 export default class CompareProduct extends Component {
   constructor(props) {
@@ -15,6 +19,7 @@ export default class CompareProduct extends Component {
     this._onChange = this._onChange.bind(this);
     this.onSelectProduct = this.onSelectProduct.bind(this);
     this.onRemoveProduct = this.onRemoveProduct.bind(this);
+    this.addToCart = this.addToCart.bind(this);
   }
 
   _getState() {
@@ -40,8 +45,9 @@ export default class CompareProduct extends Component {
     ProductStore.removeChangeListener(this._onChange);
   }
 
-  onStarSelect() {
-
+  addToCart(product) {
+    product.quantity = 1;
+    CartAction.addToCart(product);
   }
 
   onSelectProduct(product) {
@@ -78,6 +84,9 @@ export default class CompareProduct extends Component {
       text: 'textKey',
       value: 'valueKey',
     };
+
+    const loggedInUser = JSON.parse(localStorage.getItem("user"));
+
     return (
       <Table responsive className="compare-product">
         <thead>
@@ -85,7 +94,7 @@ export default class CompareProduct extends Component {
           <th style={{width: "20%"}}/>
           <th style={{width: "40%"}}>
             {dataSource && products.length === 0 && <AutoComplete
-              hintText="Type anything"
+              hintText="Nhập tên sản phẩm"
               dataSource={dataSource}
               onNewRequest={this.handleUpdateInput}
               dataSourceConfig={dataSourceConfig}
@@ -94,7 +103,7 @@ export default class CompareProduct extends Component {
           </th>
           <th style={{width: "40%"}}>
             {dataSource && products.length < 2 && <AutoComplete
-              hintText="Type anything"
+              hintText="Nhập tên sản phẩm"
               dataSource={dataSource}
               onNewRequest={this.handleUpdateInput}
               dataSourceConfig={dataSourceConfig}
@@ -112,8 +121,10 @@ export default class CompareProduct extends Component {
         </tr>
         <tr>
           <td>Đơn giá</td>
-          {products.length > 0 ? <td>{products[0].price}</td> : <td />}
-          {products.length > 1 ? <td>{products[1].price}</td> : <td />}
+          {products.length > 0 ? <td><FormattedNumber value={products[0].price} style="currency" currency="VND"/></td> :
+            <td />}
+          {products.length > 1 ? <td><FormattedNumber value={products[1].price} style="currency" currency="VND"/></td> :
+            <td />}
         </tr>
         <tr>
           <td>Xuất xứ</td>
@@ -136,18 +147,32 @@ export default class CompareProduct extends Component {
             <td><Stars count={5} size={24} color2={'#ffd700'} value={products[0].rating} edit={false}/></td> :
             <td />}
           {products.length > 1 ?
-            <td><Stars count={5} size={24} color2={'#ffd700'} value={products[1].rating}
-                       onChange={this.onStarSelect.bind(this)} edit={false}/></td> :
+            <td><Stars count={5} size={24} color2={'#ffd700'} value={products[1].rating} edit={false}/></td> :
             <td />}
         </tr>
+
         <tr>
           <td/>
+          {loggedInUser && products[0] &&
           <td>
-            <button className="btn btn-primary">Thêm sản phẩm vào giỏ hàng</button>
-          </td>
+            <RaisedButton
+              primary={true}
+              icon={<AddShoppingCart />}
+              label="Thêm vào giỏ hàng"
+              labelPosition="after"
+              onTouchTap={this.addToCart(products[0])}
+            />
+          </td>}
+          {loggedInUser && products[1] &&
           <td>
-            <button className="btn btn-primary">Thêm sản phẩm vào giỏ hàng</button>
-          </td>
+            <RaisedButton
+              primary={true}
+              icon={<AddShoppingCart />}
+              label="Thêm vào giỏ hàng"
+              labelPosition="after"
+              onTouchTap={this.addToCart(products[1])}
+            />
+          </td>}
         </tr>
         </tbody>
       </Table>

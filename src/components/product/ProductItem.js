@@ -4,6 +4,9 @@ import CustomizedDialog from "../common/CustomizedDialog";
 import RaisedButton from "material-ui/RaisedButton";
 import ShippingIcon from "material-ui/svg-icons/maps/local-shipping";
 import Stars from "react-stars";
+import {FormattedNumber} from "react-intl";
+import classnames from "classnames";
+
 
 export default class ProductItem extends React.Component {
   constructor(props) {
@@ -46,8 +49,8 @@ export default class ProductItem extends React.Component {
       />
     ];
     return (
-      <div className="view-product-item">
-        <div className={"col-md-" + cols}>
+      <div className={classnames("col-md-" + cols, "no-padding-right")}>
+        <div className="view-product-item">
           <Link to={role === "ADMIN" ? "/admin/products/" + product.id : "/products/" + product.code}
                 className="product-item-link">
             <div className="product-item product-item-full product-item-shadow">
@@ -61,7 +64,7 @@ export default class ProductItem extends React.Component {
                 <div className="product-item-text-name">{product.name}</div>
                 <div className="product-item-section-price">
                   <div className="product-item-current-price product-item-current-price-free-shipping">
-                    {product.price}
+                    <FormattedNumber value={product.price} style="currency" currency="VND"/>
                   </div>
                   <div className="product-item-spacer"/>
                   <ShippingIcon className="svg-icon icon-free-shipping"/>
