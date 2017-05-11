@@ -14,6 +14,8 @@ import ProductStore from "../../../stores/ProductStore";
 import NoAvailableProduct from "../../product/NoAvailableProduct";
 import ProductAction from "../../../actions/ProductAction";
 import AuthenticatedAdmin from "../../common/AuthenticatedAdmin";
+import MenuService from "../../../services/MenuService";
+import MenuStore from "../../../stores/MenuStore";
 
 
 export default AuthenticatedAdmin(class EditProduct extends Component {
@@ -34,6 +36,7 @@ export default AuthenticatedAdmin(class EditProduct extends Component {
       product: ProductStore.getSelectedProduct(),
       code: this.props.params.code,
       editSuccess: ProductStore.editSuccess,
+      menu: MenuStore.getMenu(),
       errors: {}
     }
   }
@@ -43,15 +46,18 @@ export default AuthenticatedAdmin(class EditProduct extends Component {
   }
 
   componentWillMount() {
-    ProductStore.addChangeListener(this._onchange)
+    ProductStore.addChangeListener(this._onchange);
+    MenuStore.addChangeListener(this._onchange);
   }
 
   componentDidMount() {
     ProductService.fetchById(this.state.code);
+    MenuService.fetchMenu();
   }
 
   componentWillUnmount() {
-    ProductStore.removeChangeListener(this._onchange)
+    ProductStore.removeChangeListener(this._onchange);
+    MenuStore.removeChangeListener(this._onchange);
   }
 
   onImageDrop(files) {
@@ -170,6 +176,11 @@ export default AuthenticatedAdmin(class EditProduct extends Component {
           onTouchTap={this.handleCloseDialog}
         />
       ];
+      const menu = this.state.menu;
+      const brands = menu.brands;
+      const productTypes = menu.product_types;
+      const madeIns = menu.made_ins;
+
       return (
         <div className="product-add-new">
           <div className="row">
@@ -205,10 +216,11 @@ export default AuthenticatedAdmin(class EditProduct extends Component {
                 <FormControl componentClass="select" placeholder="select" value={this.state.product.product_type.id}
                              onChange={this.onSelectChange} name="product_type">
                   <option value="">select</option>
-                  <option value={1}>Son</option>
-                  <option value={2}>Quần Áo</option>
-                  <option value={3}>Giày dép</option>
-                  <option value={4}>Trang suc</option>
+                  {productTypes.map((type, index) => {
+                    return (
+                      <option key={index} value={type.id}>{type.type_name}</option>
+                    )
+                  })}
                 </FormControl>
                 {this.state.errors.product_type && <span className="help-block">{this.state.errors.product_type}</span>}
               </FormGroup>
@@ -222,11 +234,11 @@ export default AuthenticatedAdmin(class EditProduct extends Component {
                 <FormControl componentClass="select" placeholder="select" value={this.state.product.brand.id}
                              onChange={this.onSelectChange} name="brand">
                   <option value="">select</option>
-                  <option value={1}>Hot Lips</option>
-                  <option value={2}>Christian Louboutin</option>
-                  <option value={3}>Colourpop</option>
-                  <option value={4}>Amok</option>
-                  <option value={5}>3CE</option>
+                  {brands.map((brand, index) => {
+                    return (
+                      <option key={index} value={brand.id}>{brand.brand}</option>
+                    )
+                  })}
                 </FormControl>
                 {this.state.errors.brand && <span className="help-block">{this.state.errors.brand}</span>}
               </FormGroup>
@@ -237,10 +249,11 @@ export default AuthenticatedAdmin(class EditProduct extends Component {
                 <FormControl componentClass="select" placeholder="select" value={this.state.product.made_in.id}
                              onChange={this.onSelectChange} name="made_in">
                   <option value="">select</option>
-                  <option value={1}>Anh</option>
-                  <option value={2}>Mỹ</option>
-                  <option value={3}>Nga</option>
-                  <option value={4}>Hàn Quốc</option>
+                  {madeIns.map((madeIn, index) => {
+                    return (
+                      <option key={index} value={madeIn.id}>{madeIn.made_in}</option>
+                    )
+                  })}
                 </FormControl>
                 {this.state.errors.made_in && <span className="help-block">{this.state.errors.made_in}</span>}
               </FormGroup>

@@ -5,6 +5,9 @@ import CartStore from "../../stores/CartStore";
 import CartAction from "../../actions/CartAction";
 import {FormattedNumber} from "react-intl";
 import {Link} from "react-router";
+import RaisedButton from "material-ui/RaisedButton";
+import DeleteIcon from "material-ui/svg-icons/action/delete-forever";
+import NumericInput from "react-numeric-input";
 
 export default AuthenticatedUser(class Cart extends Component {
 
@@ -12,9 +15,6 @@ export default AuthenticatedUser(class Cart extends Component {
     super(props);
     this.state = this._getState();
     this._onChange = this._onChange.bind(this);
-    this.onInputChange = this.onInputChange.bind(this);
-    this.onAddMoreClick = this.onAddMoreClick.bind(this);
-    this.onSubtractClick = this.onSubtractClick.bind(this);
   }
 
   _getState() {
@@ -42,17 +42,9 @@ export default AuthenticatedUser(class Cart extends Component {
     CartStore.removeChangeListener(this._onChange);
   }
 
-  onAddMoreClick(product) {
-    CartAction.editItemQuantity(parseInt(product.quantity) + 1, product.code);
-  }
-
-  onSubtractClick(product) {
-    CartAction.editItemQuantity(parseInt(product.quantity) - 1, product.code);
-  }
-
-  onInputChange(e, code) {
-    CartAction.editItemQuantity(e.target.value, code);
-  }
+  onQuantityChange = (newQuantity, code) => {
+    CartAction.editItemQuantity(newQuantity, code);
+  };
 
   onRemoveProduct(product) {
     CartAction.removeFromCart(product);
@@ -82,25 +74,29 @@ export default AuthenticatedUser(class Cart extends Component {
                   <td className="cart-item"><img src={product.image_url} height={42} width={42}/> {product.name} </td>
                   <td className="cart-item"><span><FormattedNumber value={product.price}/></span></td>
                   <td className="cart-item">
-                    <div className="input-group">
-                    <span className="input-group-btn">
-                      <button className="btn btn-default" type="button"
-                              onClick={e => this.onSubtractClick.call({}, product)}>-</button>
-                    </span>
-                      <input type="text" className="form-control" value={product.quantity}
-                             onChange={e => this.onInputChange.call({}, e, product.code)}/>
-                      <span className="input-group-btn">
-                      <button className="btn btn-default" type="button"
-                              onClick={e => this.onAddMoreClick.call({}, product)}>+</button>
-                    </span>
-                    </div>
+                    {/*<div className="input-group">*/}
+                    {/*<span className="input-group-btn">*/}
+                    {/*<button className="btn btn-default" type="button"*/}
+                    {/*onClick={e => this.onSubtractClick.call({}, product)}>-</button>*/}
+                    {/*</span>*/}
+                    {/*<input type="text" className="form-control" value={product.quantity}*/}
+                    {/*onChange={e => this.onInputChange.call({}, e, product.code)}/>*/}
+                    {/*<span className="input-group-btn">*/}
+                    {/*<button className="btn btn-default" type="button"*/}
+                    {/*onClick={e => this.onAddMoreClick.call({}, product)}>+</button>*/}
+                    {/*</span>*/}
+                    {/*</div>*/}
+                    <NumericInput className="form-control"
+                                  min={1} value={product.quantity}
+                                  onChange={e => this.onQuantityChange(e, product.code)}
+                    />
                   </td>
                   <td className="cart-item"><FormattedNumber value={product.price * product.quantity}/></td>
                   <td className="cart-item">
-                    <span className="input-group-btn">
-                      <button className="btn btn-danger" type="button"
-                              onClick={e => this.onRemoveProduct.call({}, product)}>Xoá</button>
-                  </span></td>
+                    <RaisedButton backgroundColor="#F44336"
+                                  onTouchTap={e => this.onRemoveProduct(product)} icon={<DeleteIcon/>} label="Xoá"
+                                  labelPosition="before"/>
+                  </td>
                 </tr>
               })}
               </tbody>
@@ -108,9 +104,9 @@ export default AuthenticatedUser(class Cart extends Component {
           </div>
         </div>
         <div className="row">
-          <div className="col-md-12 text-right">
-            <label className="cart-total">Tổng tiền hàng ({this.state.totalProduct} sản phẩm): đ <FormattedNumber
-              value={this.state.totalPrice}/></label>
+          <div className="col-md-12 text-right cart-bottom">
+            <label className="cart-total">Tổng tiền hàng ({this.state.totalProduct} sản phẩm): <FormattedNumber
+              value={this.state.totalPrice} style="currency" currency="VND"/></label>
             <Link to="/confirm-order" type="button" className="btn btn-lg btn-primary">Mua hàng</Link>
           </div>
         </div>

@@ -12,6 +12,15 @@ import CommentForm from "../comment/CommentForm";
 import Stars from "react-stars";
 import RaisedButton from "material-ui/RaisedButton";
 import AddShoppingCart from "material-ui/svg-icons/action/add-shopping-cart";
+import Slider from "react-slick";
+import ProductItem from "./ProductItem";
+import NumericInput from "react-numeric-input";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
+const SLIDER_RESPONSIVE = [
+  {breakpoint: 768, settings: {slidesToShow: 3}},
+  {breakpoint: 1024, settings: {slidesToShow: 5}}];
 
 export default class ProductDetail extends Component {
   constructor(props) {
@@ -62,9 +71,9 @@ export default class ProductDetail extends Component {
     return !(charCode > 31 && (charCode < 48 || charCode > 57));
   };
 
-  onInputChange(e) {
+  onInputChange(quantity) {
     this.setState({
-      quantity: e.target.value
+      quantity: quantity
     })
   }
 
@@ -74,9 +83,33 @@ export default class ProductDetail extends Component {
     CartAction.addToCart(addedProduct);
   }
 
+  addViewedProduct(product) {
+    const loggedInUser = JSON.parse(localStorage.getItem("user"));
+    if (product && (loggedInUser.role !== 'ADMIN' || !loggedInUser)) {
+      let viewedProducts = JSON.parse(localStorage.getItem("viewedProducts")) || [];
+      if (viewedProducts.map(viewedProduct => viewedProduct.id).indexOf(product.id) === -1) {
+        viewedProducts.push(product);
+      }
+      localStorage.setItem("viewedProducts", JSON.stringify(viewedProducts));
+    }
+  }
+
   render() {
     const product = this.state.product;
     const loggedInUser = JSON.parse(localStorage.getItem("user"));
+    this.addViewedProduct(product);
+    const viewedProducts = JSON.parse(localStorage.getItem("viewedProducts"));
+    const settings = {
+      dots: true,
+      infinite: true,
+      slidesToShow: 5,
+      slidesToScroll: 2,
+      autoplay: true,
+      autoplaySpeed: 5000,
+      centerMode: true,
+      pauseOnHover: true
+    };
+
     return (
       <div className="single">
         <div className="single-main">
@@ -101,8 +134,12 @@ export default class ProductDetail extends Component {
 
                   <div className="row">
                     <div className="col-md-4">
-                      <input className="form-control" type="number" value={this.state.quantity}
-                             onChange={this.onInputChange}/>
+                      <NumericInput className="form-control"
+                                    defaultValue={1}
+                                    max={product.quantity}
+                                    min={1} value={this.state.quantity}
+                                    onChange={this.onInputChange}
+                      />
                     </div>
                     <div className="col-md-6">
                       <RaisedButton
@@ -126,7 +163,7 @@ export default class ProductDetail extends Component {
                 </div>
               </div>
 
-              <Tabs className="margin-top-15">
+              <Tabs className="margin-top-15 ">
                 <Tab label="Thông tin chi tiết">
                   <div className="product-description">
                     <FroalaEditorView model={product.description}/>
@@ -138,11 +175,25 @@ export default class ProductDetail extends Component {
                 </Tab>
               </Tabs>
 
+              {viewedProducts.length > 0 &&
+              <div className="row">
+                <div className="col-md-12">
+                  <h3>Các sản phẩm đã xem</h3>
+                </div>
+                <div className="col-md-12">
+                  <Slider {...settings}>
+                    {viewedProducts.map((product, index) =>
+                      (
+                        <div key={index}><ProductItem product={product} cols={12}/></div>
+                      )
+                    )}
+                  </Slider>
+                </div>
+              </div>}
             </div>
           }
         </div>
       </div>
     )
   }
-
 }

@@ -2,21 +2,21 @@ export function filterBrand(productList) {
   const brandFromProduct = [];
   productList.forEach(product => brandFromProduct.push(product.brand.brand));
   const brandSet = new Set(brandFromProduct);
-  return [...brandSet]
+  return [...brandSet].sort((a, b) => a > b ? 1 : -1)
 }
 
 export function filterMadeIn(productList) {
   const madeInFromProduct = [];
   productList.forEach(product => madeInFromProduct.push(product.made_in.made_in));
   const madeInSet = new Set(madeInFromProduct);
-  return [...madeInSet]
+  return [...madeInSet].sort((a, b) => a > b ? 1 : -1)
 }
 
 export function filterProductType(productList) {
   const productTypeFromProduct = [];
   productList.forEach(product => productTypeFromProduct.push(product.product_type.type_name));
   const typeSet = new Set(productTypeFromProduct);
-  return [...typeSet]
+  return [...typeSet].sort((a, b) => a > b ? 1 : -1)
 }
 
 export function filterByProps(productList, filterProps) {

@@ -256,8 +256,10 @@ body {
   color: #E91E63;
 }
 
-.product-description {
-  padding: 1.6rem 0;
+.product-description, .comment-wrapper {
+  padding: 1.6rem;
+  background-color: #FFF;
+  margin-top: 10px;
 }
 
 .product-rating {
@@ -324,6 +326,7 @@ body {
 .user-side-menu {
   border: 1px solid rgb(217, 217, 217);
   border-image: initial;
+  background-color: #FFF;
 }
 
 .selected-link {
@@ -542,6 +545,7 @@ body {
 .filter {
   background-color: #FFF;
   padding-left: 12px;
+  padding-right: 12px;
 }
 
 .filter h4 {
@@ -558,4 +562,14 @@ body {
 
 .cart-view {
   background-color: #FFF;
+}
+
+.product-comment-list {
+  margin-top: 10px;
+  background-color: #FFF;
+}
+
+.cart-bottom {
+  padding-right: 25px !important;
+  padding-bottom: 10px;
 }
