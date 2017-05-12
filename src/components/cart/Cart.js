@@ -6,7 +6,7 @@ import CartAction from "../../actions/CartAction";
 import {FormattedNumber} from "react-intl";
 import {Link} from "react-router";
 import RaisedButton from "material-ui/RaisedButton";
-import DeleteIcon from "material-ui/svg-icons/action/delete-forever";
+import RemoveShoppingCart from "material-ui/svg-icons/action/remove-shopping-cart";
 import NumericInput from "react-numeric-input";
 
 export default AuthenticatedUser(class Cart extends Component {
@@ -74,18 +74,6 @@ export default AuthenticatedUser(class Cart extends Component {
                   <td className="cart-item"><img src={product.image_url} height={42} width={42}/> {product.name} </td>
                   <td className="cart-item"><span><FormattedNumber value={product.price}/></span></td>
                   <td className="cart-item">
-                    {/*<div className="input-group">*/}
-                    {/*<span className="input-group-btn">*/}
-                    {/*<button className="btn btn-default" type="button"*/}
-                    {/*onClick={e => this.onSubtractClick.call({}, product)}>-</button>*/}
-                    {/*</span>*/}
-                    {/*<input type="text" className="form-control" value={product.quantity}*/}
-                    {/*onChange={e => this.onInputChange.call({}, e, product.code)}/>*/}
-                    {/*<span className="input-group-btn">*/}
-                    {/*<button className="btn btn-default" type="button"*/}
-                    {/*onClick={e => this.onAddMoreClick.call({}, product)}>+</button>*/}
-                    {/*</span>*/}
-                    {/*</div>*/}
                     <NumericInput className="form-control"
                                   min={1} value={product.quantity}
                                   onChange={e => this.onQuantityChange(e, product.code)}
@@ -94,8 +82,9 @@ export default AuthenticatedUser(class Cart extends Component {
                   <td className="cart-item"><FormattedNumber value={product.price * product.quantity}/></td>
                   <td className="cart-item">
                     <RaisedButton backgroundColor="#F44336"
-                                  onTouchTap={e => this.onRemoveProduct(product)} icon={<DeleteIcon/>} label="Xoá"
-                                  labelPosition="before"/>
+                                  onTouchTap={e => this.onRemoveProduct(product)} icon={<RemoveShoppingCart/>}
+                                  label="Xoá"
+                                  labelPosition="after"/>
                   </td>
                 </tr>
               })}

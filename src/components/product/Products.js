@@ -116,7 +116,7 @@ class Products extends React.Component {
           </div>
 
           <div className="col-md-3">
-            <ProductFilter productList={filterByName}/>
+            <ProductFilter productList={filteredProduct}/>
           </div>
         </div>
       )

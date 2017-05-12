@@ -5,6 +5,8 @@ import RaisedButton from "material-ui/RaisedButton";
 import ShippingIcon from "material-ui/svg-icons/maps/local-shipping";
 import Stars from "react-stars";
 import {FormattedNumber} from "react-intl";
+import {isNew} from "../../utils/date";
+import {PromotionBadge, NewBadge} from "../common/Badge";
 import classnames from "classnames";
 
 
@@ -63,8 +65,14 @@ export default class ProductItem extends React.Component {
               <div className="product-item-lower-padding">
                 <div className="product-item-text-name">{product.name}</div>
                 <div className="product-item-section-price">
-                  <div className="product-item-current-price product-item-current-price-free-shipping">
+                  {product.discount > 0 &&
+                  <div className="product-item-original-price">
                     <FormattedNumber value={product.price} style="currency" currency="VND"/>
+                  </div>
+                  }
+                  <div className="product-item-current-price product-item-current-price-free-shipping">
+                    <FormattedNumber value={product.price * (100 - product.discount) / 100} style="currency"
+                                     currency="VND"/>
                   </div>
                   <div className="product-item-spacer"/>
                   <ShippingIcon className="svg-icon icon-free-shipping"/>
@@ -81,13 +89,11 @@ export default class ProductItem extends React.Component {
                 </div>
 
                 <div className="product-item-badge-wrapper">
-                  <div className="shop-badge shop-badge-fixed-width shop-badge-new">
-                    <div className="shop-badge-new-label">Mới</div>
-                  </div>
+                  {isNew(product.created_date) && <NewBadge/>}
+                  {product.discount > 0 && <PromotionBadge discount={product.discount}/>}
                 </div>
               </div>
             </div>
-
 
           </Link>
         </div>

@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import ReactDOM from "react-dom";
 import ProductStore from "../../stores/ProductStore";
 import ProductService from "../../services/ProductService";
 import FacebookProvider, {Like} from "react-facebook";
@@ -12,9 +13,13 @@ import CommentForm from "../comment/CommentForm";
 import Stars from "react-stars";
 import RaisedButton from "material-ui/RaisedButton";
 import AddShoppingCart from "material-ui/svg-icons/action/add-shopping-cart";
+import ShoppingCart from "material-ui/svg-icons/action/shopping-cart";
 import Slider from "react-slick";
 import ProductItem from "./ProductItem";
 import NumericInput from "react-numeric-input";
+import {FormattedNumber} from "react-intl";
+import {isNew} from "../../utils/date";
+import {PromotionBadge, NewBadge} from "../common/Badge";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
@@ -60,6 +65,10 @@ export default class ProductDetail extends Component {
   componentWillUnmount() {
     ProductStore.removeChangeListener(this._onChange)
   }
+
+  componentDidUpdate = () => {
+    ReactDOM.findDOMNode(this).scrollIntoView();
+  };
 
   ratingChanged(newRating) {
     console.log(newRating);
@@ -117,41 +126,90 @@ export default class ProductDetail extends Component {
             <div className="product-detail">
 
               <div className="row">
-                <div className="col-md-7 single-top-left">
+                <div className="col-md-6">
                   <img className="img-responsive" src={product.image_url}/>
                 </div>
 
-                <div className="col-md-5 single-top-right">
-                  <h2>{product.name}</h2>
+                <div className="col-md-6">
+                  <div className="product-info">
+                    <div className="product-info-header">
+                      <div className="product-info-header-left-section">
+                        <div className="product-info-header-title">
+                          <span>{product.name}</span>
+                        </div>
 
-                  <Stars name="disabled" totalStars={5} value={this.state.product.rating} size={14} edit={false}/>
+                        <div className="product-info-header-price">
+                          {product.discount > 0 &&
+                          <div className="product-info-header-price-before-discount">
+                            <span className="product-info-header-price-before-discount-number">
+                              <FormattedNumber
+                                value={product.price} style="currency"
+                                currency="VND"/>
+                            </span>
+                          </div>}
+                          <div className="product-info-header-real-price">
+                            <FormattedNumber
+                              value={product.price * (100 - product.discount) / 100} style="currency"
+                              currency="VND"/>
+                          </div>
+                        </div>
 
-                  <div className="clearfix"></div>
+                        <Stars name="disabled" totalStars={5} value={this.state.product.rating} size={14} edit={false}/>
+                      </div>
 
-                  <h3 className="item-price">{product.price}</h3>
-
-                  <label className="control-label">Số lượng</label>
-
-                  <div className="row">
-                    <div className="col-md-4">
-                      <NumericInput className="form-control"
-                                    defaultValue={1}
-                                    max={product.quantity}
-                                    min={1} value={this.state.quantity}
-                                    onChange={this.onInputChange}
-                      />
+                      <div className="product-info-header-right-section">
+                        {product.discount > 0 && <PromotionBadge discount={product.discount}/>}
+                        {isNew(product.created_date) && <NewBadge/>}
+                      </div>
                     </div>
-                    <div className="col-md-6">
-                      <RaisedButton
-                        icon={<AddShoppingCart />}
-                        label="Thêm vào giỏ hàng"
-                        labelPosition="after"
-                        backgroundColor="#F44336"
-                        onTouchTap={this.addToCart}
-                      />
 
+                    <div className="product-info-body">
+                      <div className="product-info-body-order-block">
+                        <div className="product-info-body-row">
+                          <div className="product-info-body-label" style={{width: '100px'}}>Số lượng:</div>
+                          <div className="product-info-body-content">
+                            <div className="product-info-body-order-quantity">
+                              <div className="product-info-body-input-quantity">
+                                <NumericInput className="form-control"
+                                              defaultValue={1}
+                                              max={product.quantity}
+                                              min={1} value={this.state.quantity}
+                                              onChange={this.onInputChange}
+
+                                />
+                              </div>
+                              <div className="product-info-body-order-quantity-stock-count">
+                                <FormattedNumber value={product.quantity}/> sản phẩm có sẵn
+                              </div>
+                            </div>
+                          </div>
+
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="product-info-footer">
+                      <div className="shop-button">
+                        <RaisedButton
+                          icon={<AddShoppingCart />}
+                          label="Thêm vào giỏ hàng"
+                          labelPosition="after"
+                          backgroundColor="#26A69A"
+                          onTouchTap={this.addToCart}
+                        />
+                      </div>
+                      <div className="shop-button">
+                        <RaisedButton
+                          icon={<ShoppingCart />}
+                          label="Mua ngay"
+                          labelPosition="after"
+                          backgroundColor="#F44336"
+                          onTouchTap={this.addToCart}
+                        />
+                      </div>
                     </div>
                   </div>
+
 
                   <div className="row">
                     <div className="col-md-12 social-group">
