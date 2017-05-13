@@ -8,20 +8,24 @@ class ReportService {
   fetchReport(fromDate, toDate) {
     axios({
       baseURL: GlobalConstant.BASE_API,
-      url: ReportConstant.URL + "?from=" + moment(fromDate).format("DD-MM-YYYY") + "&to=" + moment(toDate).format("DD-MM-YYYY"),
-      method: 'GET',
+      url: ReportConstant.URL +
+        "?from=" +
+        moment(fromDate).format("DD-MM-YYYY") +
+        "&to=" +
+        moment(toDate).format("DD-MM-YYYY"),
+      method: "GET",
       headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
+        Accept: "application/json",
+        "Content-Type": "application/json"
       },
       crossDomain: true,
       withCredentials: true
-    }).then(response => {
-      ReportAction.fetchReport(response.data, fromDate, toDate);
-    }).catch(error => {
-
     })
+      .then(response => {
+        ReportAction.fetchReport(response.data, fromDate, toDate);
+      })
+      .catch(error => {});
   }
 }
 
-export default new ReportService()
+export default new ReportService();

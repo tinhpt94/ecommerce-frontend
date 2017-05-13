@@ -18,7 +18,7 @@ class MenuStore extends BaseStore {
         this.menu = action.menu;
         this.emitChange();
         break;
-      default :
+      default:
         break;
     }
   }
@@ -28,4 +28,4 @@ class MenuStore extends BaseStore {
   }
 }
 
-export default new MenuStore()
+export default new MenuStore();

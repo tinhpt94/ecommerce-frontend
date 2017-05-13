@@ -8,11 +8,11 @@ class LoginService {
     axios({
       baseURL: GlobalConstant.BASE_API,
       url: LoginConstant.URL,
-      method: 'POST',
-      type: 'json',
+      method: "POST",
+      type: "json",
       headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
+        Accept: "application/json",
+        "Content-Type": "application/json"
       },
       data: {
         username: username,
@@ -20,90 +20,93 @@ class LoginService {
       },
       crossDomain: true,
       withCredentials: true
-    }).then(function (response) {
-      switch (response.status) {
-        case 200:
-          LoginAction.loginUser(response.data);
-          break;
-        default :
-          break;
-      }
-    }).catch(function (error) {
-      if (error.response) {
-        switch (error.response.status) {
-          case 401:
-            LoginAction.error(error.response.data);
-            break;
-          case 403:
-            LoginAction.error(error.response.data);
+    })
+      .then(function(response) {
+        switch (response.status) {
+          case 200:
+            LoginAction.loginUser(response.data);
             break;
           default:
             break;
         }
-      } else {
-        console.log('Error', error.message);
-      }
-
-    })
+      })
+      .catch(function(error) {
+        if (error.response) {
+          switch (error.response.status) {
+            case 401:
+              LoginAction.error(error.response.data);
+              break;
+            case 403:
+              LoginAction.error(error.response.data);
+              break;
+            default:
+              break;
+          }
+        } else {
+          console.log("Error", error.message);
+        }
+      });
   }
 
   logout() {
     axios({
       baseURL: GlobalConstant.BASE_API,
       url: LoginConstant.URL,
-      method: 'DELETE',
+      method: "DELETE",
       headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
+        Accept: "application/json",
+        "Content-Type": "application/json"
       },
       crossDomain: true,
       withCredentials: true
-    }).then(function (response) {
+    }).then(function(response) {
       switch (response.status) {
         case 200:
           LoginAction.logout();
           break;
-        default :
+        default:
           break;
       }
-    })
+    });
   }
 
   isAuthenticated() {
     axios({
       baseURL: GlobalConstant.BASE_API,
       url: LoginConstant.URL,
-      method: 'GET',
+      method: "GET",
       headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
+        Accept: "application/json",
+        "Content-Type": "application/json"
       },
       withCredentials: true
-    }).then(function (response) {
-      switch (response.status) {
-        case 200:
-          LoginAction.loginUser(response.data);
-          break;
-        default :
-          break;
-      }
-    }).catch(error => {
-      if (error.response) {
-        switch (error.response.status) {
-          case 401:
-            LoginAction.logout();
-            break;
-          case 403:
-            LoginAction.logout();
+    })
+      .then(function(response) {
+        switch (response.status) {
+          case 200:
+            LoginAction.loginUser(response.data);
             break;
           default:
             break;
         }
-      } else {
-        LoginAction.logout()
-      }
-    })
+      })
+      .catch(error => {
+        if (error.response) {
+          switch (error.response.status) {
+            case 401:
+              LoginAction.logout();
+              break;
+            case 403:
+              LoginAction.logout();
+              break;
+            default:
+              break;
+          }
+        } else {
+          LoginAction.logout();
+        }
+      });
   }
 }
 
-export default new LoginService()
+export default new LoginService();

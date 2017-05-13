@@ -1,12 +1,11 @@
 import React from "react";
-import {browserHistory} from "react-router";
+import { browserHistory } from "react-router";
 import LoginStore from "../../stores/LoginStore";
 import LoginService from "../../services/LoginService";
 import LoginAction from "../../actions/LoginAction";
 
-export default (ComposedComponent) => {
+export default ComposedComponent => {
   return class AuthenticatedUser extends React.Component {
-
     checkAuthen() {
       LoginService.isAuthenticated();
     }
@@ -55,10 +54,7 @@ export default (ComposedComponent) => {
             userLoggedIn={this.state.userLoggedIn}
           />
         );
-      else
-        return (
-          <div>Check authen! Loading...</div>
-        );
+      else return <div>Check authen! Loading...</div>;
     }
-  }
-}
+  };
+};

@@ -25,4 +25,4 @@ class ReportStore extends BaseStore {
   }
 }
 
-export default new ReportStore()
+export default new ReportStore();

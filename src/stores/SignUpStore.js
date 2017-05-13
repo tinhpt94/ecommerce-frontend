@@ -1,5 +1,5 @@
-import BaseStore from './BaseStore'
-import SignUpConstant from '../constants/SignUpConstant'
+import BaseStore from "./BaseStore";
+import SignUpConstant from "../constants/SignUpConstant";
 
 class SignUpStore extends BaseStore {
   constructor() {
@@ -19,14 +19,13 @@ class SignUpStore extends BaseStore {
         this.errors = action.errors;
         this.emitChange();
         break;
-      default :
+      default:
     }
   }
 
   isSuccess() {
     return this.success;
   }
-
 }
 
 const signUpStore = new SignUpStore();

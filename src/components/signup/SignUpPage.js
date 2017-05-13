@@ -1,9 +1,5 @@
-/**
- * Created by PhamTinh on 2/18/2017.
- */
-
-import React, {Component} from 'react';
-import SignUpForm from './SignUpForm';
+import React, { Component } from "react";
+import SignUpForm from "./SignUpForm";
 
 class SignUpPage extends Component {
   render() {
@@ -15,8 +11,8 @@ class SignUpPage extends Component {
           </div>
         </div>
       </div>
-    )
+    );
   }
 }
 
-export default SignUpPage
+export default SignUpPage;

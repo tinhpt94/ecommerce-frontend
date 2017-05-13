@@ -14,4 +14,4 @@ const ProductConstant = {
   URL: "products/"
 };
 
-export default ProductConstant
+export default ProductConstant;

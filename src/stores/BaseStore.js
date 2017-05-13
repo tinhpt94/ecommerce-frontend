@@ -1,10 +1,9 @@
 import EventEmitter from "events";
 import Dispatcher from "../dispatcher/Dispatcher";
 
-const CHANGE_EVENT = 'change';
+const CHANGE_EVENT = "change";
 
 export default class BaseStory extends EventEmitter {
-
   subscribe(actionSubscribe) {
     this._dispatchToken = Dispatcher.register(actionSubscribe());
   }
@@ -20,5 +19,4 @@ export default class BaseStory extends EventEmitter {
   removeChangeListener(callback) {
     this.removeListener(CHANGE_EVENT, callback);
   }
-
 }

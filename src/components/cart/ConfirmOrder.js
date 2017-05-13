@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 import LoginStore from "../../stores/LoginStore";
 import CartStore from "../../stores/CartStore";
 import CartService from "../../services/CartService";
@@ -18,7 +18,7 @@ class ConfirmOrder extends Component {
 
   _getState() {
     const loggedInUser = LoginStore.loggedInUser();
-    return ({
+    return {
       name: loggedInUser ? loggedInUser.name : "",
       phone: loggedInUser ? loggedInUser.phone : "",
       email: loggedInUser ? loggedInUser.email : "",
@@ -27,7 +27,7 @@ class ConfirmOrder extends Component {
       errors: {},
       totalPrice: CartStore.getTotalPrice(),
       products: CartStore.getProducts()
-    })
+    };
   }
 
   _onChange() {
@@ -35,15 +35,13 @@ class ConfirmOrder extends Component {
   }
 
   componentWillMount() {
-    CartStore.addChangeListener(this._onChange)
+    CartStore.addChangeListener(this._onChange);
   }
 
-  componentDidMount() {
-
-  }
+  componentDidMount() {}
 
   componentWillUnmount() {
-    CartStore.removeChangeListener(this._onChange)
+    CartStore.removeChangeListener(this._onChange);
   }
 
   onInputChange(e) {
@@ -51,15 +49,15 @@ class ConfirmOrder extends Component {
     const value = e.target.value;
     this.setState({
       [key]: value
-    })
+    });
   }
 
   isValid() {
-    const {errors, isValid} = ValidateConfirmInfor(this.state);
+    const { errors, isValid } = ValidateConfirmInfor(this.state);
     if (!isValid) {
       this.setState({
         errors: errors
-      })
+      });
     }
     return isValid;
   }
@@ -67,12 +65,17 @@ class ConfirmOrder extends Component {
   submit(e) {
     e.preventDefault();
     if (this.isValid()) {
-      CartService.order({
-        name: this.state.name,
-        phone: this.state.phone,
-        address: this.state.address,
-        email: this.state.email
-      }, this.state.totalPrice, this.state.note, this.state.products)
+      CartService.order(
+        {
+          name: this.state.name,
+          phone: this.state.phone,
+          address: this.state.address,
+          email: this.state.email
+        },
+        this.state.totalPrice,
+        this.state.note,
+        this.state.products
+      );
     }
   }
 
@@ -125,11 +128,15 @@ class ConfirmOrder extends Component {
 
         <div className="row">
           <div className="col-md-6 col-md-offset-3 text-right">
-            <RaisedButton secondary={true} label="Đặt hàng" onTouchTap={this.submit}/>
+            <RaisedButton
+              secondary={true}
+              label="Đặt hàng"
+              onTouchTap={this.submit}
+            />
           </div>
         </div>
       </div>
-    )
+    );
   }
 }
 

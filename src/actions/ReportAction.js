@@ -8,6 +8,6 @@ export default {
       reports,
       fromDate,
       toDate
-    })
+    });
   }
-}
+};

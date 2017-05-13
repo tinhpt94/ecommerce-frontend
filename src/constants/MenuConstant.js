@@ -1,7 +1,7 @@
 const MenuConstant = {
-  URL: 'products/menu',
-  FETCH_MENU: 'FETCH_MENU',
-  ERROR: 'ERROR'
+  URL: "products/menu",
+  FETCH_MENU: "FETCH_MENU",
+  ERROR: "ERROR"
 };
 
-export default MenuConstant
+export default MenuConstant;

@@ -4,23 +4,22 @@ import GlobalConstant from "../constants/GlobalConstant";
 import axios from "axios";
 
 class ProductService {
-
   fetchAll() {
     axios({
       baseURL: GlobalConstant.BASE_API,
       url: ProductConstant.URL,
-      method: 'GET',
+      method: "GET",
       headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
+        Accept: "application/json",
+        "Content-Type": "application/json"
       }
-    }).then(function (response) {
+    }).then(function(response) {
       switch (response.status) {
         case 200:
           ProductAction.fetchAll(response.data);
           break;
         default:
-          break
+          break;
       }
     });
     // fake data
@@ -42,56 +41,62 @@ class ProductService {
     axios({
       baseURL: GlobalConstant.BASE_API,
       url: ProductConstant.URL + code,
-      method: 'GET',
+      method: "GET",
       headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
+        Accept: "application/json",
+        "Content-Type": "application/json"
       }
-    }).then(function (response) {
-      switch (response.status) {
-        case 200:
-          ProductAction.fetchByCode(response.data);
-          break;
-        default:
-          break;
-      }
-    }).catch(function (error) {
-      if (error.response && error.response.status === 404) ProductAction.fetchByCodeNotFound();
     })
+      .then(function(response) {
+        switch (response.status) {
+          case 200:
+            ProductAction.fetchByCode(response.data);
+            break;
+          default:
+            break;
+        }
+      })
+      .catch(function(error) {
+        if (error.response && error.response.status === 404)
+          ProductAction.fetchByCodeNotFound();
+      });
   }
 
   fetchById(id) {
     axios({
       baseURL: GlobalConstant.BASE_API,
       url: ProductConstant.URL + "id/" + id,
-      method: 'GET',
+      method: "GET",
       headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
+        Accept: "application/json",
+        "Content-Type": "application/json"
       }
-    }).then(function (response) {
-      switch (response.status) {
-        case 200:
-          ProductAction.fetchByCode(response.data);
-          break;
-        default:
-          break;
-      }
-    }).catch(function (error) {
-      if (error.response && error.response.status === 404) ProductAction.fetchByCodeNotFound();
     })
+      .then(function(response) {
+        switch (response.status) {
+          case 200:
+            ProductAction.fetchByCode(response.data);
+            break;
+          default:
+            break;
+        }
+      })
+      .catch(function(error) {
+        if (error.response && error.response.status === 404)
+          ProductAction.fetchByCodeNotFound();
+      });
   }
 
   fetchByBrand(code) {
     axios({
       baseURL: GlobalConstant.BASE_API,
       url: ProductConstant.URL + "brand/" + code,
-      method: 'GET',
+      method: "GET",
       headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
+        Accept: "application/json",
+        "Content-Type": "application/json"
       }
-    }).then(function (response) {
+    }).then(function(response) {
       switch (response.status) {
         case 200:
           ProductAction.fetchByBrand(response.data);
@@ -99,19 +104,19 @@ class ProductService {
         default:
           break;
       }
-    })
+    });
   }
 
   fetchByType(code) {
     axios({
       baseURL: GlobalConstant.BASE_API,
       url: ProductConstant.URL + "product-type/" + code,
-      method: 'GET',
+      method: "GET",
       headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
+        Accept: "application/json",
+        "Content-Type": "application/json"
       }
-    }).then(function (response) {
+    }).then(function(response) {
       switch (response.status) {
         case 200:
           ProductAction.fetchByType(response.data);
@@ -119,19 +124,19 @@ class ProductService {
         default:
           break;
       }
-    })
+    });
   }
 
   fetchByMadeIn(code) {
     axios({
       baseURL: GlobalConstant.BASE_API,
       url: ProductConstant.URL + "made-in/" + code,
-      method: 'GET',
+      method: "GET",
       headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
+        Accept: "application/json",
+        "Content-Type": "application/json"
       }
-    }).then(function (response) {
+    }).then(function(response) {
       switch (response.status) {
         case 200:
           ProductAction.fetchByMadeIn(response.data);
@@ -139,7 +144,7 @@ class ProductService {
         default:
           break;
       }
-    })
+    });
   }
 
   addNew(product) {
@@ -148,8 +153,8 @@ class ProductService {
       url: ProductConstant.URL,
       method: "POST",
       headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
+        Accept: "application/json",
+        "Content-Type": "application/json"
       },
       data: {
         name: product.name,
@@ -163,17 +168,19 @@ class ProductService {
         quantity: product.quantity,
         rating: product.rating
       }
-    }).then(response => {
-      switch (response.status) {
-        case 201:
-          ProductAction.addNewSuccess();
-          break;
-        default:
-          break;
-      }
-    }).catch(error => {
-      ProductAction.addNewError();
     })
+      .then(response => {
+        switch (response.status) {
+          case 201:
+            ProductAction.addNewSuccess();
+            break;
+          default:
+            break;
+        }
+      })
+      .catch(error => {
+        ProductAction.addNewError();
+      });
   }
 
   edit(product) {
@@ -182,8 +189,8 @@ class ProductService {
       url: ProductConstant.URL,
       method: "PUT",
       headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
+        Accept: "application/json",
+        "Content-Type": "application/json"
       },
       data: {
         id: product.id,
@@ -198,17 +205,19 @@ class ProductService {
         quantity: product.quantity,
         rating: product.rating
       }
-    }).then(response => {
-      switch (response.status) {
-        case 200:
-          ProductAction.editSuccess();
-          break;
-        default:
-          break;
-      }
-    }).catch(error => {
-      ProductAction.editError()
     })
+      .then(response => {
+        switch (response.status) {
+          case 200:
+            ProductAction.editSuccess();
+            break;
+          default:
+            break;
+        }
+      })
+      .catch(error => {
+        ProductAction.editError();
+      });
   }
 
   delete(product) {
@@ -217,8 +226,8 @@ class ProductService {
       url: ProductConstant.URL,
       method: "DELETE",
       headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
+        Accept: "application/json",
+        "Content-Type": "application/json"
       },
       data: {
         id: product.id,
@@ -233,17 +242,19 @@ class ProductService {
         quantity: product.quantity,
         rating: product.rating
       }
-    }).then(response => {
-      switch (response.status) {
-        case 200:
-          ProductAction.delete(product);
-          break;
-        default:
-          break;
-      }
-    }).catch(error => {
-      console.log(error);
     })
+      .then(response => {
+        switch (response.status) {
+          case 200:
+            ProductAction.delete(product);
+            break;
+          default:
+            break;
+        }
+      })
+      .catch(error => {
+        console.log(error);
+      });
   }
 
   addComment(comment) {
@@ -253,8 +264,8 @@ class ProductService {
       url: ProductConstant.URL + "comments/",
       method: "POST",
       headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
+        Accept: "application/json",
+        "Content-Type": "application/json"
       },
       data: {
         title: comment.title,
@@ -263,21 +274,22 @@ class ProductService {
         product_id: comment.productId,
         user_id: userId
       }
-    }).then(response => {
-      switch (response.status) {
-        case 201:
-          ProductAction.addComment(response.data);
-          break;
-        default:
-          break;
-      }
-    }).catch(error => {
-      if (error.response) {
-
-      } else {
-        console.log(error);
-      }
     })
+      .then(response => {
+        switch (response.status) {
+          case 201:
+            ProductAction.addComment(response.data);
+            break;
+          default:
+            break;
+        }
+      })
+      .catch(error => {
+        if (error.response) {
+        } else {
+          console.log(error);
+        }
+      });
   }
 }
 

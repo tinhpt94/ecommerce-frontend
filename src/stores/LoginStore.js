@@ -4,7 +4,9 @@ import LoginConstant from "../constants/LoginConstant";
 class LoginStore extends BaseStore {
   constructor() {
     super();
-    this.userLoggedIn = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : null;
+    this.userLoggedIn = localStorage.getItem("user")
+      ? JSON.parse(localStorage.getItem("user"))
+      : null;
     this.error = null;
     this.subscribe(() => this.handler.bind(this));
   }
@@ -24,19 +26,17 @@ class LoginStore extends BaseStore {
         this.error = action.error;
         this.emitChange();
         break;
-      default :
+      default:
     }
   }
 
   loggedInUser() {
-    return this.userLoggedIn
+    return this.userLoggedIn;
   }
 
   loginError() {
-    return this.error
+    return this.error;
   }
-
-
 }
 
 const loginStore = new LoginStore();

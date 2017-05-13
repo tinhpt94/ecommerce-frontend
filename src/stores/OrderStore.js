@@ -39,4 +39,4 @@ class OrderStore extends BaseStore {
   }
 }
 
-export default new OrderStore()
+export default new OrderStore();

@@ -1,5 +1,5 @@
-import React, {Component} from 'react'
-import LoginForm from './LoginForm'
+import React, { Component } from "react";
+import LoginForm from "./LoginForm";
 
 export default class LoginPage extends Component {
   render() {
@@ -11,6 +11,6 @@ export default class LoginPage extends Component {
           </div>
         </div>
       </div>
-    )
+    );
   }
 }

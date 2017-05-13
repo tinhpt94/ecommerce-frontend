@@ -2,37 +2,37 @@ import Dispatcher from "../dispatcher/Dispatcher";
 import OrderConstant from "../constants/OrderConstant";
 
 export default {
-  fetchAll: (orders) => {
+  fetchAll: orders => {
     Dispatcher.dispatch({
       actionType: OrderConstant.FETCH_ALL,
       orders: orders
-    })
+    });
   },
 
-  fetchById: (order) => {
+  fetchById: order => {
     Dispatcher.dispatch({
       actionType: OrderConstant.FETCH_BY_ID,
       order
-    })
+    });
   },
 
-  updateOrderSuccess: (order) => {
+  updateOrderSuccess: order => {
     Dispatcher.dispatch({
       actionType: OrderConstant.UPDATE_ORDER_SUCCESS,
       order
-    })
+    });
   },
 
   updateOrderError: () => {
     Dispatcher.dispatch({
       actionType: OrderConstant.UPDATE_ORDER_ERROR
-    })
+    });
   },
 
-  fetchByUser: (orders) => {
+  fetchByUser: orders => {
     Dispatcher.dispatch({
       actionType: OrderConstant.FETCH_BY_USER,
       orders
-    })
+    });
   }
-}
+};

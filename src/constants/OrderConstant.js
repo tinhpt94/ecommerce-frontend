@@ -8,4 +8,4 @@ const OrderConstant = {
   URL_USER: "orders-user?userId="
 };
 
-export default OrderConstant
+export default OrderConstant;

@@ -1,5 +1,5 @@
-import React, {Component} from "react";
-import {Link} from "react-router";
+import React, { Component } from "react";
+import { Link } from "react-router";
 import $ from "jquery";
 import "../../../memenu";
 import FilterStore from "../../../stores/FilterSortStore";
@@ -19,11 +19,11 @@ class Header extends Component {
     return {
       searchName: FilterStore.getSearchName(),
       menu: MenuStore.getMenu()
-    }
+    };
   }
 
   _onChange() {
-    this.setState(this._getState())
+    this.setState(this._getState());
   }
 
   componentWillMount() {
@@ -32,7 +32,7 @@ class Header extends Component {
   }
 
   onSearchChange(e) {
-    this.setState({searchName: e.target.value});
+    this.setState({ searchName: e.target.value });
     FilterAction.filterByName(e.target.value);
   }
 
@@ -60,33 +60,56 @@ class Header extends Component {
               <div className="top-nav">
                 <ul className="memenu skyblue">
                   <li><Link to="/">Trang chủ</Link></li>
-                  <li className="grid"><a href="#">Danh mục sản phẩm</a>
+                  <li className="grid">
+                    <a href="#">Danh mục sản phẩm</a>
                     <div className="mepanel">
                       <div className="row">
                         <div className="col1 me-one">
                           <h4>Thương hiệu</h4>
                           <ul>
-                            {brands.length !== 0 ? brands.map((brand, index) => {
-                                return <li key={index}><Link to={"/brand/" + brand.code }>{brand.brand}</Link></li>
-                              }) : null}
+                            {brands.length !== 0
+                              ? brands.map((brand, index) => {
+                                  return (
+                                    <li key={index}>
+                                      <Link to={"/brand/" + brand.code}>
+                                        {brand.brand}
+                                      </Link>
+                                    </li>
+                                  );
+                                })
+                              : null}
                           </ul>
                         </div>
                         <div className="col1 me-one">
                           <h4>Loại sản phẩm</h4>
                           <ul>
-                            {productTypes !== 0 ? productTypes.map((type, index) => {
-                                return <li key={index}><Link to={"/product-type/" + type.code }>{type.type_name}</Link>
-                                </li>
-                              }) : null}
+                            {productTypes !== 0
+                              ? productTypes.map((type, index) => {
+                                  return (
+                                    <li key={index}>
+                                      <Link to={"/product-type/" + type.code}>
+                                        {type.type_name}
+                                      </Link>
+                                    </li>
+                                  );
+                                })
+                              : null}
                           </ul>
                         </div>
                         <div className="col1 me-one">
                           <h4>Xuất xứ</h4>
                           <ul>
-                            {madeIns.length !== 0 ? madeIns.map((madeIn, index) => {
-                                return <li key={index}><Link to={"/made-in/" + madeIn.code }>{madeIn.made_in}</Link>
-                                </li>
-                              }) : null}
+                            {madeIns.length !== 0
+                              ? madeIns.map((madeIn, index) => {
+                                  return (
+                                    <li key={index}>
+                                      <Link to={"/made-in/" + madeIn.code}>
+                                        {madeIn.made_in}
+                                      </Link>
+                                    </li>
+                                  );
+                                })
+                              : null}
                           </ul>
                         </div>
                       </div>
@@ -94,21 +117,25 @@ class Header extends Component {
                   </li>
                 </ul>
               </div>
-              <div className="clearfix"></div>
+              <div className="clearfix" />
             </div>
 
             <div className="col-md-3 header-right">
               <div className="search-bar">
-                <input type="text" placeholder="Search" value={this.state.searchName} onChange={this.onSearchChange}/>
+                <input
+                  type="text"
+                  placeholder="Search"
+                  value={this.state.searchName}
+                  onChange={this.onSearchChange}
+                />
               </div>
             </div>
 
-            <div className="clearfix">
-            </div>
+            <div className="clearfix" />
           </div>
         </div>
       </div>
-    )
+    );
   }
 }
 

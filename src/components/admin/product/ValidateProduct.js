@@ -5,46 +5,46 @@ import isNumber from "lodash/isNumber";
 export default function validateAddNewProduct(data) {
   let errors = {};
   if (Validator.isEmpty(data.name)) {
-    errors.name = "Please insert product name"
+    errors.name = "Please insert product name";
   }
   if (!isNumber(data.price)) {
-    errors.price = "Please insert price"
+    errors.price = "Please insert price";
   }
   if (!isNumber(data.discount)) {
-    errors.discount = "Please insert discount"
+    errors.discount = "Please insert discount";
   }
   if (!isNumber(data.quantity)) {
-    errors.quantity = "Please insert quantity"
+    errors.quantity = "Please insert quantity";
   }
   if (!isNumber(data.rating)) {
-    errors.rating = "Please insert valid rating"
+    errors.rating = "Please insert valid rating";
   }
   if (data.price < 0) {
-    errors.price = "Please insert valid price"
+    errors.price = "Please insert valid price";
   }
   if (data.discount < 0) {
-    errors.discount = "Please insert valid discount"
+    errors.discount = "Please insert valid discount";
   }
   if (data.quantity < 0) {
-    errors.quantity = "Please insert valid quantity"
+    errors.quantity = "Please insert valid quantity";
   }
   if (data.rating < 0) {
-    errors.rating = "Please insert valid rating"
+    errors.rating = "Please insert valid rating";
   }
   if (!isNumber(data.brand) || data.brand === 0) {
-    errors.brand = "Please select brand"
+    errors.brand = "Please select brand";
   }
   if (!isNumber(data.made_in) || data.made_in === 0) {
-    errors.made_in = "Please select made in"
+    errors.made_in = "Please select made in";
   }
   if (!isNumber(data.product_type) || data.product_type === 0) {
-    errors.product_type = "Please select product type"
+    errors.product_type = "Please select product type";
   }
   if (Validator.isEmpty(data.image_url)) {
-    errors.image_url = "Please select image"
+    errors.image_url = "Please select image";
   }
-  return ({
+  return {
     errors: errors,
     isValid: isEmpty(errors)
-  })
+  };
 }

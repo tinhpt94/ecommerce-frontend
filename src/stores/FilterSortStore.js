@@ -29,7 +29,7 @@ class FilterSortStore extends BaseStore {
         this.orderBy = action.orderBy;
         this.emitChange();
         break;
-      default :
+      default:
         break;
     }
   }
@@ -47,15 +47,15 @@ class FilterSortStore extends BaseStore {
   }
 
   getDefaultFilter() {
-    return ({
+    return {
       brand: "",
       type: "",
       madeIn: "",
       price: "",
       discount: "",
       rating: ""
-    })
+    };
   }
 }
 
-export default new FilterSortStore()
+export default new FilterSortStore();

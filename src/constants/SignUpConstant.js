@@ -1,7 +1,7 @@
 const SignUpConstant = {
   SIGN_UP: "SIGN_UP",
   ERROR: "ERROR",
-  URL: 'users'
+  URL: "users"
 };
 
-export default SignUpConstant
+export default SignUpConstant;

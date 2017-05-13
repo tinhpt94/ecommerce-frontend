@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 import TextFieldGroup from "../common/TextFieldGroup";
 import ProductStore from "../../stores/ProductStore";
 import ProductService from "../../services/ProductService";
@@ -7,7 +7,6 @@ import Stars from "react-stars";
 import ValidateComment from "./ValidateComment";
 
 export default class CommentForm extends Component {
-
   constructor(props) {
     super(props);
     this.state = this._getState();
@@ -20,12 +19,12 @@ export default class CommentForm extends Component {
   }
 
   _getState() {
-    return ({
+    return {
       title: "",
       content: "",
       rating: 5,
       errors: {}
-    })
+    };
   }
 
   _onChange() {
@@ -33,23 +32,23 @@ export default class CommentForm extends Component {
   }
 
   componentWillMount() {
-    ProductStore.addChangeListener(this._onChange)
+    ProductStore.addChangeListener(this._onChange);
   }
 
   componentWillUnmount() {
-    ProductStore.removeChangeListener(this._onChange)
+    ProductStore.removeChangeListener(this._onChange);
   }
 
   onSelectStars(e, data) {
-    this.setState({rating: data.rating})
+    this.setState({ rating: data.rating });
   }
 
   isValid() {
-    const {errors, isValid} = ValidateComment(this.state);
+    const { errors, isValid } = ValidateComment(this.state);
     if (!isValid) {
       this.setState({
         errors: errors
-      })
+      });
     }
     return isValid;
   }
@@ -57,7 +56,7 @@ export default class CommentForm extends Component {
   onInputChange(e) {
     this.setState({
       [e.target.name]: e.target.value
-    })
+    });
   }
 
   onSubmit(e) {
@@ -68,25 +67,26 @@ export default class CommentForm extends Component {
         content: this.state.content,
         rating: this.state.rating,
         productId: this.props.product.id
-      })
+      });
     }
   }
 
   ratingChanged(newRating) {
     this.setState({
       rating: newRating
-    })
+    });
   }
 
   render() {
     return (
       <div className="comment-wrapper">
 
-        <Stars name="disabled"
-               totalStars={5}
-               value={this.state.rating}
-               size={14}
-               onChange={this.ratingChanged}
+        <Stars
+          name="disabled"
+          totalStars={5}
+          value={this.state.rating}
+          size={14}
+          onChange={this.ratingChanged}
         />
 
         <TextFieldGroup
@@ -104,8 +104,8 @@ export default class CommentForm extends Component {
           error={this.state.errors.content}
         />
 
-        <RaisedButton label="Đánh giá" onTouchTap={this.onSubmit}/>
+        <RaisedButton label="Đánh giá" onTouchTap={this.onSubmit} />
       </div>
-    )
+    );
   }
 }

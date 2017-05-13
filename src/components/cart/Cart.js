@@ -1,105 +1,140 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 import AuthenticatedUser from "../common/AuthenticatedUser";
-import {Table} from "react-bootstrap";
+import { Table } from "react-bootstrap";
 import CartStore from "../../stores/CartStore";
 import CartAction from "../../actions/CartAction";
-import {FormattedNumber} from "react-intl";
-import {Link} from "react-router";
+import { FormattedNumber } from "react-intl";
+import { Link } from "react-router";
 import RaisedButton from "material-ui/RaisedButton";
-import RemoveShoppingCart from "material-ui/svg-icons/action/remove-shopping-cart";
+import RemoveShoppingCart
+  from "material-ui/svg-icons/action/remove-shopping-cart";
 import NumericInput from "react-numeric-input";
 
-export default AuthenticatedUser(class Cart extends Component {
+export default AuthenticatedUser(
+  class Cart extends Component {
+    constructor(props) {
+      super(props);
+      this.state = this._getState();
+      this._onChange = this._onChange.bind(this);
+    }
 
-  constructor(props) {
-    super(props);
-    this.state = this._getState();
-    this._onChange = this._onChange.bind(this);
-  }
+    _getState() {
+      return {
+        products: CartStore.getProducts(),
+        totalPrice: CartStore.getTotalPrice(),
+        totalProduct: CartStore.getTotalProduct(),
+        confirmDelete: false
+      };
+    }
 
-  _getState() {
-    return ({
-      products: CartStore.getProducts(),
-      totalPrice: CartStore.getTotalPrice(),
-      totalProduct: CartStore.getTotalProduct(),
-      confirmDelete: false
-    })
-  }
+    _onChange() {
+      this.setState(this._getState());
+    }
 
-  _onChange() {
-    this.setState(this._getState());
-  }
+    componentWillMount() {
+      CartStore.addChangeListener(this._onChange);
+    }
 
-  componentWillMount() {
-    CartStore.addChangeListener(this._onChange);
-  }
+    componentDidMount() {}
 
-  componentDidMount() {
+    componentWillUnmount() {
+      CartStore.removeChangeListener(this._onChange);
+    }
 
-  }
+    onQuantityChange = (newQuantity, code) => {
+      CartAction.editItemQuantity(newQuantity, code);
+    };
 
-  componentWillUnmount() {
-    CartStore.removeChangeListener(this._onChange);
-  }
+    onRemoveProduct(product) {
+      CartAction.removeFromCart(product);
+    }
 
-  onQuantityChange = (newQuantity, code) => {
-    CartAction.editItemQuantity(newQuantity, code);
-  };
-
-  onRemoveProduct(product) {
-    CartAction.removeFromCart(product);
-  }
-
-  render() {
-    const products = this.state.products;
-    return (
-      <div className="cart-view">
-        <div className="row">
-          <div className="col-md-12">
-            <Table responsive>
-              <thead>
-              <tr>
-                <th style={{width: "10%"}}>#</th>
-                <th style={{width: "40%"}}>Sản phẩm</th>
-                <th style={{width: "10%"}}>Đơn giá</th>
-                <th style={{width: "15%"}}>Số lượng</th>
-                <th style={{width: "15%"}}>Số tiền</th>
-                <th style={{width: "10%"}}>Thao tác</th>
-              </tr>
-              </thead>
-              <tbody>
-              {products.map((product, index) => {
-                return <tr key={index}>
-                  <td className="cart-item">{index + 1}</td>
-                  <td className="cart-item"><img src={product.image_url} height={42} width={42}/> {product.name} </td>
-                  <td className="cart-item"><span><FormattedNumber value={product.price}/></span></td>
-                  <td className="cart-item">
-                    <NumericInput className="form-control"
-                                  min={1} value={product.quantity}
-                                  onChange={e => this.onQuantityChange(e, product.code)}
-                    />
-                  </td>
-                  <td className="cart-item"><FormattedNumber value={product.price * product.quantity}/></td>
-                  <td className="cart-item">
-                    <RaisedButton backgroundColor="#F44336"
-                                  onTouchTap={e => this.onRemoveProduct(product)} icon={<RemoveShoppingCart/>}
-                                  label="Xoá"
-                                  labelPosition="after"/>
-                  </td>
-                </tr>
-              })}
-              </tbody>
-            </Table>
+    render() {
+      const products = this.state.products;
+      return (
+        <div className="cart-view">
+          <div className="row">
+            <div className="col-md-12">
+              <Table responsive>
+                <thead>
+                  <tr>
+                    <th style={{ width: "10%" }}>#</th>
+                    <th style={{ width: "40%" }}>Sản phẩm</th>
+                    <th style={{ width: "10%" }}>Đơn giá</th>
+                    <th style={{ width: "15%" }}>Số lượng</th>
+                    <th style={{ width: "15%" }}>Số tiền</th>
+                    <th style={{ width: "10%" }}>Thao tác</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {products.map((product, index) => {
+                    return (
+                      <tr key={index}>
+                        <td className="cart-item">{index + 1}</td>
+                        <td className="cart-item">
+                          <img src={product.image_url} height={42} width={42} />
+                          {" "}
+                          {product.name}
+                          {" "}
+                        </td>
+                        <td className="cart-item">
+                          <span><FormattedNumber value={product.price} /></span>
+                        </td>
+                        <td className="cart-item">
+                          <NumericInput
+                            className="form-control"
+                            min={1}
+                            value={product.quantity}
+                            onChange={e =>
+                              this.onQuantityChange(e, product.code)}
+                          />
+                        </td>
+                        <td className="cart-item">
+                          <FormattedNumber
+                            value={product.price * product.quantity}
+                          />
+                        </td>
+                        <td className="cart-item">
+                          <RaisedButton
+                            backgroundColor="#F44336"
+                            onTouchTap={e => this.onRemoveProduct(product)}
+                            icon={<RemoveShoppingCart />}
+                            label="Xoá"
+                            labelPosition="after"
+                          />
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </Table>
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-md-12 text-right cart-bottom">
+              <label className="cart-total">
+                Tổng tiền hàng (
+                {this.state.totalProduct}
+                {" "}
+                sản phẩm):
+                {" "}
+                <FormattedNumber
+                  value={this.state.totalPrice}
+                  style="currency"
+                  currency="VND"
+                />
+              </label>
+              <Link
+                to="/confirm-order"
+                type="button"
+                className="btn btn-lg btn-primary"
+              >
+                Mua hàng
+              </Link>
+            </div>
           </div>
         </div>
-        <div className="row">
-          <div className="col-md-12 text-right cart-bottom">
-            <label className="cart-total">Tổng tiền hàng ({this.state.totalProduct} sản phẩm): <FormattedNumber
-              value={this.state.totalPrice} style="currency" currency="VND"/></label>
-            <Link to="/confirm-order" type="button" className="btn btn-lg btn-primary">Mua hàng</Link>
-          </div>
-        </div>
-      </div>
-    )
+      );
+    }
   }
-})
+);

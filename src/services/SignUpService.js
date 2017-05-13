@@ -8,25 +8,27 @@ class SignUpService {
     axios({
       baseURL: GlobalConstant.BASE_API,
       url: SignUpConstant.URL,
-      method: 'POST',
-      type: 'json',
+      method: "POST",
+      type: "json",
       headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
+        Accept: "application/json",
+        "Content-Type": "application/json"
       },
       data: user
-    }).then(function (response) {
-      switch (response.status) {
-        case 200:
-          SignUpAction.signUp();
-          break;
-        default :
-          break;
-      }
-    }).catch(function (error) {
-      console.log(error);
     })
+      .then(function(response) {
+        switch (response.status) {
+          case 200:
+            SignUpAction.signUp();
+            break;
+          default:
+            break;
+        }
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
   }
 }
 
-export default new SignUpService()
+export default new SignUpService();

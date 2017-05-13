@@ -3,7 +3,7 @@ import TextFieldGroup from "../common/TextFieldGroup";
 import ValidateLogin from "./ValidateLogin";
 import LoginService from "../../services/LoginService";
 import LoginStore from "../../stores/LoginStore";
-import {browserHistory} from "react-router";
+import { browserHistory } from "react-router";
 
 class LoginForm extends React.Component {
   constructor(props) {
@@ -29,9 +29,9 @@ class LoginForm extends React.Component {
 
   componentDidMount() {
     if (LoginStore.userLoggedIn) {
-      browserHistory.push('/');
+      browserHistory.push("/");
     } else {
-      browserHistory.push('/login');
+      browserHistory.push("/login");
     }
     LoginStore.addChangeListener(this._onChange);
   }
@@ -42,17 +42,18 @@ class LoginForm extends React.Component {
 
   componentDidUpdate() {
     if (LoginStore.loggedInUser()) {
-      if (LoginStore.loggedInUser().role === "USER") browserHistory.push('/');
-      else if (LoginStore.loggedInUser().role === "ADMIN") browserHistory.push('/admin');
+      if (LoginStore.loggedInUser().role === "USER") browserHistory.push("/");
+      else if (LoginStore.loggedInUser().role === "ADMIN")
+        browserHistory.push("/admin");
     }
   }
 
   isValid() {
-    const {errors, isValid} = ValidateLogin(this.state);
+    const { errors, isValid } = ValidateLogin(this.state);
     if (!isValid) {
       this.setState({
         errors: errors
-      })
+      });
     }
     return isValid;
   }
@@ -60,7 +61,7 @@ class LoginForm extends React.Component {
   onChange(e) {
     this.setState({
       [e.target.name]: e.target.value
-    })
+    });
   }
 
   submit(e) {
@@ -76,12 +77,12 @@ class LoginForm extends React.Component {
         <div className="text-danger form-group error">
           Login false! Plz check your password or ID.
         </div>
-      )
+      );
     }
   }
 
   render() {
-    return(
+    return (
       <form onSubmit={this.submit} className="login-form">
         <h1 className="text-center">Đăng nhập</h1>
         {this.errorMessage}
@@ -107,10 +108,8 @@ class LoginForm extends React.Component {
           </button>
         </div>
       </form>
-    )
+    );
   }
 }
 
-export default LoginForm
-
-
+export default LoginForm;

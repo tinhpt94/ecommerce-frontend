@@ -12,7 +12,9 @@ class CartStore extends BaseStore {
     switch (action.actionType) {
       case CartConstant.ADD_TO_CART:
         const addedProduct = action.product;
-        let alreadyHaveProduct = this.products.filter(product => product.code === addedProduct.code);
+        let alreadyHaveProduct = this.products.filter(
+          product => product.code === addedProduct.code
+        );
         if (alreadyHaveProduct.length === 0) this.products.push(addedProduct);
         else {
           const productCodes = this.products.map(product => product.code);
@@ -28,7 +30,9 @@ class CartStore extends BaseStore {
       case CartConstant.REMOVE_FROM_CART:
         const removedProduct = action.product;
         const index = this.products.indexOf(removedProduct);
-        const tempCart = this.products.slice(0, index).concat(this.products.slice(index + 1, this.products.length));
+        const tempCart = this.products
+          .slice(0, index)
+          .concat(this.products.slice(index + 1, this.products.length));
         this.products = tempCart;
         localStorage.setItem("cartItems", JSON.stringify(this.products));
         this.emitChange();
@@ -61,28 +65,30 @@ class CartStore extends BaseStore {
 
   getTotalProduct() {
     const products = this.products;
-    if (products) return products.reduce((a, b) => {
-      const value = parseInt(b.quantity);
-      if (!isNaN(value)) {
-        return a + value
-      }
-      return a
-    }, 0);
+    if (products)
+      return products.reduce((a, b) => {
+        const value = parseInt(b.quantity);
+        if (!isNaN(value)) {
+          return a + value;
+        }
+        return a;
+      }, 0);
     return 0;
   }
 
   getTotalPrice() {
     const products = this.products;
-    if (products) return products.reduce((a, b) => {
-      const price = parseInt(b.price);
-      const quantity = parseInt(b.quantity);
-      if (!isNaN(price) && !isNaN(quantity)) {
-        return a + price * quantity;
-      }
-      return a
-    }, 0);
+    if (products)
+      return products.reduce((a, b) => {
+        const price = parseInt(b.price);
+        const quantity = parseInt(b.quantity);
+        if (!isNaN(price) && !isNaN(quantity)) {
+          return a + price * quantity;
+        }
+        return a;
+      }, 0);
     return 0;
   }
 }
 
-export default new CartStore()
+export default new CartStore();

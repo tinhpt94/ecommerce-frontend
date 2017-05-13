@@ -1,31 +1,28 @@
-/**
- * Created by PhamTinh on 2/19/2017.
- */
-import Validator from 'validator'
-import isEmpty from 'lodash/isEmpty'
+import Validator from "validator";
+import isEmpty from "lodash/isEmpty";
 
 export default function validateSignUp(data) {
   let errors = {};
   if (Validator.isEmpty(data.username)) {
-    errors.username = "Please insert username"
+    errors.username = "Bạn chưa nhập tên tài khoản";
   }
   if (Validator.isEmpty(data.email)) {
-    errors.email = "Please insert email"
+    errors.email = "Bạn chưa nhập email";
   }
   if (Validator.isEmpty(data.password)) {
-    errors.password = "Please insert password"
+    errors.password = "Bạn chưa nhập mật khẩu";
   }
   if (Validator.isEmpty(data.passwordConfirmation)) {
-    errors.passwordConfirmation = "Please insert password confirm"
+    errors.passwordConfirmation = "Bạn chưa nhập mật khẩu xác nhận";
   }
   if (!Validator.isEmail(data.email)) {
-    errors.email = "Email is invalid"
+    errors.email = "Email không đúng định dạng";
   }
   if (!Validator.equals(data.password, data.passwordConfirmation)) {
-    errors.passwordConfirmation = "Password confirm must match with password"
+    errors.passwordConfirmation = "Mật khẩu xác nhận phải giống mật khẩu";
   }
-  return({
+  return {
     errors: errors,
     isValid: isEmpty(errors)
-  })
+  };
 }

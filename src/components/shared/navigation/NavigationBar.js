@@ -1,13 +1,13 @@
 import React from "react";
-import {Link} from "react-router";
+import { Link } from "react-router";
 import LoginStore from "../../../stores/LoginStore";
 import LoginService from "../../../services/LoginService";
 import CartStore from "../../../stores/CartStore";
-import {IconMenu, IconButton, ToolbarGroup, MenuItem} from "material-ui";
-import NavigationExpandMoreIcon from "material-ui/svg-icons/navigation/expand-more";
+import { IconMenu, IconButton, ToolbarGroup, MenuItem } from "material-ui";
+import NavigationExpandMoreIcon
+  from "material-ui/svg-icons/navigation/expand-more";
 
 export default class NavigationBar extends React.Component {
-
   constructor(props) {
     super(props);
     this.state = this._getState();
@@ -55,7 +55,7 @@ export default class NavigationBar extends React.Component {
           </div>
         </div>
       </nav>
-    )
+    );
   }
 
   get navBar() {
@@ -63,33 +63,44 @@ export default class NavigationBar extends React.Component {
       return (
         <ul className="nav navbar-nav navbar-right">
           <li><Link to="/compare-product">So sánh</Link></li>
-          <li><Link to="/cart">Giỏ hàng <span className="badge">{this.state.totalProduct}</span></Link></li>
+          <li>
+            <Link to="/cart">
+              Giỏ hàng <span className="badge">{this.state.totalProduct}</span>
+            </Link>
+          </li>
           <li><a>Welcome {this.state.userLoggedIn.name}</a></li>
           <li>
             <ToolbarGroup>
-              <IconMenu anchorOrigin={{vertical: 'bottom', horizontal: 'left'}}
-                        iconButtonElement={
-                          <IconButton touch={true}>
-                            <NavigationExpandMoreIcon />
-                          </IconButton>
-                        }
+              <IconMenu
+                anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+                iconButtonElement={
+                  <IconButton touch={true}>
+                    <NavigationExpandMoreIcon />
+                  </IconButton>
+                }
               >
-                <MenuItem primaryText={<Link to="user">Tài khoản của tôi</Link>}/>
-                <MenuItem primaryText="Đăng xuất" onTouchTap={this.logout}/>
+                <MenuItem
+                  primaryText={<Link to="user">Tài khoản của tôi</Link>}
+                />
+                <MenuItem primaryText="Đăng xuất" onTouchTap={this.logout} />
               </IconMenu>
-            </ToolbarGroup></li>
+            </ToolbarGroup>
+          </li>
         </ul>
-      )
+      );
     } else {
       return (
         <ul className="nav navbar-nav navbar-right">
           <li><Link to="/compare-product">So sánh</Link></li>
-          <li><Link to="/cart">Giỏ hàng <span className="badge">{this.state.totalProduct}</span></Link></li>
+          <li>
+            <Link to="/cart">
+              Giỏ hàng <span className="badge">{this.state.totalProduct}</span>
+            </Link>
+          </li>
           <li><Link to="/login">Login</Link></li>
           <li><Link to="/signup">Sign up</Link></li>
         </ul>
-      )
+      );
     }
   }
-
 }

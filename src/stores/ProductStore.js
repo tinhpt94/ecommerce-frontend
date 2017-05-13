@@ -58,7 +58,9 @@ class ProductStore extends BaseStore {
         break;
       case ProductConstant.DELETE:
         const index = this.products.indexOf(action.product);
-        const tempProducts = this.products.slice(0, index).concat(this.products.slice(index + 1, this.products.length));
+        const tempProducts = this.products
+          .slice(0, index)
+          .concat(this.products.slice(index + 1, this.products.length));
         this.products = tempProducts;
         this.emitChange();
         break;
@@ -66,7 +68,7 @@ class ProductStore extends BaseStore {
         this.selectedProduct.comments.push(action.comment);
         this.emitChange();
         break;
-      default :
+      default:
         break;
     }
   }
@@ -90,7 +92,6 @@ class ProductStore extends BaseStore {
   getSelectedProduct() {
     return this.selectedProduct;
   }
-
 }
 
 const productStore = new ProductStore();

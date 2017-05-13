@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 
 export default class ScrollButton extends Component {
   constructor() {
@@ -17,17 +17,23 @@ export default class ScrollButton extends Component {
   }
 
   scrollToTop() {
-    let intervalId = setInterval(this.scrollStep.bind(this), this.props.delayInMs);
-    this.setState({intervalId: intervalId});
+    let intervalId = setInterval(
+      this.scrollStep.bind(this),
+      this.props.delayInMs
+    );
+    this.setState({ intervalId: intervalId });
   }
 
   render() {
     return (
-      <button title='Back to top' className='scroll'
-              onClick={ () => {
-                this.scrollToTop();
-              }}>
-        <span className='arrow-up glyphicon glyphicon-chevron-up'/>
+      <button
+        title="Back to top"
+        className="scroll"
+        onClick={() => {
+          this.scrollToTop();
+        }}
+      >
+        <span className="arrow-up glyphicon glyphicon-chevron-up" />
       </button>
     );
   }

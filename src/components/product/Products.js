@@ -5,7 +5,7 @@ import ProductFilter from "./ProductFilter";
 import ProductStore from "../../stores/ProductStore";
 import ProductService from "../../services/ProductService";
 import FilterSortStore from "../../stores/FilterSortStore";
-import {filterByProps, sortProduct} from "./FilterSortHandler";
+import { filterByProps, sortProduct } from "./FilterSortHandler";
 import FilterSortAction from "../../actions/FilterSortAction";
 import DropDownMenu from "material-ui/DropDownMenu";
 import MenuItem from "material-ui/MenuItem";
@@ -27,11 +27,11 @@ class Products extends React.Component {
       filterProps: FilterSortStore.getFilterProperties(),
       activePage: 1,
       orderBy: FilterSortStore.getOrderBy()
-    }
+    };
   }
 
   _onChange() {
-    this.setState(this._getState())
+    this.setState(this._getState());
   }
 
   componentWillMount() {
@@ -80,21 +80,26 @@ class Products extends React.Component {
   onSelectedOrder(orderBy) {
     this.setState({
       orderBy: orderBy
-    })
+    });
   }
 
-  handleChange = (event, index, value) => this.setState({
-    orderBy: value
-  });
+  handleChange = (event, index, value) =>
+    this.setState({
+      orderBy: value
+    });
 
   render() {
     const products = this.state.products;
     const searchName = this.state.searchName;
     const sortedProduct = sortProduct.bind(this)(this.state.orderBy, products);
     const filterProps = this.state.filterProps;
-    const filterByName = sortedProduct.filter(function (product) {
-      const productName = product.name === undefined || product.name === '' ? "" : product.name;
-      return (String(productName).toLowerCase().includes(searchName.trim().toLowerCase()));
+    const filterByName = sortedProduct.filter(function(product) {
+      const productName = product.name === undefined || product.name === ""
+        ? ""
+        : product.name;
+      return String(productName)
+        .toLowerCase()
+        .includes(searchName.trim().toLowerCase());
     });
     const filteredProduct = filterByProps.bind(this)(filterByName, filterProps);
     if (filteredProduct.length > 0) {
@@ -102,30 +107,44 @@ class Products extends React.Component {
         <div className="row">
 
           <div className="col-md-12">
-            <DropDownMenu value={this.state.orderBy} onChange={this.handleChange}>
-              <MenuItem value={"newest"} primaryText="Hàng mới nhập"/>
-              <MenuItem value={"discount"} primaryText="Giảm giá nhiều nhất"/>
-              <MenuItem value={"price-low-to-high"} primaryText="Giá: Từ thấp đến cao"/>
-              <MenuItem value={"price-high-to-low"} primaryText="Giá: Từ cao đến thấp"/>
-              <MenuItem value={"name-a-z"} primaryText="Sắp xếp theo tên: A-Z"/>
+            <DropDownMenu
+              value={this.state.orderBy}
+              onChange={this.handleChange}
+            >
+              <MenuItem value={"newest"} primaryText="Hàng mới nhập" />
+              <MenuItem value={"discount"} primaryText="Giảm giá nhiều nhất" />
+              <MenuItem
+                value={"price-low-to-high"}
+                primaryText="Giá: Từ thấp đến cao"
+              />
+              <MenuItem
+                value={"price-high-to-low"}
+                primaryText="Giá: Từ cao đến thấp"
+              />
+              <MenuItem
+                value={"name-a-z"}
+                primaryText="Sắp xếp theo tên: A-Z"
+              />
             </DropDownMenu>
           </div>
 
           <div className="col-md-9">
-            <ProductListComponent productList={filteredProduct} {...this.props} cols={3}/>
+            <ProductListComponent
+              productList={filteredProduct}
+              {...this.props}
+              cols={3}
+            />
           </div>
 
           <div className="col-md-3">
-            <ProductFilter productList={filteredProduct}/>
+            <ProductFilter productList={filteredProduct} />
           </div>
         </div>
-      )
+      );
     } else {
-      return (
-        <NoAvailableProduct/>
-      )
+      return <NoAvailableProduct />;
     }
   }
 }
 
-export default Products
+export default Products;

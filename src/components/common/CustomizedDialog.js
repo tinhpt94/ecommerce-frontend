@@ -1,9 +1,9 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 import Dialog from "material-ui/Dialog";
 
 class CustomizedDialog extends Component {
   render() {
-    const {title, content, actions, open, handleClose} = this.props;
+    const { title, content, actions, open, handleClose } = this.props;
     return (
       <Dialog
         title={title}
@@ -14,8 +14,8 @@ class CustomizedDialog extends Component {
       >
         {content}
       </Dialog>
-    )
+    );
   }
 }
 
-export default CustomizedDialog
+export default CustomizedDialog;

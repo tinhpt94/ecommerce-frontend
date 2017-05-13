@@ -6,4 +6,4 @@ const CartConstant = {
   URL: "orders"
 };
 
-export default CartConstant
+export default CartConstant;

@@ -2,52 +2,61 @@ export function filterBrand(productList) {
   const brandFromProduct = [];
   productList.forEach(product => brandFromProduct.push(product.brand.brand));
   const brandSet = new Set(brandFromProduct);
-  return [...brandSet].sort((a, b) => a > b ? 1 : -1)
+  return [...brandSet].sort((a, b) => (a > b ? 1 : -1));
 }
 
 export function filterMadeIn(productList) {
   const madeInFromProduct = [];
-  productList.forEach(product => madeInFromProduct.push(product.made_in.made_in));
+  productList.forEach(product =>
+    madeInFromProduct.push(product.made_in.made_in)
+  );
   const madeInSet = new Set(madeInFromProduct);
-  return [...madeInSet].sort((a, b) => a > b ? 1 : -1)
+  return [...madeInSet].sort((a, b) => (a > b ? 1 : -1));
 }
 
 export function filterProductType(productList) {
   const productTypeFromProduct = [];
-  productList.forEach(product => productTypeFromProduct.push(product.product_type.type_name));
+  productList.forEach(product =>
+    productTypeFromProduct.push(product.product_type.type_name)
+  );
   const typeSet = new Set(productTypeFromProduct);
-  return [...typeSet].sort((a, b) => a > b ? 1 : -1)
+  return [...typeSet].sort((a, b) => (a > b ? 1 : -1));
 }
 
 export function filterByProps(productList, filterProps) {
   return productList.filter(product => {
-    return String(product.brand.brand).includes(filterProps.brand)
-      && String(product.product_type.type_name).includes(filterProps.type)
-      && String(product.made_in.made_in).includes(filterProps.madeIn)
-      && (filterProps.price === "" || product.price >= parseFloat(filterProps.price))
-      && (filterProps.rating === "" || product.rating >= parseFloat(filterProps.rating))
-      && (filterProps.discount === "" || product.discount >= parseInt(filterProps.discount));
-  })
+    return (
+      String(product.brand.brand).includes(filterProps.brand) &&
+      String(product.product_type.type_name).includes(filterProps.type) &&
+      String(product.made_in.made_in).includes(filterProps.madeIn) &&
+      (filterProps.price === "" ||
+        product.price >= parseFloat(filterProps.price)) &&
+      (filterProps.rating === "" ||
+        product.rating >= parseFloat(filterProps.rating)) &&
+      (filterProps.discount === "" ||
+        product.discount >= parseInt(filterProps.discount))
+    );
+  });
 }
 
 function sortByNameAZ(productList) {
-  return productList.sort((a, b) => a.name > b.name ? 1 : -1)
+  return productList.sort((a, b) => (a.name > b.name ? 1 : -1));
 }
 
 function sortByPriceLowToHigh(productList) {
-  return productList.sort((a, b) => a.price > b.price ? 1 : -1)
+  return productList.sort((a, b) => (a.price > b.price ? 1 : -1));
 }
 
 function sortByPriceHighToLow(productList) {
-  return productList.sort((a, b) => b.price > a.price ? 1 : -1)
+  return productList.sort((a, b) => (b.price > a.price ? 1 : -1));
 }
 
 function sortByDiscount(productList) {
-  return productList.sort((a, b) => b.discount > a.discount ? 1 : -1)
+  return productList.sort((a, b) => (b.discount > a.discount ? 1 : -1));
 }
 
 function sortByCreatedDate(productList) {
-  return productList.sort((a, b) => b.created_date > a.created_date ? 1 : -1)
+  return productList.sort((a, b) => (b.created_date > a.created_date ? 1 : -1));
 }
 
 export function sortProduct(key, productList) {

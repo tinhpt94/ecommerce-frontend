@@ -1,8 +1,5 @@
-/**
- * Created by PhamTinh on 2/18/2017.
- */
 import React from "react";
-import {browserHistory} from "react-router";
+import { browserHistory } from "react-router";
 import TextFieldGroup from "../common/TextFieldGroup";
 import ValidateSignUp from "./ValidateSignUp";
 import SignUpService from "../../services/SignUpService";
@@ -14,20 +11,20 @@ class SignUpForm extends React.Component {
     this.state = this._getState();
     this.onChange = this.onChange.bind(this);
     this._onChange = this._onChange.bind(this);
-    this.submit = this.submit.bind(this)
+    this.submit = this.submit.bind(this);
   }
 
   _getState() {
     return {
-      username: '',
-      password: '',
-      passwordConfirmation: '',
-      email: '',
-      name: '',
-      address: '',
-      phone: '',
+      username: "",
+      password: "",
+      passwordConfirmation: "",
+      email: "",
+      name: "",
+      address: "",
+      phone: "",
       errors: {}
-    }
+    };
   }
 
   _onChange() {
@@ -41,21 +38,19 @@ class SignUpForm extends React.Component {
     SignUpStore.addChangeListener(this._onChange);
   }
 
-  componentDidUpdate() {
-
-  }
+  componentDidUpdate() {}
 
   componentWillUnmount() {
     SignUpStore.removeChangeListener(this._onChange);
   }
 
   isValid() {
-    const {errors, isValid} = ValidateSignUp(this.state);
+    const { errors, isValid } = ValidateSignUp(this.state);
 
     if (!isValid) {
       this.setState({
         errors: errors
-      })
+      });
     }
 
     return isValid;
@@ -64,20 +59,20 @@ class SignUpForm extends React.Component {
   onChange(e) {
     this.setState({
       [e.target.name]: e.target.value
-    })
+    });
   }
 
   submit(e) {
     e.preventDefault();
     if (this.isValid()) {
-      SignUpService.signUp(this.state)
+      SignUpService.signUp(this.state);
     }
   }
   render() {
     return (
       <form onSubmit={this.submit}>
         <h1>Sign up form</h1>
-        
+
         <TextFieldGroup
           field="username"
           value={this.state.username}
@@ -143,10 +138,8 @@ class SignUpForm extends React.Component {
         </div>
 
       </form>
-    )
+    );
   }
 }
 
-
-
-export default SignUpForm
+export default SignUpForm;

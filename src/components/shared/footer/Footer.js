@@ -5,7 +5,7 @@ import React from "react";
 
 class Footer extends React.Component {
   render() {
-    return(
+    return (
       <div className="footer">
         <div className="information">
           <div className="infor-top">
@@ -14,19 +14,19 @@ class Footer extends React.Component {
               <ul>
                 <li>
                   <a href="#">
-                    <span className="fb"/>
+                    <span className="fb" />
                     <h6>Facebook</h6>
                   </a>
                 </li>
                 <li>
                   <a href="#">
-                    <span className="twit"/>
+                    <span className="twit" />
                     <h6>Twitter</h6>
                   </a>
                 </li>
                 <li>
                   <a href="#">
-                    <span className="google"/>
+                    <span className="google" />
                     <h6>Google</h6>
                   </a>
                 </li>
@@ -35,14 +35,12 @@ class Footer extends React.Component {
 
             <div className="col-md-3 infor-left">
               <h3>Information</h3>
-              <ul>
-
-              </ul>
+              <ul />
             </div>
           </div>
         </div>
       </div>
-    )
+    );
   }
 }
 

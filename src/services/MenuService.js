@@ -8,24 +8,26 @@ class MenuService {
     axios({
       baseURL: GlobalConstant.BASE_API,
       url: MenuConstant.URL,
-      method: 'GET',
+      method: "GET",
       headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
+        Accept: "application/json",
+        "Content-Type": "application/json"
       }
-    }).then(function (response) {
-      switch (response.status) {
-        case 200:
-          MenuAction.fetchMenu(response.data);
-          break;
+    })
+      .then(function(response) {
+        switch (response.status) {
+          case 200:
+            MenuAction.fetchMenu(response.data);
+            break;
 
-        default:
-          break
-      }
-    }).catch(function (error) {
-      console.log(error);
-    });
+          default:
+            break;
+        }
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
   }
 }
 
-export default new MenuService()
+export default new MenuService();

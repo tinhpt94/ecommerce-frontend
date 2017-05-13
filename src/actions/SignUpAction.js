@@ -1,5 +1,5 @@
-import Dispatcher from '../dispatcher/Dispatcher'
-import SignUpConstant from '../constants/SignUpConstant'
+import Dispatcher from "../dispatcher/Dispatcher";
+import SignUpConstant from "../constants/SignUpConstant";
 
 export default {
   singUp: () => {
@@ -10,10 +10,10 @@ export default {
     });
   },
 
-  error: (errors) => {
+  error: errors => {
     Dispatcher.dispatch({
       actionType: SignUpConstant.ERROR,
       errors: errors
-    })
+    });
   }
-}
+};

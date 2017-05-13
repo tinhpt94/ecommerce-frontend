@@ -8,11 +8,11 @@ class CartService {
     axios({
       baseURL: GlobalConstant.BASE_API,
       url: CartConstant.URL,
-      method: 'POST',
-      type: 'json',
+      method: "POST",
+      type: "json",
       headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
+        Accept: "application/json",
+        "Content-Type": "application/json"
       },
       data: {
         customer: customer,
@@ -21,18 +21,20 @@ class CartService {
         line_items: lineItems,
         user_id: JSON.parse(localStorage.getItem("user")).id
       }
-    }).then(response => {
-      switch (response.status) {
-        case 201:
-          CartAction.orderSuccess(response.data);
-          break;
-        default :
-          break;
-      }
-    }).catch(error => {
-      console.log(error)
     })
+      .then(response => {
+        switch (response.status) {
+          case 201:
+            CartAction.orderSuccess(response.data);
+            break;
+          default:
+            break;
+        }
+      })
+      .catch(error => {
+        console.log(error);
+      });
   }
 }
 
-export default new CartService()
+export default new CartService();

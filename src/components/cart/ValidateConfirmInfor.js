@@ -4,16 +4,16 @@ import isEmpty from "lodash/isEmpty";
 export default function validateConfirmInfor(data) {
   let errors = {};
   if (Validator.isEmpty(data.name)) {
-    errors.name = "Please insert name"
+    errors.name = "Please insert name";
   }
   if (Validator.isEmpty(data.phone)) {
-    errors.phone = "Please insert phone"
+    errors.phone = "Please insert phone";
   }
   if (Validator.isEmpty(data.address)) {
-    errors.address = "Please insert address"
+    errors.address = "Please insert address";
   }
-  return ({
+  return {
     errors: errors,
     isValid: isEmpty(errors)
-  })
+  };
 }

@@ -2,11 +2,10 @@ import React from "react";
 import NavigationBar from "./shared/navigation/NavigationBar";
 import Footer from "./shared/footer/Footer";
 import Header from "./shared/header/Header";
-import {IntlProvider} from "react-intl";
+import { IntlProvider } from "react-intl";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 
 export default class Main extends React.Component {
-
   render() {
     return (
       <IntlProvider locale="en">
@@ -16,7 +15,7 @@ export default class Main extends React.Component {
               <NavigationBar />
             </div>
             <div className="container" id="menu-item">
-              <Header/>
+              <Header />
             </div>
             <div className="container" id="contents">
               <div className="contents">
@@ -25,12 +24,11 @@ export default class Main extends React.Component {
             </div>
 
             <div className="container" id="footer">
-              <Footer/>
+              <Footer />
             </div>
           </div>
         </MuiThemeProvider>
       </IntlProvider>
-    )
+    );
   }
-
 }
