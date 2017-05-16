@@ -11,6 +11,7 @@ import {
   TableRow,
   TableRowColumn
 } from "material-ui";
+import OrderItemTable from "../../order/OrderItemTable"
 import { FormattedNumber } from "react-intl";
 import RaisedButton from "material-ui/RaisedButton";
 import CustomizedDialog from "../../common/CustomizedDialog";
@@ -81,38 +82,7 @@ export default AuthenticatedAdmin(
           <h3>Mã hoá đơn: {orderDetail && orderDetail.id}</h3>
           <h3>Trạng thái: {orderDetail && orderDetail.status}</h3>
           <h3>Sản phẩm trong đơn hàng</h3>
-          <Table>
-            <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
-              <TableRow>
-                <TableHeaderColumn>#</TableHeaderColumn>
-                <TableHeaderColumn>Sản phẩm</TableHeaderColumn>
-                <TableHeaderColumn>Đơn giá</TableHeaderColumn>
-                <TableHeaderColumn>Số lượng</TableHeaderColumn>
-                <TableHeaderColumn>Thành tiền</TableHeaderColumn>
-              </TableRow>
-            </TableHeader>
-            <TableBody displayRowCheckbox={false}>
-              {lineItems &&
-                lineItems.map((item, index) => {
-                  return (
-                    <TableRow key={index}>
-                      <TableRowColumn>{index + 1}</TableRowColumn>
-                      <TableRowColumn>{item.name}</TableRowColumn>
-                      <TableRowColumn>
-                        <FormattedNumber value={item.price} />
-                      </TableRowColumn>
-                      <TableRowColumn>
-                        <FormattedNumber value={item.quantity} />
-                      </TableRowColumn>
-                      <TableRowColumn>
-                        <FormattedNumber value={item.quantity * item.price} />
-                      </TableRowColumn>
-                    </TableRow>
-                  );
-                })}
-              {!lineItems && <TableRow>Không có sản phẩm nào</TableRow>}
-            </TableBody>
-          </Table>
+          <OrderItemTable items={lineItems} />
           <div className="row">
             <div className="col-md-12">
               {orderDetail &&

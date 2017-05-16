@@ -45,7 +45,7 @@ export default AuthenticatedUser(
     }
 
     onCellClick(index) {
-      browserHistory.push("/orders/" + this.state.orders[index].id);
+      browserHistory.push("user/orders/" + this.state.orders[index].id);
     }
 
     render() {
@@ -54,7 +54,7 @@ export default AuthenticatedUser(
       return (
         <div className="order-list">
           <h3>Đơn hàng của tôi</h3>
-          <Table onCellClick={this.onCellClick.bind(this)}>
+          <Table onCellClick={this.onCellClick}>
             <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
               <TableRow>
                 <TableHeaderColumn>Mã đơn hàng</TableHeaderColumn>

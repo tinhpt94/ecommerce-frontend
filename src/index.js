@@ -21,6 +21,7 @@ import OrderDetail from "./components/admin/order/OrderDetail";
 import Report from "./components/admin/order/Report";
 import UserLayOut from "./components/user/UserLayout";
 import UserOrderList from "./components/order/OrderList";
+import OrderDetailUser from "./components/order/OrderDetail";
 import "./index.css";
 import "./style.css";
 import "./memenu.css";
@@ -50,6 +51,7 @@ const router =
       <Route path="user" component={UserLayOut}>
         <IndexRoute components={UserOrderList}/>
         <Route path={"orders"} component={UserOrderList}/>
+        <Route path="orders/:orderId" component={OrderDetailUser} />
       </Route>
     </Route>
 

@@ -20,6 +20,7 @@ import NumericInput from "react-numeric-input";
 import { FormattedNumber } from "react-intl";
 import { isNew } from "../../utils/date";
 import { PromotionBadge, NewBadge } from "../common/Badge";
+import { browserHistory } from "react-router";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
@@ -35,7 +36,6 @@ export default class ProductDetail extends Component {
     this._onChange = this._onChange.bind(this);
     this.ratingChanged = this.ratingChanged.bind(this);
     this.validateNumber = this.validateNumber.bind(this);
-    this.addToCart = this.addToCart.bind(this);
     this.onInputChange = this.onInputChange.bind(this);
   }
 
@@ -87,15 +87,15 @@ export default class ProductDetail extends Component {
     });
   }
 
-  addToCart() {
+  addToCart = () => {
     let addedProduct = this.state.product;
-    addedProduct.quantity = this.state.quantity;
+    addedProduct.amount = this.state.quantity;
     CartAction.addToCart(addedProduct);
   }
 
   addViewedProduct(product) {
     const loggedInUser = JSON.parse(localStorage.getItem("user"));
-    if (product && (loggedInUser.role !== "ADMIN" || !loggedInUser)) {
+    if (product && (!loggedInUser || loggedInUser.role !== "ADMIN")) {
       let viewedProducts = JSON.parse(
         localStorage.getItem("viewedProducts")
       ) || [];
@@ -224,15 +224,6 @@ export default class ProductDetail extends Component {
                             label="Thêm vào giỏ hàng"
                             labelPosition="after"
                             backgroundColor="#26A69A"
-                            onTouchTap={this.addToCart}
-                          />
-                        </div>
-                        <div className="shop-button">
-                          <RaisedButton
-                            icon={<ShoppingCart />}
-                            label="Mua ngay"
-                            labelPosition="after"
-                            backgroundColor="#F44336"
                             onTouchTap={this.addToCart}
                           />
                         </div>

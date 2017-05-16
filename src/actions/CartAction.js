@@ -14,11 +14,11 @@ export default {
       product: product
     });
   },
-  editItemQuantity: (newQuantity, code) => {
+  editItemQuantity: (newAmount, code) => {
     Dispatcher.dispatch({
       actionType: CartConstant.EDIT_ITEM_QUANTITY,
       code: code,
-      newQuantity: newQuantity
+      newAmount: newAmount
     });
   },
   orderSuccess: orderID => {

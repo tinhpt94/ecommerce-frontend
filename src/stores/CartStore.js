@@ -22,7 +22,7 @@ class CartStore extends BaseStore {
           for (let i = 0; i < productCodes.length; i++) {
             if (productCodes[i] === addedProduct.code) existIndex = i;
           }
-          this.products[existIndex].quantity += addedProduct.quantity;
+          this.products[existIndex].amount += addedProduct.amount;
         }
         localStorage.setItem("cartItems", JSON.stringify(this.products));
         this.emitChange();
@@ -41,7 +41,7 @@ class CartStore extends BaseStore {
         this.products = this.products.map(product => {
           let tempProduct = product;
           if (product.code === action.code) {
-            tempProduct.quantity = action.newQuantity;
+            tempProduct.amount = action.newAmount;
           }
           return tempProduct;
         });
@@ -67,7 +67,7 @@ class CartStore extends BaseStore {
     const products = this.products;
     if (products)
       return products.reduce((a, b) => {
-        const value = parseInt(b.quantity);
+        const value = parseInt(b.amount);
         if (!isNaN(value)) {
           return a + value;
         }
@@ -81,9 +81,10 @@ class CartStore extends BaseStore {
     if (products)
       return products.reduce((a, b) => {
         const price = parseInt(b.price);
-        const quantity = parseInt(b.quantity);
-        if (!isNaN(price) && !isNaN(quantity)) {
-          return a + price * quantity;
+        const amount = parseInt(b.amount);
+        const discount = parseInt(b.discount);
+        if (!isNaN(price) && !isNaN(amount)) {
+          return a + price * amount * (100 - discount) / 100;
         }
         return a;
       }, 0);

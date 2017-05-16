@@ -37,6 +37,10 @@ class OrderStore extends BaseStore {
         break;
     }
   }
+
+  getCurrentOrder() {
+    return this.order;
+  }
 }
 
 export default new OrderStore();

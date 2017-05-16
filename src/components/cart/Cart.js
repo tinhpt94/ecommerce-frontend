@@ -4,7 +4,7 @@ import { Table } from "react-bootstrap";
 import CartStore from "../../stores/CartStore";
 import CartAction from "../../actions/CartAction";
 import { FormattedNumber } from "react-intl";
-import { Link } from "react-router";
+import { Link, browserHistory } from "react-router";
 import RaisedButton from "material-ui/RaisedButton";
 import RemoveShoppingCart
   from "material-ui/svg-icons/action/remove-shopping-cart";
@@ -41,12 +41,20 @@ export default AuthenticatedUser(
       CartStore.removeChangeListener(this._onChange);
     }
 
-    onQuantityChange = (newQuantity, code) => {
-      CartAction.editItemQuantity(newQuantity, code);
+    onQuantityChange = (newAmount, code) => {
+      CartAction.editItemQuantity(newAmount, code);
     };
 
     onRemoveProduct(product) {
       CartAction.removeFromCart(product);
+    }
+
+    redirectToConfirm = () => {
+      browserHistory.push("/confirm-order");
+    }
+
+    redirectToProductPage = () => {
+      browserHistory.push("/");
     }
 
     render() {
@@ -59,8 +67,9 @@ export default AuthenticatedUser(
                 <thead>
                   <tr>
                     <th style={{ width: "10%" }}>#</th>
-                    <th style={{ width: "40%" }}>Sản phẩm</th>
+                    <th style={{ width: "30%" }}>Sản phẩm</th>
                     <th style={{ width: "10%" }}>Đơn giá</th>
+                    <th style={{ width: "10%"}}>Giảm giá</th>
                     <th style={{ width: "15%" }}>Số lượng</th>
                     <th style={{ width: "15%" }}>Số tiền</th>
                     <th style={{ width: "10%" }}>Thao tác</th>
@@ -81,17 +90,23 @@ export default AuthenticatedUser(
                           <span><FormattedNumber value={product.price} /></span>
                         </td>
                         <td className="cart-item">
+                          <span>{product.discount} %</span>
+                        </td>
+                        <td className="cart-item">
                           <NumericInput
                             className="form-control"
                             min={1}
-                            value={product.quantity}
+                            max={product.quantity}
+                            value={product.amount}
                             onChange={e =>
                               this.onQuantityChange(e, product.code)}
                           />
                         </td>
                         <td className="cart-item">
                           <FormattedNumber
-                            value={product.price * product.quantity}
+                            value={product.price * product.amount * (100 - product.discount) / 100}
+                            style="currency"
+                            currency="VND"
                           />
                         </td>
                         <td className="cart-item">
@@ -111,27 +126,36 @@ export default AuthenticatedUser(
             </div>
           </div>
           <div className="row">
-            <div className="col-md-12 text-right cart-bottom">
-              <label className="cart-total">
-                Tổng tiền hàng (
-                {this.state.totalProduct}
-                {" "}
-                sản phẩm):
-                {" "}
-                <FormattedNumber
-                  value={this.state.totalPrice}
-                  style="currency"
-                  currency="VND"
+            {this.state.totalPrice > 0 &&
+              <div className="col-md-12 text-right cart-bottom">
+                <label className="cart-total">
+                  Tổng tiền hàng (
+                  {this.state.totalProduct}
+                  {" "}
+                  sản phẩm):
+                  {" "}
+                  <FormattedNumber
+                    value={this.state.totalPrice}
+                    style="currency"
+                    currency="VND"
+                  />
+                </label>
+
+                <RaisedButton
+                  secondary={true}
+                  label="Mua hàng"
+                  onTouchTap={this.redirectToConfirm}
                 />
-              </label>
-              <Link
-                to="/confirm-order"
-                type="button"
-                className="btn btn-lg btn-primary"
-              >
-                Mua hàng
-              </Link>
-            </div>
+              </div>}
+
+            {this.state.totalPrice === 0 &&
+              <div className="col-md-12 text-right cart-bottom">
+                <RaisedButton
+                  secondary={true}
+                  label="Quay lại mua hàng"
+                  onTouchTap={this.redirectToProductPage}
+                />
+              </div>}
           </div>
         </div>
       );
