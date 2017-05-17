@@ -23,11 +23,11 @@ export default AuthenticatedAdmin(
         <Table onCellClick={this.onCellClick.bind(this)}>
           <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
             <TableRow>
-              <TableHeaderColumn>Order ID</TableHeaderColumn>
-              <TableHeaderColumn>Oder Date</TableHeaderColumn>
-              <TableHeaderColumn>Buyer</TableHeaderColumn>
-              <TableHeaderColumn>Total</TableHeaderColumn>
-              <TableHeaderColumn>Status</TableHeaderColumn>
+              <TableHeaderColumn style={{width: "10%"}}>Mã đơn hàng</TableHeaderColumn>
+              <TableHeaderColumn style={{width: "25%"}}>Ngày đặt hàng</TableHeaderColumn>
+              <TableHeaderColumn style={{width: "35%"}}>Tên khách hàng</TableHeaderColumn>
+              <TableHeaderColumn style={{width: "15%"}}>Giá trị đơn hàng</TableHeaderColumn>
+              <TableHeaderColumn style={{width: "15%"}}>Trạng thái</TableHeaderColumn>
             </TableRow>
           </TableHeader>
           <TableBody displayRowCheckbox={false}>
@@ -35,13 +35,15 @@ export default AuthenticatedAdmin(
               orders.map((order, index) => {
                 return (
                   <TableRow key={index}>
-                    <TableRowColumn>{order.id}</TableRowColumn>
-                    <TableRowColumn>{order.created_date}</TableRowColumn>
-                    <TableRowColumn>{order.customer_name}</TableRowColumn>
-                    <TableRowColumn>
-                      <FormattedNumber value={order.total_cost} />
+                    <TableRowColumn style={{width: "10%"}}>{order.id}</TableRowColumn>
+                    <TableRowColumn style={{width: "25%"}}>{order.created_date}</TableRowColumn>
+                    <TableRowColumn style={{width: "35%"}}>{order.customer_name}</TableRowColumn>
+                    <TableRowColumn style={{width: "15%"}}>
+                      <FormattedNumber value={order.total_cost} 
+                      style="currency"
+                      currency="VND"/>
                     </TableRowColumn>
-                    <TableRowColumn>{order.status}</TableRowColumn>
+                    <TableRowColumn style={{width: "15%"}}>{order.status}</TableRowColumn>
                   </TableRow>
                 );
               })}

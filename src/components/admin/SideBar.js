@@ -20,6 +20,7 @@ const BaseContainer = props => (
       paddingBottom: 16,
       fontFamily: "Roboto",
       width: 240,
+      marginLeft: 20,
       ...props.style
     }}
   >
@@ -65,9 +66,6 @@ class SideBar extends Component {
             defaultSelected="products"
             highlightColor="#E91E63"
           >
-            <SeparatorTitle>
-              <div>Main</div>
-            </SeparatorTitle>
             <Nav id="dashboard">
               <NavIcon><Icon20 icon={ic_aspect_ratio} /></NavIcon>
               <NavText> Dashboard </NavText>

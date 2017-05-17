@@ -17,8 +17,8 @@ export default class OrderItemTable extends Component {
       <Table>
         <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
           <TableRow>
-            <TableHeaderColumn style={{width: "10%"}}>#</TableHeaderColumn>
-            <TableHeaderColumn style={{width: "35%"}}>Sản phẩm</TableHeaderColumn>
+            <TableHeaderColumn style={{width: "5%"}}>#</TableHeaderColumn>
+            <TableHeaderColumn style={{width: "40%"}}>Sản phẩm</TableHeaderColumn>
             <TableHeaderColumn style={{width: "15%"}}>Đơn giá</TableHeaderColumn>
             <TableHeaderColumn style={{width: "10%"}}>Giảm giá</TableHeaderColumn>
             <TableHeaderColumn style={{width: "10%"}}>Số lượng</TableHeaderColumn>
@@ -30,8 +30,8 @@ export default class OrderItemTable extends Component {
             items.map((item, index) => {
               return (
                 <TableRow key={index} hoverable={true}>
-                  <TableRowColumn style={{width: "10%"}}>{index + 1}</TableRowColumn>
-                  <TableRowColumn style={{width: "35%"}}>{item.name}</TableRowColumn>
+                  <TableRowColumn style={{width: "5%"}}>{index + 1}</TableRowColumn>
+                  <TableRowColumn style={{width: "40%"}}>{item.name}</TableRowColumn>
                   <TableRowColumn style={{width: "15%"}}>
                     <FormattedNumber
                       value={item.price}

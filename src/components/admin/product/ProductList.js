@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import AuthenticatedAdmin from "../../common/AuthenticatedAdmin";
 import ProductStore from "../../../stores/ProductStore";
 import FontIcon from "material-ui/FontIcon";
-import FlatButton from "material-ui/FlatButton";
+import RaisedButton from "material-ui/FlatButton";
 import AddIcon from "material-ui/svg-icons/action/add-shopping-cart";
 import ProductService from "../../../services/ProductService";
 import ProductListComponent from "../../product/ProductListComponent";
@@ -82,7 +82,7 @@ export default AuthenticatedAdmin(
             </div>
             <div className="col-md-7">
               <Link to="/admin/products/new">
-                <FlatButton
+                <RaisedButton
                   label="Thêm mới"
                   icon={<AddIcon />}
                   primary={true}
@@ -96,7 +96,7 @@ export default AuthenticatedAdmin(
                 onDelete={this.onDelete}
                 productList={filteredProducts}
                 {...this.props}
-                cols="3"
+                cols="2"
               />
             : <NoAvailableProduct />}
         </div>

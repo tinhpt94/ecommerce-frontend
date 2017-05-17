@@ -4,7 +4,18 @@ import DatePicker from "material-ui/DatePicker";
 import ReportStore from "../../../stores/ReportStore";
 import ReportService from "../../../services/ReportService";
 import RaisedButton from "material-ui/RaisedButton";
-import { LineChart, Line, Tooltip, Legend, XAxis, YAxis } from "recharts";
+import {
+  LineChart,
+  Line,
+  Tooltip,
+  Legend,
+  XAxis,
+  YAxis,
+  ComposedChart,
+  Bar
+} from "recharts";
+import { CustomizedAxisTick } from "./Graph";
+import moment from "moment";
 
 export default AuthenticatedAdmin(
   class Report extends Component {
@@ -47,7 +58,8 @@ export default AuthenticatedAdmin(
 
     handleChangeFromDate = (event, date) => {
       this.setState({
-        fromDate: date
+        fromDate: date,
+        toDate: this.getToDate(date)
       });
     };
 
@@ -61,26 +73,45 @@ export default AuthenticatedAdmin(
       ReportService.fetchReport(this.state.fromDate, this.state.toDate);
     }
 
+    getToDate = fromDate => {
+      const toDate = moment(fromDate).add(31, "days").toDate();
+      return new Date() > toDate ? toDate : new Date();
+    };
+
+    getMaxDate = () => {
+      return moment(this.state.fromDate).add(31, "days").toDate();
+    };
+
     render() {
       return (
         <div className="report-wrapper">
           <div className="row">
             <div className="col-md-4">
+              <div className="date-picker-label">
+                Từ ngày
+              </div>
               <DatePicker
-                hintText="From date"
+                hintText="Từ ngày"
                 value={this.state.fromDate}
                 shouldDisableDate={this.disableFuture}
                 autoOk={true}
+                maxDate={this.state.toDate}
                 onChange={this.handleChangeFromDate}
+                className="date-picker"
+                style={{width: 100}}
               />
             </div>
             <div className="col-md-4">
+              <div className="date-picker-label">Đến ngày</div>
               <DatePicker
-                hintText="To date"
+                hintText="Đến ngày"
                 value={this.state.toDate}
                 shouldDisableDate={this.disableFuture}
+                minDate={this.state.fromDate}
+                maxDate={this.getMaxDate()}
                 autoOk={true}
                 onChange={this.handleChangeToDate}
+                className="date-picker"
               />
             </div>
 
@@ -94,31 +125,28 @@ export default AuthenticatedAdmin(
           </div>
 
           <div className="row">
-            <div className="col-md-12">
-              <LineChart
+            <div className="col-md-12 text-center">
+              <ComposedChart
                 data={this.state.reports}
-                width={600}
-                height={300}
-                margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+                width={800}
+                height={400}
+                margin={{top: 40}}
               >
-                <XAxis dataKey="report_date" />
-                <YAxis yAxisId="left" orientation="left" stroke="#8884d8" />
-                <YAxis yAxisId="right" orientation="right" stroke="#82ca9d" />
+                <XAxis
+                  tick={<CustomizedAxisTick reports={this.state.reports} />}
+                />
+                <YAxis yAxisId="right" orientation="right" stroke="#8884d8" label="Đơn hàng" width={100}/>
+                <YAxis yAxisId="left" orientation="left" stroke="#3C78D8" label="Giá trị"/>
                 <Tooltip />
                 <Legend />
                 <Line
                   type="monotone"
                   dataKey="order_amount"
                   stroke="#8884d8"
-                  yAxisId="left"
-                />
-                <Line
-                  type="monotone"
-                  dataKey="total_cost"
-                  stroke="#82ca9d"
                   yAxisId="right"
                 />
-              </LineChart>
+                <Bar dataKey="total_cost" barSize={10} fill="#3C78D8" yAxisId="left" />
+              </ComposedChart>
             </div>
           </div>
 
