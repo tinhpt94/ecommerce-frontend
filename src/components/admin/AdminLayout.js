@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import AuthenticatedAdmin from "../common/AuthenticatedAdmin";
+import AuthenticatedManager from "../common/AuthenticatedManager";
 import SideBar from "./SideBar";
 import { Link } from "react-router";
 import {
@@ -14,7 +14,7 @@ import NavigationExpandMoreIcon
 import LoginService from "../../services/LoginService";
 import { IntlProvider } from "react-intl";
 
-export default AuthenticatedAdmin(
+export default AuthenticatedManager(
   class AdminLayout extends Component {
     constructor(props) {
       super(props);
@@ -70,9 +70,7 @@ export default AuthenticatedAdmin(
                     <SideBar />
                   </div>
                   <div className="col-md-10">
-                    <div className="content">
-                      {this.props.children}
-                    </div>
+                    {this.props.children}
                   </div>
                 </div>
               </div>

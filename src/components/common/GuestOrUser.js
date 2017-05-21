@@ -3,9 +3,10 @@ import { browserHistory } from "react-router";
 import LoginStore from "../../stores/LoginStore";
 import LoginService from "../../services/LoginService";
 import LoginAction from "../../actions/LoginAction";
+import GlobalConstant from "../../constants/GlobalConstant";
 
 export default ComposedComponent => {
-  return class AuthenticatedAdmin extends React.Component {
+  return class AuthenticatedUser extends React.Component {
     checkAuthen() {
       LoginService.isAuthenticated();
     }
@@ -39,22 +40,21 @@ export default ComposedComponent => {
     }
 
     componentDidUpdate() {
-      if (!this.state.userLoggedIn) {
-        browserHistory.push("/login");
-      } else if (this.state.userLoggedIn.role !== "ADMIN") {
+      if (
+        this.state.userLoggedIn &&
+        this.state.userLoggedIn.role === GlobalConstant.MANAGER
+      ) {
         LoginAction.logout();
       }
     }
 
     render() {
-      if (this.state.userLoggedIn)
-        return (
-          <ComposedComponent
-            {...this.props}
-            userLoggedIn={this.state.userLoggedIn}
-          />
-        );
-      else return <div>Check authen! Loading...</div>;
+      return (
+        <ComposedComponent
+          {...this.props}
+          userLoggedIn={this.state.userLoggedIn}
+        />
+      );
     }
   };
 };

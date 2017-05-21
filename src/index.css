@@ -355,11 +355,6 @@ body {
   text-decoration: none;
 }
 
-.content {
-  background-color: #FFF;
-  border: 1px solid #FFF;
-}
-
 .report-wrapper {
   margin: 8px;
 }
@@ -598,6 +593,21 @@ body {
   text-transform: uppercase;
 }
 
+.product-item-delete {
+  position: absolute;
+  left: 15px;
+  top: 0;
+}
+
+.product-item-delete button {
+  height: 30px !important;
+  width: 30px !important;
+}
+
+.product-item-delete svg {
+  height: 32px !important;
+}
+
 .view-product-item .col-md- * {
   margin-bottom: 15px !important;
 }
@@ -787,16 +797,16 @@ body {
 
 .order-confirm-item-info {
   position: relative;
-  color: rgba(0,0,0,0.87);
+  color: rgba(0, 0, 0, 0.87);
 }
 
 .order-confirm-item-icon {
   position: absolute;
-    top: 2px;
-    left: -60px;
-    height: 52px;
-    width: 52px;
-    background-size: 52px 52px; 
+  top: 2px;
+  left: -60px;
+  height: 52px;
+  width: 52px;
+  background-size: 52px 52px;
 }
 
 .order-confirm-item-name {
@@ -807,7 +817,7 @@ body {
 
 .order-confirm-item-price .old {
   margin-left: 12px;
-  color: rgba(0,0,0,0.54);
+  color: rgba(0, 0, 0, 0.54);
   text-decoration: line-through;
   display: inline-block;
 }
@@ -832,7 +842,7 @@ body {
 }
 
 .order-confirm-item .item-quantity {
-  color: rgba(0,0,0,0.54);
+  color: rgba(0, 0, 0, 0.54);
 }
 
 .order-confirm-footer {
@@ -916,4 +926,64 @@ tr:hover {
 
 .recharts-default-legend {
   margin-top: 20px !important;
+}
+
+.edit-product {
+  background: #FFF;
+  padding: 12px;
+}
+
+.product-recommend-items {
+  margin-top: 3rem;
+}
+
+.header-section-header {
+  display: flex;
+  align-items: center;
+  padding: 0 0 0.5rem 0
+}
+
+.header-section-simple>.header-section-header {
+  padding-left: .5rem;
+}
+
+.header-section-header-title {
+  font-size: 2rem;
+  text-transform: uppercase;
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-right: 2rem;
+}
+
+.header-section-simple . .header-section-header-title {
+  font-size: 1.6rem;
+  color: rgba(0, 0, 0, 0.54);
+  font-weight: bold;
+}
+
+.header-section-header a {
+  text-decoration: none !important;
+  color: #ff5722;
+}
+
+.header-section-header-link {
+  text-decoration: none;
+  color: rgba(0, 0, 0, 0.8);
+  display: block;
+}
+
+.header-section-content {
+  padding-top: 0.5rem;
+}
+
+.product-recommend-items .header-section-content {
+  position: relative;
+  margin: -.2rem -.5rem;
+}
+
+.product-add-new {
+  background: #FFF;
+  padding: 8px;
 }

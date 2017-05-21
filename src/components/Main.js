@@ -4,6 +4,7 @@ import Footer from "./shared/footer/Footer";
 import Header from "./shared/header/Header";
 import { IntlProvider } from "react-intl";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
+import ScrollToTop from "../components/common/ScrollToTop";
 
 export default class Main extends React.Component {
   render() {
@@ -26,6 +27,9 @@ export default class Main extends React.Component {
             <div className="container" id="footer">
               <Footer />
             </div>
+            
+            <ScrollToTop />
+
           </div>
         </MuiThemeProvider>
       </IntlProvider>

@@ -5,7 +5,7 @@ import ProductFilter from "./ProductFilter";
 import ProductStore from "../../stores/ProductStore";
 import ProductService from "../../services/ProductService";
 import FilterSortStore from "../../stores/FilterSortStore";
-import { filterByProps, sortProduct } from "./FilterSortHandler";
+import { filterByProps, sortProduct, titleDropDownOrder } from "./FilterSortHandler";
 import FilterSortAction from "../../actions/FilterSortAction";
 import DropDownMenu from "material-ui/DropDownMenu";
 import MenuItem from "material-ui/MenuItem";
@@ -16,8 +16,6 @@ class Products extends React.Component {
     this.state = this._getState();
     this._onChange = this._onChange.bind(this);
     this.handleSelect = this.handleSelect.bind(this);
-    this.titleDropDownOrder = this.titleDropDownOrder.bind(this);
-    this.onSelectedOrder = this.onSelectedOrder.bind(this);
   }
 
   _getState() {
@@ -51,35 +49,6 @@ class Products extends React.Component {
   handleSelect(eventKey) {
     this.setState({
       activePage: eventKey
-    });
-  }
-
-  titleDropDownOrder() {
-    switch (this.state.orderBy) {
-      case "newest":
-        return "Hàng mới nhập";
-        break;
-      case "discount":
-        return "Giảm giá nhiều nhất";
-        break;
-      case "price-low-to-high":
-        return "Giá: Từ thấp đến cao";
-        break;
-      case "price-high-to-low":
-        return "Giá: Từ cao đến thấp";
-        break;
-      case "name-a-z":
-        return "Sắp xếp theo tên: A-Z";
-        break;
-      default:
-        return "Sắp xếp sản phẩm";
-        break;
-    }
-  }
-
-  onSelectedOrder(orderBy) {
-    this.setState({
-      orderBy: orderBy
     });
   }
 

@@ -8,6 +8,8 @@ import { FormattedNumber } from "react-intl";
 import { isNew } from "../../utils/date";
 import { PromotionBadge, NewBadge } from "../common/Badge";
 import classnames from "classnames";
+import FloatingActionButton from 'material-ui/FloatingActionButton';
+import DeleteIcon from "material-ui/svg-icons/content/delete-sweep";
 
 export default class ProductItem extends React.Component {
   constructor(props) {
@@ -56,7 +58,7 @@ export default class ProductItem extends React.Component {
         <div className="view-product-item">
           <Link
             to={
-              role === "ADMIN"
+              role === "MANAGER"
                 ? "/admin/products/" + product.id
                 : "/products/" + product.code
             }
@@ -119,6 +121,12 @@ export default class ProductItem extends React.Component {
             </div>
 
           </Link>
+
+          <div className="product-item-delete">
+                  <FloatingActionButton onTouchTap={this.handleShowDialog}>
+                    <DeleteIcon />
+                  </FloatingActionButton>
+          </div>
         </div>
 
         <CustomizedDialog

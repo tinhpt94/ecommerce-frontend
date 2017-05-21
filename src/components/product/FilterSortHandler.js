@@ -83,3 +83,28 @@ export function sortProduct(key, productList) {
     }
   }
 }
+
+export function titleDropDownOrder(orderBy) {
+    let order = '';
+    switch (orderBy) {
+      case "newest":
+        order = "Hàng mới nhập";
+        break;
+      case "discount":
+        order = "Giảm giá nhiều nhất";
+        break;
+      case "price-low-to-high":
+        order = "Giá: Từ thấp đến cao";
+        break;
+      case "price-high-to-low":
+        order = "Giá: Từ cao đến thấp";
+        break;
+      case "name-a-z":
+        order = "Sắp xếp theo tên: A-Z";
+        break;
+      default:
+        order = "Sắp xếp sản phẩm";
+        break;
+    }
+    return order;
+}

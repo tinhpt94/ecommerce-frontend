@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import AuthenticatedAdmin from "../../common/AuthenticatedAdmin";
+import AuthenticatedManager from "../../common/AuthenticatedManager";
 import { Tabs, Tab } from "material-ui/Tabs";
 import OrderTable from "./OrderTable";
 import OrderStore from "../../../stores/OrderStore";
@@ -14,7 +14,7 @@ const styles = {
   }
 };
 
-export default AuthenticatedAdmin(
+export default AuthenticatedManager(
   class OrderList extends Component {
     constructor(props) {
       super(props);

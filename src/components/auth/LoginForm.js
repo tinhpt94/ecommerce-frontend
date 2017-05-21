@@ -43,7 +43,7 @@ class LoginForm extends React.Component {
   componentDidUpdate() {
     if (LoginStore.loggedInUser()) {
       if (LoginStore.loggedInUser().role === "USER") browserHistory.push("/");
-      else if (LoginStore.loggedInUser().role === "ADMIN")
+      else if (LoginStore.loggedInUser().role === "MANAGER")
         browserHistory.push("/admin");
     }
   }
@@ -100,6 +100,7 @@ class LoginForm extends React.Component {
           label="Password"
           onChange={this.onChange}
           error={this.state.errors.password}
+          type="password"
         />
 
         <div className="form-group">

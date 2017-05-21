@@ -31,13 +31,13 @@ export default function validateAddNewProduct(data) {
   if (data.rating < 0) {
     errors.rating = "Please insert valid rating";
   }
-  if (!isNumber(data.brand) || data.brand === 0) {
+  if (data.brand === '') {
     errors.brand = "Please select brand";
   }
-  if (!isNumber(data.made_in) || data.made_in === 0) {
+  if (data.made_in === '') {
     errors.made_in = "Please select made in";
   }
-  if (!isNumber(data.product_type) || data.product_type === 0) {
+  if (data.product_type === '') {
     errors.product_type = "Please select product type";
   }
   if (Validator.isEmpty(data.image_url)) {

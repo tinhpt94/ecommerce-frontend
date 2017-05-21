@@ -13,11 +13,11 @@ import GlobalConstant from "../../../constants/GlobalConstant";
 import ProductStore from "../../../stores/ProductStore";
 import NoAvailableProduct from "../../product/NoAvailableProduct";
 import ProductAction from "../../../actions/ProductAction";
-import AuthenticatedAdmin from "../../common/AuthenticatedAdmin";
+import AuthenticatedManager from "../../common/AuthenticatedManager";
 import MenuService from "../../../services/MenuService";
 import MenuStore from "../../../stores/MenuStore";
 
-export default AuthenticatedAdmin(
+export default AuthenticatedManager(
   class EditProduct extends Component {
     constructor(props) {
       super(props);

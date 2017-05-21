@@ -1,11 +1,10 @@
 import React, { Component } from "react";
-import AuthenticatedAdmin from "../../common/AuthenticatedAdmin";
+import AuthenticatedManager from "../../common/AuthenticatedManager";
 import DatePicker from "material-ui/DatePicker";
 import ReportStore from "../../../stores/ReportStore";
 import ReportService from "../../../services/ReportService";
 import RaisedButton from "material-ui/RaisedButton";
 import {
-  LineChart,
   Line,
   Tooltip,
   Legend,
@@ -17,7 +16,7 @@ import {
 import { CustomizedAxisTick } from "./Graph";
 import moment from "moment";
 
-export default AuthenticatedAdmin(
+export default AuthenticatedManager(
   class Report extends Component {
     constructor(props) {
       super(props);
@@ -82,6 +81,10 @@ export default AuthenticatedAdmin(
       return moment(this.state.fromDate).add(31, "days").toDate();
     };
 
+    formatDate = (date) => {
+      return moment(date).format("DD-MM-YYYY");
+    }
+
     render() {
       return (
         <div className="report-wrapper">
@@ -98,7 +101,7 @@ export default AuthenticatedAdmin(
                 maxDate={this.state.toDate}
                 onChange={this.handleChangeFromDate}
                 className="date-picker"
-                style={{width: 100}}
+                formatDate={this.formatDate}
               />
             </div>
             <div className="col-md-4">
@@ -112,6 +115,7 @@ export default AuthenticatedAdmin(
                 autoOk={true}
                 onChange={this.handleChangeToDate}
                 className="date-picker"
+                formatDate={this.formatDate}
               />
             </div>
 
@@ -125,7 +129,7 @@ export default AuthenticatedAdmin(
           </div>
 
           <div className="row">
-            <div className="col-md-12 text-center">
+            <div className="col-md-12">
               <ComposedChart
                 data={this.state.reports}
                 width={800}

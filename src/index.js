@@ -22,6 +22,7 @@ import Report from "./components/admin/order/Report";
 import UserLayOut from "./components/user/UserLayout";
 import UserOrderList from "./components/order/OrderList";
 import OrderDetailUser from "./components/order/OrderDetail";
+import Home from "./components/home/Home";
 import "./index.css";
 import "./style.css";
 import "./memenu.css";
@@ -37,7 +38,7 @@ let history = browserHistory;
 const router =
   <Router history={history}>
     <Route path="/" component={Main}>
-      <IndexRoute component={ProductPage}/>
+      <IndexRoute component={Home}/>
       <Route path="login" component={LoginPage}/>
       <Route path="signup" component={SignUpPage}/>
       <Route path="/products/:code" component={ProductDetail}/>

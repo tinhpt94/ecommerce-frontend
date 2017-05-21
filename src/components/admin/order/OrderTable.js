@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import AuthenticatedAdmin from "../../common/AuthenticatedAdmin";
+import AuthenticatedManager from "../../common/AuthenticatedManager";
 import {
   Table,
   TableBody,
@@ -11,7 +11,7 @@ import {
 import { FormattedNumber } from "react-intl";
 import { browserHistory } from "react-router";
 
-export default AuthenticatedAdmin(
+export default AuthenticatedManager(
   class OrderTable extends Component {
     onCellClick(index) {
       browserHistory.push("/admin/orders/" + this.props.orders[index].id);

@@ -6,6 +6,10 @@ import FilterStore from "../../../stores/FilterSortStore";
 import FilterAction from "../../../actions/FilterSortAction";
 import MenuService from "../../../services/MenuService";
 import MenuStore from "../../../stores/MenuStore";
+import ProductService from "../../../services/ProductService";
+import ProductStore from "../../../stores/ProductStore";
+import AutoComplete from "material-ui/AutoComplete";
+import {browserHistory} from "react-router";
 
 class Header extends Component {
   constructor(props) {
@@ -17,7 +21,7 @@ class Header extends Component {
 
   _getState() {
     return {
-      searchName: FilterStore.getSearchName(),
+      productList: ProductStore.fetchAll(),
       menu: MenuStore.getMenu()
     };
   }
@@ -27,7 +31,7 @@ class Header extends Component {
   }
 
   componentWillMount() {
-    FilterStore.addChangeListener(this._onChange);
+    ProductStore.addChangeListener(this._onChange);
     MenuStore.addChangeListener(this._onChange);
   }
 
@@ -39,11 +43,20 @@ class Header extends Component {
   componentDidMount() {
     $(".memenu").memenu();
     MenuService.fetchMenu();
+    ProductService.fetchAll();
   }
 
   componentWillUnmount() {
-    FilterStore.removeChangeListener(this._onChange);
+    ProductStore.removeChangeListener(this._onChange);
     MenuStore.removeChangeListener(this._onChange);
+  }
+
+  handleUpdateInput = value => {
+    browserHistory.push("/products/" + value.valueKey.code);
+  };
+
+  filter = (searchText, key) => {
+    return searchText !== '' && key.toLowerCase().indexOf(searchText.toLowerCase()) !== -1;
   }
 
   render() {
@@ -51,6 +64,21 @@ class Header extends Component {
     const brands = menu.brands;
     const productTypes = menu.product_types;
     const madeIns = menu.made_ins;
+
+    const products = this.state.products;
+    const dataSource = this.state.productList
+      ? this.state.productList.map(product => {
+          return {
+            textKey: product.name,
+            valueKey: product
+          };
+        })
+      : undefined;
+
+    const dataSourceConfig = {
+      text: "textKey",
+      value: "valueKey"
+    };
 
     return (
       <div className="header-bottom">
@@ -122,16 +150,15 @@ class Header extends Component {
 
             <div className="col-md-3 header-right">
               <div className="search-bar">
-                <input
-                  type="text"
-                  placeholder="Search"
-                  value={this.state.searchName}
-                  onChange={this.onSearchChange}
+                <AutoComplete
+                  hintText="Nhập tên sản phẩm"
+                  dataSource={dataSource}
+                  onNewRequest={this.handleUpdateInput}
+                  dataSourceConfig={dataSourceConfig}
+                  filter={this.filter}
                 />
               </div>
             </div>
-
-            <div className="clearfix" />
           </div>
         </div>
       </div>

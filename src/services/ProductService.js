@@ -198,9 +198,9 @@ class ProductService {
         price: product.price,
         image_url: product.image_url,
         description: product.description,
-        brand: product.brand,
-        made_in: product.made_in,
-        product_type: product.product_type,
+        brand: parseInt(product.brand),
+        made_in: parseInt(product.made_in),
+        product_type: parseInt(product.product_type),
         discount: product.discount,
         quantity: product.quantity,
         rating: product.rating

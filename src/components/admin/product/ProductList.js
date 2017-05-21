@@ -1,15 +1,16 @@
 import React, { Component } from "react";
-import AuthenticatedAdmin from "../../common/AuthenticatedAdmin";
+import AuthenticatedManager from "../../common/AuthenticatedManager";
 import ProductStore from "../../../stores/ProductStore";
 import FontIcon from "material-ui/FontIcon";
-import RaisedButton from "material-ui/FlatButton";
+import RaisedButton from "material-ui/RaisedButton";
+import ContentAdd from 'material-ui/svg-icons/content/add';
 import AddIcon from "material-ui/svg-icons/action/add-shopping-cart";
 import ProductService from "../../../services/ProductService";
 import ProductListComponent from "../../product/ProductListComponent";
-import { Link } from "react-router";
+import { browserHistory } from "react-router";
 import NoAvailableProduct from "../../product/NoAvailableProduct";
 
-export default AuthenticatedAdmin(
+export default AuthenticatedManager(
   class ProductList extends Component {
     constructor(props) {
       super(props);
@@ -52,6 +53,10 @@ export default AuthenticatedAdmin(
       ProductService.delete(product);
     }
 
+    redirectToAddScreen = () => {
+      browserHistory.push("/admin/products/new");
+    }
+
     render() {
       const products = this.state.products;
       const filteredProducts = products
@@ -81,13 +86,12 @@ export default AuthenticatedAdmin(
               </div>
             </div>
             <div className="col-md-7">
-              <Link to="/admin/products/new">
-                <RaisedButton
-                  label="Thêm mới"
-                  icon={<AddIcon />}
-                  primary={true}
-                />
-              </Link>
+              <RaisedButton
+                label="Thêm mới"
+                icon={<ContentAdd />}
+                primary={true}
+                onTouchTap={this.redirectToAddScreen}
+              />
             </div>
           </div>
 

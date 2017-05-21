@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import AuthenticatedAdmin from "../../common/AuthenticatedAdmin";
+import AuthenticatedManager from "../../common/AuthenticatedManager";
 import OrderService from "../../../services/OrderService";
 import OrderStore from "../../../stores/OrderStore";
 import OrderAction from "../../../actions/OrderAction";
@@ -12,7 +12,7 @@ const style = {
   margin: 12
 };
 
-export default AuthenticatedAdmin(
+export default AuthenticatedManager(
   class OrderDetail extends Component {
     constructor(props) {
       super(props);

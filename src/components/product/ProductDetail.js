@@ -91,7 +91,7 @@ export default class ProductDetail extends Component {
     let addedProduct = this.state.product;
     addedProduct.amount = this.state.quantity;
     CartAction.addToCart(addedProduct);
-  }
+  };
 
   addViewedProduct(product) {
     const loggedInUser = JSON.parse(localStorage.getItem("user"));
@@ -217,17 +217,18 @@ export default class ProductDetail extends Component {
                         </div>
                       </div>
 
-                      <div className="product-info-footer">
-                        <div className="shop-button">
-                          <RaisedButton
-                            icon={<AddShoppingCart />}
-                            label="Thêm vào giỏ hàng"
-                            labelPosition="after"
-                            backgroundColor="#26A69A"
-                            onTouchTap={this.addToCart}
-                          />
-                        </div>
-                      </div>
+                      {loggedInUser &&
+                        <div className="product-info-footer">
+                          <div className="shop-button">
+                            <RaisedButton
+                              icon={<AddShoppingCart />}
+                              label="Thêm vào giỏ hàng"
+                              labelPosition="after"
+                              backgroundColor="#26A69A"
+                              onTouchTap={this.addToCart}
+                            />
+                          </div>
+                        </div>}
                     </div>
 
                     <div className="row">

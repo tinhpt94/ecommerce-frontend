@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import AuthenticatedAdmin from "../../common/AuthenticatedAdmin";
+import AuthenticatedManager from "../../common/AuthenticatedManager";
 import TextFieldGroup from "../../common/TextFieldGroup";
 import ProductService from "../../../services/ProductService";
 import FroalaEditor from "react-froala-wysiwyg";
@@ -13,8 +13,11 @@ import CustomizedDialog from "../../common/CustomizedDialog";
 import GlobalConstant from "../../../constants/GlobalConstant";
 import ProductStore from "../../../stores/ProductStore";
 import ProductAction from "../../../actions/ProductAction";
+import MenuService from "../../../services/MenuService";
+import MenuStore from "../../../stores/MenuStore";
+import Stars from "react-stars";
 
-export default AuthenticatedAdmin(
+export default AuthenticatedManager(
   class AddNewProduct extends Component {
     constructor(props) {
       super(props);
@@ -40,6 +43,7 @@ export default AuthenticatedAdmin(
         description: "",
         image_url: "",
         addNewSuccess: ProductStore.addNewSuccess,
+        menu: MenuStore.getMenu(),
         errors: {}
       };
     }
@@ -50,10 +54,16 @@ export default AuthenticatedAdmin(
 
     componentWillMount() {
       ProductStore.addChangeListener(this._onchange);
+      MenuStore.addChangeListener(this._onchange);
+    }
+
+    componentDidMount() {
+      MenuService.fetchMenu();
     }
 
     componentWillUnmount() {
       ProductStore.removeChangeListener(this._onchange);
+      MenuStore.removeChangeListener(this._onchange);
     }
 
     onImageDrop(files) {
@@ -112,6 +122,12 @@ export default AuthenticatedAdmin(
       ProductAction.addNewError();
     }
 
+    ratingChanged = newRating => {
+      this.setState({
+        rating: newRating
+      });
+    };
+
     submit(e) {
       e.preventDefault();
       if (this.isValid()) {
@@ -138,6 +154,12 @@ export default AuthenticatedAdmin(
           onTouchTap={this.handleCloseDialog}
         />
       ];
+
+      const menu = this.state.menu;
+      const brands = menu && menu.brands;
+      const productTypes = menu && menu.product_types;
+      const madeIns = menu && menu.made_ins;
+
       return (
         <div className="product-add-new">
           <div className="row">
@@ -166,7 +188,7 @@ export default AuthenticatedAdmin(
               <TextFieldGroup
                 field="quantity"
                 value={this.state.quantity}
-                label="So luong"
+                label="Số lượng"
                 type="number"
                 onChange={this.onInputChange}
                 error={this.state.errors.quantity}
@@ -176,7 +198,7 @@ export default AuthenticatedAdmin(
               <TextFieldGroup
                 field="discount"
                 value={this.state.discount}
-                label="Giam gia"
+                label="Giảm giá"
                 type="number"
                 onChange={this.onInputChange}
                 error={this.state.errors.discount}
@@ -186,13 +208,12 @@ export default AuthenticatedAdmin(
 
           <div className="row">
             <div className="col-md-6">
-              <TextFieldGroup
-                field="rating"
+              <ControlLabel>Đánh giá</ControlLabel>
+              <Stars
+                totalStars={5}
                 value={this.state.rating}
-                label="Danh gia"
-                type="number"
-                onChange={this.onInputChange}
-                error={this.state.errors.rating}
+                size={14}
+                onChange={this.ratingChanged}
               />
             </div>
             <div className="col-md-6">
@@ -200,19 +221,23 @@ export default AuthenticatedAdmin(
                 controlId="formControlsSelect"
                 className={this.state.errors.product_type ? "has-error" : ""}
               >
-                <ControlLabel>Loai san pham</ControlLabel>
+                <ControlLabel>Loại sản phẩm</ControlLabel>
                 <FormControl
                   componentClass="select"
                   placeholder="select"
                   value={this.state.product_type}
                   onChange={this.onInputChange}
-                  name="type"
+                  name="product_type"
                 >
-                  <option value={0}>select</option>
-                  <option value={1}>Son</option>
-                  <option value={2}>Quần Áo</option>
-                  <option value={3}>Giày dép</option>
-                  <option value={4}>Trang suc</option>
+                  <option value="">Chọn</option>
+                  {productTypes &&
+                    productTypes.map((type, index) => {
+                      return (
+                        <option key={type.id} value={type.id}>
+                          {type.type_name}
+                        </option>
+                      );
+                    })}
                 </FormControl>
                 {this.state.errors.product_type &&
                   <span className="help-block">
@@ -228,7 +253,7 @@ export default AuthenticatedAdmin(
                 controlId="formControlsSelect"
                 className={this.state.errors.brand ? "has-error" : ""}
               >
-                <ControlLabel>Thuong hieu</ControlLabel>
+                <ControlLabel>Thương hiệu</ControlLabel>
                 <FormControl
                   componentClass="select"
                   placeholder="select"
@@ -236,12 +261,15 @@ export default AuthenticatedAdmin(
                   onChange={this.onInputChange}
                   name="brand"
                 >
-                  <option value={0}>select</option>
-                  <option value={1}>Hot Lips</option>
-                  <option value={2}>Christian Louboutin</option>
-                  <option value={3}>Colourpop</option>
-                  <option value={4}>Amok</option>
-                  <option value={5}>3CE</option>
+                  <option value="">Chọn</option>
+                  {brands &&
+                    brands.map((brand, index) => {
+                      return (
+                        <option key={brand.id} value={brand.id}>
+                          {brand.brand}
+                        </option>
+                      );
+                    })}
                 </FormControl>
                 {this.state.errors.brand &&
                   <span className="help-block">{this.state.errors.brand}</span>}
@@ -252,7 +280,7 @@ export default AuthenticatedAdmin(
                 controlId="formControlsSelect"
                 className={this.state.errors.made_in ? "has-error" : ""}
               >
-                <ControlLabel>Xuat xu</ControlLabel>
+                <ControlLabel>Xuất xứ</ControlLabel>
                 <FormControl
                   componentClass="select"
                   placeholder="select"
@@ -260,11 +288,15 @@ export default AuthenticatedAdmin(
                   onChange={this.onInputChange}
                   name="made_in"
                 >
-                  <option value={0}>select</option>
-                  <option value={1}>Anh</option>
-                  <option value={2}>Mỹ</option>
-                  <option value={3}>Nga</option>
-                  <option value={4}>Hàn Quốc</option>
+                  <option value="">Chọn</option>
+                  {madeIns &&
+                    madeIns.map((madeIn, index) => {
+                      return (
+                        <option key={madeIn.id} value={madeIn.id}>
+                          {madeIn.made_in}
+                        </option>
+                      );
+                    })}
                 </FormControl>
                 {this.state.errors.made_in &&
                   <span className="help-block">
@@ -292,7 +324,6 @@ export default AuthenticatedAdmin(
                   {this.state.image_url === ""
                     ? null
                     : <div>
-                        <p>{this.state.uploadedFile.name}</p>
                         <img
                           className="img img-responsive img-rounded"
                           src={this.state.image_url}
@@ -338,7 +369,6 @@ export default AuthenticatedAdmin(
             handleClose={this.handleCloseDialog}
             actions={actions}
           />
-
         </div>
       );
     }
