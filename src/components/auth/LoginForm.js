@@ -29,7 +29,11 @@ class LoginForm extends React.Component {
 
   componentDidMount() {
     if (LoginStore.userLoggedIn) {
-      browserHistory.push("/");
+      if (LoginStore.userLoggedIn.role === "MANAGER") {
+        browserHistory.push("/admin");
+      } else {
+        browserHistory.push("/");
+      }
     } else {
       browserHistory.push("/login");
     }
@@ -89,7 +93,7 @@ class LoginForm extends React.Component {
         <TextFieldGroup
           field="username"
           value={this.state.username}
-          label="Username"
+          label="Tài khoản"
           onChange={this.onChange}
           error={this.state.errors.username}
         />
@@ -97,7 +101,7 @@ class LoginForm extends React.Component {
         <TextFieldGroup
           field="password"
           value={this.state.password}
-          label="Password"
+          label="Mật khẩu"
           onChange={this.onChange}
           error={this.state.errors.password}
           type="password"

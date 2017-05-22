@@ -2,11 +2,10 @@ import Dispatcher from "../dispatcher/Dispatcher";
 import SignUpConstant from "../constants/SignUpConstant";
 
 export default {
-  singUp: () => {
-    debugger;
+  signUp: (user) => {
     Dispatcher.dispatch({
       actionType: SignUpConstant.SIGN_UP,
-      success: true
+      user: user
     });
   },
 

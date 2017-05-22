@@ -39,6 +39,7 @@ const router =
   <Router history={history}>
     <Route path="/" component={Main}>
       <IndexRoute component={Home}/>
+      <Route path="products" component={ProductPage}/>
       <Route path="login" component={LoginPage}/>
       <Route path="signup" component={SignUpPage}/>
       <Route path="/products/:code" component={ProductDetail}/>

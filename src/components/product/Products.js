@@ -5,7 +5,11 @@ import ProductFilter from "./ProductFilter";
 import ProductStore from "../../stores/ProductStore";
 import ProductService from "../../services/ProductService";
 import FilterSortStore from "../../stores/FilterSortStore";
-import { filterByProps, sortProduct, titleDropDownOrder } from "./FilterSortHandler";
+import {
+  filterByProps,
+  sortProduct,
+  titleDropDownOrder
+} from "./FilterSortHandler";
 import FilterSortAction from "../../actions/FilterSortAction";
 import DropDownMenu from "material-ui/DropDownMenu";
 import MenuItem from "material-ui/MenuItem";
@@ -71,8 +75,7 @@ class Products extends React.Component {
         .includes(searchName.trim().toLowerCase());
     });
     const filteredProduct = filterByProps.bind(this)(filterByName, filterProps);
-    if (filteredProduct.length > 0) {
-      return (
+    return (
         <div className="row">
 
           <div className="col-md-12">
@@ -97,23 +100,25 @@ class Products extends React.Component {
             </DropDownMenu>
           </div>
 
-          <div className="col-md-9">
-            <ProductListComponent
-              productList={filteredProduct}
-              {...this.props}
-              cols={3}
-            />
-          </div>
+          {filteredProduct.length > 0 ?
+            <div className="col-md-9">
+              <ProductListComponent
+                productList={filteredProduct}
+                {...this.props}
+                cols={3}
+              />
+            </div> : <NoAvailableProduct />}
 
-          <div className="col-md-3">
-            <ProductFilter productList={filteredProduct} />
-          </div>
+          {filteredProduct.length > 0
+            ? <div className="col-md-3">
+                <ProductFilter productList={filteredProduct} />
+              </div>
+            : <div className="col-md-3 col-md-offset-9">
+                <ProductFilter productList={filteredProduct} />
+              </div>}
+
         </div>
-      );
-    } else {
-      return <NoAvailableProduct />;
+    )
     }
   }
-}
-
 export default Products;

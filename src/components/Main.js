@@ -28,7 +28,7 @@ export default class Main extends React.Component {
               <Footer />
             </div>
             
-            <ScrollToTop />
+            <ScrollToTop delayInMs={500}/>
 
           </div>
         </MuiThemeProvider>

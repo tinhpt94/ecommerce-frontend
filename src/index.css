@@ -963,7 +963,7 @@ tr:hover {
   font-weight: bold;
 }
 
-.header-section-header a {
+.header-section-header a, .header-section-header a:hover {
   text-decoration: none !important;
   color: #ff5722;
 }

@@ -4,7 +4,7 @@ import SignUpConstant from "../constants/SignUpConstant";
 class SignUpStore extends BaseStore {
   constructor() {
     super();
-    this.success = false;
+    this.user = null;
     this.errors = null;
     this.subscribe(() => this.handler.bind(this));
   }
@@ -12,7 +12,7 @@ class SignUpStore extends BaseStore {
   handler(action) {
     switch (action.actionType) {
       case SignUpConstant.SIGN_UP:
-        this.success = action.success;
+        this.user = action.user;
         this.emitChange();
         break;
       case SignUpConstant.ERROR:
@@ -21,10 +21,6 @@ class SignUpStore extends BaseStore {
         break;
       default:
     }
-  }
-
-  isSuccess() {
-    return this.success;
   }
 }
 

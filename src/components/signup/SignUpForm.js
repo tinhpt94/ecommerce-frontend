@@ -32,13 +32,14 @@ class SignUpForm extends React.Component {
   }
 
   componentDidMount() {
-    if (SignUpStore.isSuccess()) {
-      browserHistory.push("/login");
-    }
     SignUpStore.addChangeListener(this._onChange);
   }
 
-  componentDidUpdate() {}
+  componentDidUpdate() {
+    if (SignUpStore.user) {
+      browserHistory.push("/login");
+    }
+  }
 
   componentWillUnmount() {
     SignUpStore.removeChangeListener(this._onChange);
@@ -71,12 +72,12 @@ class SignUpForm extends React.Component {
   render() {
     return (
       <form onSubmit={this.submit}>
-        <h1>Sign up form</h1>
+        <h1>Thông tin tài khoản</h1>
 
         <TextFieldGroup
           field="username"
           value={this.state.username}
-          label="Username"
+          label="Tài khoản"
           onChange={this.onChange}
           error={this.state.errors.username}
         />
@@ -84,7 +85,7 @@ class SignUpForm extends React.Component {
         <TextFieldGroup
           field="password"
           value={this.state.password}
-          label="Password"
+          label="Mật khẩu"
           onChange={this.onChange}
           type="password"
           error={this.state.errors.password}
@@ -94,7 +95,7 @@ class SignUpForm extends React.Component {
           field="passwordConfirmation"
           type="password"
           value={this.state.passwordConfirmation}
-          label="Password Confirm"
+          label="Nhập lại mật khẩu"
           onChange={this.onChange}
           error={this.state.errors.passwordConfirmation}
         />
@@ -110,7 +111,7 @@ class SignUpForm extends React.Component {
         <TextFieldGroup
           field="name"
           value={this.state.name}
-          label="Name"
+          label="Họ và tên"
           onChange={this.onChange}
           error={this.state.errors.name}
         />
@@ -118,7 +119,7 @@ class SignUpForm extends React.Component {
         <TextFieldGroup
           field="phone"
           value={this.state.phone}
-          label="Phone"
+          label="Số điện thoại"
           onChange={this.onChange}
           error={this.state.errors.phone}
         />
@@ -126,14 +127,14 @@ class SignUpForm extends React.Component {
         <TextFieldGroup
           field="address"
           value={this.state.address}
-          label="Address"
+          label="Địa chỉ"
           onChange={this.onChange}
           error={this.state.errors.address}
         />
 
         <div className="form-group">
           <button className="btn btn-primary btn-lg pull-right">
-            Sign up
+            Đăng ký
           </button>
         </div>
 

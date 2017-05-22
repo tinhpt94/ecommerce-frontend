@@ -18,8 +18,8 @@ class SignUpService {
     })
       .then(function(response) {
         switch (response.status) {
-          case 200:
-            SignUpAction.signUp();
+          case 201:
+            SignUpAction.signUp(response.data);
             break;
           default:
             break;

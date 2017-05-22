@@ -72,6 +72,10 @@ export default class CompareProduct extends Component {
     this.onSelectProduct(value.valueKey);
   };
 
+  filter = (searchText, key) => {
+    return searchText !== '' && key.toLowerCase().indexOf(searchText.toLowerCase()) !== -1;
+  }
+
   render() {
     const products = this.state.products;
     const dataSource = this.state.productList
@@ -103,6 +107,7 @@ export default class CompareProduct extends Component {
                   dataSource={dataSource}
                   onNewRequest={this.handleUpdateInput}
                   dataSourceConfig={dataSourceConfig}
+                  filter={this.filter}
                 />}
               {products.length > 0 &&
                 <img className="img-responsive" src={products[0].image_url} />}
@@ -115,6 +120,7 @@ export default class CompareProduct extends Component {
                   dataSource={dataSource}
                   onNewRequest={this.handleUpdateInput}
                   dataSourceConfig={dataSourceConfig}
+                  filter={this.filter}
                 />}
               {products.length > 1 &&
                 <img className="img-responsive" src={products[1].image_url} />}

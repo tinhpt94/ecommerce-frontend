@@ -37,16 +37,16 @@ export default GuestOrUser(
     };
 
     render() {
-      const productTypes = [
-        ...new Set(this.state.products.map(product => product.product_type))
-      ];
-      console.log(productTypes);
-      console.log(new Set(this.state.products.map(product => product.product_type)));
+      const productTypes = [];
+      this.state.products.forEach(product => {
+        if (productTypes.map(type => type.id).indexOf(product.product_type.id) === -1) {
+          productTypes.push(product.product_type);
+        }
+      });
       const newProducts = this.state.products.filter(product =>
         isNew(product.created_date)
       );
       const settings = {
-        dots: true,
         infinite: true,
         slidesToShow: 5,
         slidesToScroll: 5,
@@ -86,17 +86,22 @@ export default GuestOrUser(
                   <div className="header-section-header-title">
                     {type.type_name}
                   </div>
-                  <Link className="header-section-header-link" to="/news">
+                  <Link
+                    className="header-section-header-link"
+                    to={"/product-type/" + type.code}
+                  >
                     Xem tất cả
                   </Link>
                 </div>
                 <div className="header-section-content">
                   <Slider {...settings}>
-                    {this.state.products.filter(product => product.product_type === type).map((product, index) => (
-                      <div key={index}>
-                        <ProductItem product={product} cols={12} />
-                      </div>
-                    ))}
+                    {this.state.products
+                      .filter(product => product.product_type.id === type.id)
+                      .map((product, index) => (
+                        <div key={index}>
+                          <ProductItem product={product} cols={12} />
+                        </div>
+                      ))}
                   </Slider>
                 </div>
               </div>

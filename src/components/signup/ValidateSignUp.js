@@ -1,5 +1,6 @@
 import Validator from "validator";
 import isEmpty from "lodash/isEmpty";
+import _ from "lodash";
 
 export default function validateSignUp(data) {
   let errors = {};
@@ -20,6 +21,12 @@ export default function validateSignUp(data) {
   }
   if (!Validator.equals(data.password, data.passwordConfirmation)) {
     errors.passwordConfirmation = "Mật khẩu xác nhận phải giống mật khẩu";
+  }
+  if (Validator.isEmpty(data.name)) {
+    errors.name = "Bạn chưa nhập họ và tên";
+  }
+  if (_.isEmpty(data.phone)) {
+    errors.phone = "Bạn chưa nhập số điện thoại";
   }
   return {
     errors: errors,
