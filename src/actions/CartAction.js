@@ -26,5 +26,10 @@ export default {
       actionType: CartConstant.ORDER_SUCCESS,
       orderID: orderID
     });
+  },
+  orderError: () => {
+    Dispatcher.dispatch({
+      actionType: CartConstant.ORDER_ERROR
+    })
   }
 };

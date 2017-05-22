@@ -55,6 +55,9 @@ class CartStore extends BaseStore {
         localStorage.setItem("cartItems", JSON.stringify(this.products));
         this.emitChange();
         break;
+      case CartConstant.ORDER_ERROR:
+        this.orderID = null;
+        this.emitChange();
       default:
         break;
     }

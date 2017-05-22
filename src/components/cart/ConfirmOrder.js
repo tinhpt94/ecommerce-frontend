@@ -5,9 +5,12 @@ import CartService from "../../services/CartService";
 import TextFieldGroup from "../common/TextFieldGroup";
 import ValidateConfirmInfor from "./ValidateConfirmInfor";
 import RaisedButton from "material-ui/RaisedButton";
+import FlatButton from "material-ui/FlatButton";
 import AuthenticatedUser from "../common/AuthenticatedUser";
 import { FormattedNumber } from "react-intl";
 import { browserHistory } from "react-router";
+import CustomizedDialog from "../common/CustomizedDialog";
+import CartAction from "../../actions/CartAction";
 
 export default AuthenticatedUser(
   class ConfirmOrder extends Component {
@@ -30,7 +33,8 @@ export default AuthenticatedUser(
         note: "",
         errors: {},
         totalPrice: CartStore.getTotalPrice(),
-        products: CartStore.getProducts()
+        products: CartStore.getProducts(),
+        orderID: CartStore.orderID
       };
     }
 
@@ -87,10 +91,29 @@ export default AuthenticatedUser(
       browserHistory.push("/");
     };
 
+    handleCloseDialog = () => {
+      CartAction.orderError();
+    };
+
     render() {
+      const actions = [
+        <FlatButton
+          label="Đóng"
+          primary={true}
+          onTouchTap={this.handleCloseDialog}
+        />
+      ];
       const products = this.state.products;
+      const orderSuccess = this.state.orderID ? true : false;
       return (
         <div className="order-confirm">
+          <CustomizedDialog
+            title="Thông báo"
+            content="Đặt hàng thành công"
+            open={orderSuccess}
+            handleClose={this.handleCloseDialog}
+            actions={actions}
+          />
           <div className="row">
             <div className="col-md-6 col-md-offset-3">
               <div className="order-confirm-address">

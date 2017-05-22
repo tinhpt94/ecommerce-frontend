@@ -49,7 +49,7 @@ export default GuestOrUser(
       const settings = {
         infinite: true,
         slidesToShow: 5,
-        slidesToScroll: 5,
+        slidesToScroll: 1,
         autoplay: true,
         autoplaySpeed: 5000,
         centerMode: true,
