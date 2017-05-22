@@ -1,20 +1,21 @@
 import React from "react";
 import ProductListComponent from "./ProductListComponent";
 import NoAvailableProduct from "./NoAvailableProduct";
-import { DropdownButton, MenuItem } from "react-bootstrap";
 import ProductFilter from "./ProductFilter";
 import ProductStore from "../../stores/ProductStore";
 import ProductService from "../../services/ProductService";
 import FilterSortStore from "../../stores/FilterSortStore";
 import FilterSortAction from "../../actions/FilterSortAction";
 import { filterByProps, sortProduct } from "./FilterSortHandler";
+import DropDownMenu from "material-ui/DropDownMenu";
+import MenuItem from "material-ui/MenuItem";
+import GuestOrUser from "../common/GuestOrUser";
 
-class ProductByMadeIn extends React.Component {
+export default GuestOrUser(class ProductByMadeIn extends React.Component {
   constructor(props) {
     super(props);
     this.state = this._getState();
     this._onChange = this._onChange.bind(this);
-    this.handleSelect = this.handleSelect.bind(this);
   }
 
   _getState() {
@@ -51,11 +52,10 @@ class ProductByMadeIn extends React.Component {
     FilterSortStore.removeChangeListener(this._onChange);
   }
 
-  handleSelect(eventKey) {
+  handleChange = (event, index, value) =>
     this.setState({
-      activePage: eventKey
+      orderBy: value
     });
-  }
 
   render() {
     const products = this.state.products;
@@ -71,70 +71,42 @@ class ProductByMadeIn extends React.Component {
         .includes(searchName.trim().toLowerCase());
     });
     const filteredProduct = filterByProps.bind(this)(filterByName, filterProps);
-    if (filteredProduct.length > 0) {
-      return (
-        <div className="row">
-          <div className="col-md-12">
-            <DropdownButton
-              bsSize="small"
-              title="Sắp xếp sản phẩm"
-              id="dropdown-size-small"
-            >
-              <MenuItem
-                eventKey="newest"
-                onSelect={e => this.onSelectedOrder("newest")}
-              >
-                Hàng mới nhập
-              </MenuItem>
-              <MenuItem
-                eventKey="discount"
-                onSelect={e => this.onSelectedOrder("discount")}
-              >
-                Giảm giá nhiều
-                nhất
-              </MenuItem>
-              <MenuItem
-                eventKey="price-low-to-high"
-                onSelect={e => this.onSelectedOrder("price-low-to-high")}
-              >
-                Giá: Từ
-                thấp đến
-                cao
-              </MenuItem>
-              <MenuItem
-                eventKey="price-high-to-low"
-                onSelect={e => this.onSelectedOrder("price-high-to-low")}
-              >
-                Giá: Từ
-                cao đến
-                thấp
-              </MenuItem>
-              <MenuItem
-                eventKey="name-a-z"
-                onSelect={e => this.onSelectedOrder("name-a-z")}
-              >
-                Sắp xếp theo tên:
-                A-Z
-              </MenuItem>
-            </DropdownButton>
-          </div>
-          <div className="col-md-9">
-            <ProductListComponent
-              productList={filteredProduct}
-              {...this.props}
-              cols="4"
+    return (
+      <div className="row">
+        <div className="col-md-12">
+          <DropDownMenu value={this.state.orderBy} onChange={this.handleChange}>
+            <MenuItem value={"newest"} primaryText="Hàng mới nhập" />
+            <MenuItem value={"discount"} primaryText="Giảm giá nhiều nhất" />
+            <MenuItem
+              value={"price-low-to-high"}
+              primaryText="Giá: Từ thấp đến cao"
             />
-          </div>
-
-          <div className="col-md-3">
-            <ProductFilter productList={filteredProduct} />
-          </div>
+            <MenuItem
+              value={"price-high-to-low"}
+              primaryText="Giá: Từ cao đến thấp"
+            />
+            <MenuItem value={"name-a-z"} primaryText="Sắp xếp theo tên: A-Z" />
+          </DropDownMenu>
         </div>
-      );
-    } else {
-      return <NoAvailableProduct />;
-    }
-  }
-}
+        {filteredProduct.length > 0
+          ? <div className="col-md-9">
+              <ProductListComponent
+                productList={filteredProduct}
+                {...this.props}
+                cols={3}
+              />
+            </div>
+          : <NoAvailableProduct />}
 
-export default ProductByMadeIn;
+        {filteredProduct.length > 0
+          ? <div className="col-md-3">
+              <ProductFilter productList={filteredProduct} />
+            </div>
+          : <div className="col-md-3 col-md-offset-9">
+              <ProductFilter productList={filteredProduct} />
+            </div>}
+      </div>
+    );
+  }
+})
+

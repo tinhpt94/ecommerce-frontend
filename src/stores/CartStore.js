@@ -6,6 +6,7 @@ class CartStore extends BaseStore {
     super();
     this.products = JSON.parse(localStorage.getItem("cartItems")) || [];
     this.subscribe(() => this.handler.bind(this));
+    this.orderID = null;
   }
 
   handler(action) {

@@ -100,7 +100,7 @@ export default AuthenticatedManager(
 
     onSelectChange(e) {
       const key = e.target.name;
-      const value = e.target.selectedIndex;
+      const value = e.target.value;
       let newState = this.state.product;
       newState[key].id = value;
       this.setState({

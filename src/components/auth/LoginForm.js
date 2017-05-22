@@ -4,6 +4,7 @@ import ValidateLogin from "./ValidateLogin";
 import LoginService from "../../services/LoginService";
 import LoginStore from "../../stores/LoginStore";
 import { browserHistory } from "react-router";
+import RaisedButton from "material-ui/RaisedButton";
 
 class LoginForm extends React.Component {
   constructor(props) {
@@ -108,9 +109,12 @@ class LoginForm extends React.Component {
         />
 
         <div className="form-group">
-          <button className="btn btn-primary btn-lg pull-right">
-            Login
-          </button>
+          <RaisedButton
+            label="Đăng nhập"
+            fullWidth
+            backgroundColor='#2196F3'
+            onTouchTap={this.submit}
+          />
         </div>
       </form>
     );

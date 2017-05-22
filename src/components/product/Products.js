@@ -7,8 +7,7 @@ import ProductService from "../../services/ProductService";
 import FilterSortStore from "../../stores/FilterSortStore";
 import {
   filterByProps,
-  sortProduct,
-  titleDropDownOrder
+  sortProduct
 } from "./FilterSortHandler";
 import FilterSortAction from "../../actions/FilterSortAction";
 import DropDownMenu from "material-ui/DropDownMenu";
@@ -76,49 +75,44 @@ class Products extends React.Component {
     });
     const filteredProduct = filterByProps.bind(this)(filterByName, filterProps);
     return (
-        <div className="row">
+      <div className="row">
 
-          <div className="col-md-12">
-            <DropDownMenu
-              value={this.state.orderBy}
-              onChange={this.handleChange}
-            >
-              <MenuItem value={"newest"} primaryText="Hàng mới nhập" />
-              <MenuItem value={"discount"} primaryText="Giảm giá nhiều nhất" />
-              <MenuItem
-                value={"price-low-to-high"}
-                primaryText="Giá: Từ thấp đến cao"
-              />
-              <MenuItem
-                value={"price-high-to-low"}
-                primaryText="Giá: Từ cao đến thấp"
-              />
-              <MenuItem
-                value={"name-a-z"}
-                primaryText="Sắp xếp theo tên: A-Z"
-              />
-            </DropDownMenu>
-          </div>
+        <div className="col-md-12">
+          <DropDownMenu value={this.state.orderBy} onChange={this.handleChange}>
+            <MenuItem value={"newest"} primaryText="Hàng mới nhập" />
+            <MenuItem value={"discount"} primaryText="Giảm giá nhiều nhất" />
+            <MenuItem
+              value={"price-low-to-high"}
+              primaryText="Giá: Từ thấp đến cao"
+            />
+            <MenuItem
+              value={"price-high-to-low"}
+              primaryText="Giá: Từ cao đến thấp"
+            />
+            <MenuItem value={"name-a-z"} primaryText="Sắp xếp theo tên: A-Z" />
+          </DropDownMenu>
+        </div>
 
-          {filteredProduct.length > 0 ?
-            <div className="col-md-9">
+        {filteredProduct.length > 0
+          ? <div className="col-md-9">
               <ProductListComponent
                 productList={filteredProduct}
                 {...this.props}
                 cols={3}
               />
-            </div> : <NoAvailableProduct />}
+            </div>
+          : <NoAvailableProduct />}
 
-          {filteredProduct.length > 0
-            ? <div className="col-md-3">
-                <ProductFilter productList={filteredProduct} />
-              </div>
-            : <div className="col-md-3 col-md-offset-9">
-                <ProductFilter productList={filteredProduct} />
-              </div>}
+        {filteredProduct.length > 0
+          ? <div className="col-md-3">
+              <ProductFilter productList={filteredProduct} />
+            </div>
+          : <div className="col-md-3 col-md-offset-9">
+              <ProductFilter productList={filteredProduct} />
+            </div>}
 
-        </div>
-    )
-    }
+      </div>
+    );
   }
+}
 export default Products;

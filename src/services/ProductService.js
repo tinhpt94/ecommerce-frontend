@@ -22,19 +22,6 @@ class ProductService {
           break;
       }
     });
-    // fake data
-    // const size = 50;
-    // let products = [];
-    // for (let i = 0; i < size; i++) {
-    //   products.push({
-    //       id: i + 1,
-    //       name: faker.commerce.productName(),
-    //       imageUrl: faker.image.imageUrl(),
-    //       price: faker.commerce.price()
-    //     }
-    //   )
-    // }
-    // ProductAction.fetchAll(products);
   }
 
   fetchByCode(code) {

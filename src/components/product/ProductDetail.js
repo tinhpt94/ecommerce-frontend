@@ -13,21 +13,14 @@ import CommentForm from "../comment/CommentForm";
 import Stars from "react-stars";
 import RaisedButton from "material-ui/RaisedButton";
 import AddShoppingCart from "material-ui/svg-icons/action/add-shopping-cart";
-import ShoppingCart from "material-ui/svg-icons/action/shopping-cart";
 import Slider from "react-slick";
 import ProductItem from "./ProductItem";
 import NumericInput from "react-numeric-input";
 import { FormattedNumber } from "react-intl";
 import { isNew } from "../../utils/date";
 import { PromotionBadge, NewBadge } from "../common/Badge";
-import { browserHistory } from "react-router";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-
-const SLIDER_RESPONSIVE = [
-  { breakpoint: 768, settings: { slidesToShow: 3 } },
-  { breakpoint: 1024, settings: { slidesToShow: 5 } }
-];
 
 export default class ProductDetail extends Component {
   constructor(props) {

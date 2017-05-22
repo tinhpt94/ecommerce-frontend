@@ -159,7 +159,7 @@ class ProductFilter extends Component {
               <Checkbox
                 onCheck={e => this.filterCheckBoxChange(e, "price")}
                 name="100000"
-                label="100,000 - 200,000"
+                label=">= 100,000đ"
                 disabled={this.checkSelected("price", "100000")}
               />
             </li>
@@ -167,7 +167,7 @@ class ProductFilter extends Component {
               <Checkbox
                 onCheck={e => this.filterCheckBoxChange(e, "price")}
                 name="200000"
-                label="200,000 - 300,000"
+                label=">= 200,000đ"
                 disabled={this.checkSelected("price", "200000")}
               />
             </li>
@@ -175,7 +175,7 @@ class ProductFilter extends Component {
               <Checkbox
                 onCheck={e => this.filterCheckBoxChange(e, "price")}
                 name="300000"
-                label="300,000 - 400,000"
+                label=">= 300,000đ"
                 disabled={this.checkSelected("price", "300000")}
               />
             </li>
@@ -183,7 +183,7 @@ class ProductFilter extends Component {
               <Checkbox
                 onCheck={e => this.filterCheckBoxChange(e, "price")}
                 name="400000"
-                label="400,000 - 500,000"
+                label=">= 400,000đ"
                 disabled={this.checkSelected("price", "400000")}
               />
             </li>

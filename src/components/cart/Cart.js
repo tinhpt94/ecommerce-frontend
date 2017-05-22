@@ -147,9 +147,11 @@ export default AuthenticatedUser(
                   onTouchTap={this.redirectToConfirm}
                 />
               </div>}
-
+        : <div className="">
+        </div>}
             {this.state.totalPrice === 0 &&
               <div className="col-md-12 text-right cart-bottom">
+                <div>Không có sản phẩm nào trong giỏ hàng</div>
                 <RaisedButton
                   secondary={true}
                   label="Quay lại mua hàng"

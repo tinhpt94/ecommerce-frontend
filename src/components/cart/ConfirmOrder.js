@@ -7,6 +7,7 @@ import ValidateConfirmInfor from "./ValidateConfirmInfor";
 import RaisedButton from "material-ui/RaisedButton";
 import AuthenticatedUser from "../common/AuthenticatedUser";
 import { FormattedNumber } from "react-intl";
+import { browserHistory } from "react-router";
 
 export default AuthenticatedUser(
   class ConfirmOrder extends Component {
@@ -81,6 +82,10 @@ export default AuthenticatedUser(
         );
       }
     }
+
+    redirectToProductPage = () => {
+      browserHistory.push("/");
+    };
 
     render() {
       const products = this.state.products;
@@ -192,23 +197,36 @@ export default AuthenticatedUser(
           </div>
 
           <div className="row">
-            <div className="col-md-6 col-md-offset-3">
-              <div className="order-confirm-footer text-right">
-                <label className="cart-total">
-                Tổng: 
-                <FormattedNumber
-                  value={this.state.totalPrice}
-                  style="currency"
-                  currency="VND"
-                />
-              </label>
-              <RaisedButton
+            {products.length > 0 &&
+              <div className="col-md-6 col-md-offset-3">
+                <div className="order-confirm-footer text-right">
+                  <label className="cart-total">
+                    Tổng:
+                    <FormattedNumber
+                      value={this.state.totalPrice}
+                      style="currency"
+                      currency="VND"
+                    />
+                  </label>
+                  <RaisedButton
                     secondary={true}
                     label="Đặt hàng"
                     onTouchTap={this.submit}
                   />
                 </div>
-            </div>
+              </div>}
+
+            {products.length === 0 &&
+              <div className="col-md-6 col-md-offset-3">
+                <div>Không có sản phẩm nào trong giỏ hàng</div>
+                <div className="order-confirm-footer text-right">
+                  <RaisedButton
+                    secondary={true}
+                    label="Quay lại mua hàng"
+                    onTouchTap={this.redirectToProductPage}
+                  />
+                </div>
+              </div>}
           </div>
         </div>
       );

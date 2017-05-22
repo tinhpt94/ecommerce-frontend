@@ -92,13 +92,8 @@ export default class NavigationBar extends React.Component {
       return (
         <ul className="nav navbar-nav navbar-right">
           <li><Link to="/compare-product">So sánh</Link></li>
-          <li>
-            <Link to="/cart">
-              Giỏ hàng <span className="badge">{this.state.totalProduct}</span>
-            </Link>
-          </li>
-          <li><Link to="/login">Login</Link></li>
-          <li><Link to="/signup">Sign up</Link></li>
+          <li><Link to="/login">Đăng nhập</Link></li>
+          <li><Link to="/signup">Đăng ký</Link></li>
         </ul>
       );
     }
