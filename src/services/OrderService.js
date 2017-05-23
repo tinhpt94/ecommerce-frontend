@@ -176,7 +176,7 @@ class OrderService {
       .then(response => {
         switch (response.status) {
           case 200:
-            OrderAction.fetchByDate(response.data);
+            OrderAction.fetchByDate(response.data, fromDate, toDate);
             break;
           default:
             break;

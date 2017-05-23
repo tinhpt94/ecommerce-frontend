@@ -64,12 +64,29 @@ export default AuthenticatedManager(
     csvFileName = () => {
       return (
         "orders-" +
-        moment(this.state.fromDate).format("DDMMYYYY") +
+        moment(OrderStore.fromDate).format("DDMMYYYY") +
         "-" +
-        moment(this.state.toDate).format("DDMMYYYY") +
+        moment(OrderStore.toDate).format("DDMMYYYY") +
         ".csv"
       );
     };
+
+    handleChangeFromDate = (event, date) => {
+      this.setState({
+        fromDate: date,
+        toDate: this.getToDate(date)
+      });
+    };
+
+    handleChangeToDate = (event, date) => {
+      this.setState({
+        toDate: date
+      });
+    };
+
+    disableFuture(date) {
+      return date >= new Date();
+    }
 
     render() {
       const orders = this.state.orders;
