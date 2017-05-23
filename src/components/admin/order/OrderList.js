@@ -4,15 +4,13 @@ import { Tabs, Tab } from "material-ui/Tabs";
 import OrderTable from "./OrderTable";
 import OrderStore from "../../../stores/OrderStore";
 import OrderService from "../../../services/OrderService";
-
-const styles = {
-  headline: {
-    fontSize: 24,
-    paddingTop: 16,
-    marginBottom: 12,
-    fontWeight: 400
-  }
-};
+import moment from "moment";
+import DatePicker from "material-ui/DatePicker";
+import RaisedButton from "material-ui/RaisedButton";
+import OrderConstant from "../../../constants/OrderConstant";
+import IconButton from "material-ui/IconButton";
+import ExportIcon from "material-ui/svg-icons/file/file-download";
+import { CSVLink, CSVDownload } from "react-csv";
 
 export default AuthenticatedManager(
   class OrderList extends Component {
@@ -24,7 +22,9 @@ export default AuthenticatedManager(
 
     _getState() {
       return {
-        orders: OrderStore.orders
+        orders: OrderStore.orders,
+        fromDate: OrderStore.fromDate,
+        toDate: OrderStore.toDate
       };
     }
 
@@ -37,54 +37,100 @@ export default AuthenticatedManager(
     }
 
     componentDidMount() {
-      OrderService.fetchAll();
+      OrderService.fetchByDate(this.state.fromDate, this.state.toDate);
     }
 
     componentWillUnmount() {
       OrderStore.removeChangeListener(this._onChange);
     }
 
+    getToDate = fromDate => {
+      const toDate = moment(fromDate).add(31, "days").toDate();
+      return new Date() > toDate ? toDate : new Date();
+    };
+
+    getMaxDate = () => {
+      return moment(this.state.fromDate).add(31, "days").toDate();
+    };
+
+    formatDate = date => {
+      return moment(date).format("DD-MM-YYYY");
+    };
+
+    viewOrder = () => {
+      OrderService.fetchByDate(this.state.fromDate, this.state.toDate);
+    };
+
+    csvFileName = () => {
+      return (
+        "orders-" +
+        moment(this.state.fromDate).format("DDMMYYYY") +
+        "-" +
+        moment(this.state.toDate).format("DDMMYYYY") +
+        ".csv"
+      );
+    };
+
     render() {
       const orders = this.state.orders;
       return (
-        <Tabs>
-          <Tab label="Chờ xác nhận">
-            <OrderTable
-              orders={
-                orders
-                  ? orders.filter(order => order.status === "PENDING")
-                  : undefined
-              }
-            />
-          </Tab>
-          <Tab label="Đang giao">
-            <OrderTable
-              orders={
-                orders
-                  ? orders.filter(order => order.status === "SHIPPING")
-                  : undefined
-              }
-            />
-          </Tab>
-          <Tab label="Đã giao">
-            <OrderTable
-              orders={
-                orders
-                  ? orders.filter(order => order.status === "DELIVERED")
-                  : undefined
-              }
-            />
-          </Tab>
-          <Tab label="Đã huỷ">
-            <OrderTable
-              orders={
-                orders
-                  ? orders.filter(order => order.status === "CANCELLED")
-                  : undefined
-              }
-            />
-          </Tab>
-        </Tabs>
+        <div className="order-wrapper">
+          <div className="row">
+            <div className="col-md-4">
+              <div className="date-picker-label">
+                Từ ngày
+              </div>
+              <DatePicker
+                hintText="Từ ngày"
+                value={this.state.fromDate}
+                shouldDisableDate={this.disableFuture}
+                autoOk={true}
+                maxDate={this.state.toDate}
+                onChange={this.handleChangeFromDate}
+                className="date-picker"
+                formatDate={this.formatDate}
+              />
+            </div>
+            <div className="col-md-4">
+              <div className="date-picker-label">Đến ngày</div>
+              <DatePicker
+                hintText="Đến ngày"
+                value={this.state.toDate}
+                shouldDisableDate={this.disableFuture}
+                minDate={this.state.fromDate}
+                maxDate={this.getMaxDate()}
+                autoOk={true}
+                onChange={this.handleChangeToDate}
+                className="date-picker"
+                formatDate={this.formatDate}
+              />
+            </div>
+
+            <div className="col-md-4">
+              <RaisedButton
+                label="Xem báo cáo"
+                primary={true}
+                onTouchTap={this.viewOrder}
+              />
+              {orders &&
+                <IconButton tooltip="Xuất file báo cáo">
+                  <CSVLink
+                    data={orders}
+                    filename={this.csvFileName()}
+                    target="_blank"
+                  >
+                    <ExportIcon />
+                  </CSVLink>
+                </IconButton>}
+            </div>
+          </div>
+
+          <div className="row">
+            <div className="col-md-12">
+              <OrderTable orders={orders} />
+            </div>
+          </div>
+        </div>
       );
     }
   }

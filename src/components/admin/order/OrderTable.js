@@ -10,6 +10,7 @@ import {
 } from "material-ui";
 import { FormattedNumber } from "react-intl";
 import { browserHistory } from "react-router";
+import OrderConstant from "../../../constants/OrderConstant";
 
 export default AuthenticatedManager(
   class OrderTable extends Component {
@@ -25,9 +26,9 @@ export default AuthenticatedManager(
             <TableRow>
               <TableHeaderColumn style={{width: "10%"}}>Mã đơn hàng</TableHeaderColumn>
               <TableHeaderColumn style={{width: "25%"}}>Ngày đặt hàng</TableHeaderColumn>
-              <TableHeaderColumn style={{width: "35%"}}>Tên khách hàng</TableHeaderColumn>
+              <TableHeaderColumn style={{width: "30%"}}>Tên khách hàng</TableHeaderColumn>
               <TableHeaderColumn style={{width: "15%"}}>Giá trị đơn hàng</TableHeaderColumn>
-              <TableHeaderColumn style={{width: "15%"}}>Trạng thái</TableHeaderColumn>
+              <TableHeaderColumn style={{width: "20%"}}>Trạng thái</TableHeaderColumn>
             </TableRow>
           </TableHeader>
           <TableBody displayRowCheckbox={false}>
@@ -37,13 +38,13 @@ export default AuthenticatedManager(
                   <TableRow key={index}>
                     <TableRowColumn style={{width: "10%"}}>{order.id}</TableRowColumn>
                     <TableRowColumn style={{width: "25%"}}>{order.created_date}</TableRowColumn>
-                    <TableRowColumn style={{width: "35%"}}>{order.customer_name}</TableRowColumn>
+                    <TableRowColumn style={{width: "30%"}}>{order.customer_name}</TableRowColumn>
                     <TableRowColumn style={{width: "15%"}}>
                       <FormattedNumber value={order.total_cost} 
                       style="currency"
                       currency="VND"/>
                     </TableRowColumn>
-                    <TableRowColumn style={{width: "15%"}}>{order.status}</TableRowColumn>
+                    <TableRowColumn style={{width: "20%"}}>{OrderConstant[order.status]}</TableRowColumn>
                   </TableRow>
                 );
               })}

@@ -2,6 +2,7 @@ import axios from "axios";
 import OrderConstant from "../constants/OrderConstant";
 import GlobalConstant from "../constants/GlobalConstant";
 import OrderAction from "../actions/OrderAction";
+import moment from "moment";
 
 class OrderService {
   fetchAll() {
@@ -135,6 +136,47 @@ class OrderService {
         switch (response.status) {
           case 200:
             OrderAction.fetchByUser(response.data);
+            break;
+          default:
+            break;
+        }
+      })
+      .catch(error => {
+        if (error.response) {
+          switch (error.response.status) {
+            case 401:
+              break;
+            case 403:
+              break;
+            default:
+              break;
+          }
+        } else {
+          console.log("Error", error.message);
+        }
+      });
+  }
+
+  fetchByDate(fromDate, toDate) {
+    axios({
+      baseURL: GlobalConstant.BASE_API,
+      url: OrderConstant.URL +
+        "?fromDate=" +
+        moment(fromDate).format("DD-MM-YYYY") +
+        "&toDate=" +
+        moment(toDate).format("DD-MM-YYYY"),
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      crossDomain: true,
+      withCredentials: true
+    })
+      .then(response => {
+        switch (response.status) {
+          case 200:
+            OrderAction.fetchByDate(response.data);
             break;
           default:
             break;

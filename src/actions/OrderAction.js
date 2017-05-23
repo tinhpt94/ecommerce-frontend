@@ -34,5 +34,14 @@ export default {
       actionType: OrderConstant.FETCH_BY_USER,
       orders
     });
+  },
+
+  fetchByDate: (orders, fromDate, toDate) => {
+    Dispatcher.dispatch({
+      actionType: OrderConstant.FETCH_BY_DATE,
+      orders,
+      fromDate,
+      toDate
+    });
   }
 };
