@@ -68,7 +68,7 @@ export default class NavigationBar extends React.Component {
               Giỏ hàng <span className="badge">{this.state.totalProduct}</span>
             </Link>
           </li>
-          <li><a>Welcome {this.state.userLoggedIn.name}</a></li>
+          <li><a>Xin chào {this.state.userLoggedIn.name}</a></li>
           <li>
             <ToolbarGroup>
               <IconMenu

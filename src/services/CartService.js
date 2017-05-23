@@ -20,7 +20,9 @@ class CartService {
         note: note,
         line_items: lineItems,
         user_id: JSON.parse(localStorage.getItem("user")).id
-      }
+      },
+      crossDomain: true,
+      withCredentials: true
     })
       .then(response => {
         switch (response.status) {

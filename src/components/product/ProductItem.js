@@ -59,7 +59,7 @@ export default class ProductItem extends React.Component {
           <Link
             to={
               role === "MANAGER"
-                ? "/admin/products/" + product.id
+                ? "/admin/products/" + product.code
                 : "/products/" + product.code
             }
             className="product-item-link"

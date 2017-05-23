@@ -60,7 +60,7 @@ const router =
     <Route path="/admin" component={AdminLayout}>
       <IndexRoute component={ProductList}/>
       <Route path="/admin/products/new" component={AddNewProduct}/>
-      <Route path="/admin/products/:code" component={EditProduct}/>
+      <Route path="/admin/products/:code" component={ProductDetail}/>
       <Route path="/admin/products" component={ProductList}/>
       <Route path="/admin/orders" component={OrderList}/>
       <Route path="/admin/orders/:orderId" component={OrderDetail}/>

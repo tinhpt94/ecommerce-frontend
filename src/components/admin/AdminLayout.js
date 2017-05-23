@@ -39,7 +39,7 @@ export default AuthenticatedManager(
                       </Link>
                     </div>
                     <ul className="nav navbar-nav navbar-right">
-                      <li><a>Welcome {this.props.userLoggedIn.name}</a></li>
+                      <li><a>Xin chào {this.props.userLoggedIn.name}</a></li>
                       <li>
                         <ToolbarGroup>
                           <IconMenu

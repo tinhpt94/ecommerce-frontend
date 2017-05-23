@@ -1,6 +1,5 @@
 import React from "react";
 import { FormattedNumber } from "react-intl";
-import { number } from "prop-types";
 
 export const PromotionBadge = () => ({
   render() {

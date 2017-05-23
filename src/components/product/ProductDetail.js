@@ -36,11 +36,7 @@ export default class ProductDetail extends Component {
     return {
       product: ProductStore.getSelectedProduct(),
       code: this.props.params.code,
-      quantity: 1,
-      title: "",
-      content: "",
-      rating: 5,
-      errors: {}
+      quantity: 1
     };
   }
 
@@ -54,6 +50,12 @@ export default class ProductDetail extends Component {
 
   componentDidMount() {
     ProductService.fetchByCode(this.state.code);
+  }
+
+  componentWillReceiveProps = (nextProps) => {
+    if (nextProps.params.code !== this.props.params.code) {
+      ProductService.fetchByCode(nextProps.params.code)
+    }
   }
 
   componentWillUnmount() {
@@ -164,10 +166,13 @@ export default class ProductDetail extends Component {
                           <Stars
                             name="disabled"
                             totalStars={5}
-                            value={this.state.product.rating}
+                            value={product.rating}
                             size={14}
                             edit={false}
                           />
+                          <div>Xuất xứ: {product.made_in.made_in}</div>
+                          <div>Loại sản phẩm: {product.product_type.type_name}</div>
+                          <div>Thương hiệu: {product.brand.brand}</div>
                         </div>
 
                         <div className="product-info-header-right-section">
@@ -177,7 +182,7 @@ export default class ProductDetail extends Component {
                         </div>
                       </div>
 
-                      <div className="product-info-body">
+                      {loggedInUser && loggedInUser.role === "USER" && <div className="product-info-body">
                         <div className="product-info-body-order-block">
                           <div className="product-info-body-row">
                             <div
@@ -208,9 +213,9 @@ export default class ProductDetail extends Component {
 
                           </div>
                         </div>
-                      </div>
+                      </div>}
 
-                      {loggedInUser &&
+                      {loggedInUser && loggedInUser.role === "USER" &&
                         <div className="product-info-footer">
                           <div className="shop-button">
                             <RaisedButton
@@ -248,7 +253,7 @@ export default class ProductDetail extends Component {
                     </div>
                   </Tab>
                   <Tab label="Đánh giá">
-                    {loggedInUser && <CommentForm product={product} />}
+                    {loggedInUser && loggedInUser.role === "USER" && <CommentForm product={product} />}
                     <CommentList comments={product.comments} />
                   </Tab>
                 </Tabs>

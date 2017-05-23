@@ -204,7 +204,7 @@ export default AuthenticatedUser(
                           <FormattedNumber
                             value={
                               product.price *
-                                product.quantity *
+                                product.amount *
                                 (100 - product.discount) /
                                 100
                             }
