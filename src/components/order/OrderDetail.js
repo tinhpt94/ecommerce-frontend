@@ -65,7 +65,7 @@ export default AuthenticatedUser(
                     {"Mã đơn hàng: " + order.id}
                   </div>
 
-                  <div className="tracking-order-step">
+                  {order.status !== "CANCELLED" ? <div className="tracking-order-step">
                     <div style={{ width: "100%", margin: "auto" }}>
                       <Stepper activeStep={stepIndex}>
                         <Step>
@@ -82,7 +82,7 @@ export default AuthenticatedUser(
                         </Step>
                       </Stepper>
                     </div>
-                  </div>
+                  </div> : <div className="tracking-order-title text-center">Đơn hàng đã huỷ</div>}
                 </div>
 
                 <div className="tracking-order-info-content">

@@ -54,7 +54,7 @@ export default AuthenticatedManager(
                             }
                           >
                             <MenuItem
-                              primaryText="Log out"
+                              primaryText="Đăng xuất"
                               onTouchTap={this.logout}
                             />
                           </IconMenu>

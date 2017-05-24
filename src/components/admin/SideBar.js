@@ -66,28 +66,23 @@ class SideBar extends Component {
             defaultSelected="products"
             highlightColor="#E91E63"
           >
-            <Nav id="dashboard">
-              <NavIcon><Icon20 icon={ic_aspect_ratio} /></NavIcon>
-              <NavText> Dashboard </NavText>
-            </Nav>
-
             <Link to="/admin/products" activeClassName="active">
               <Nav id="products">
                 <NavIcon><Icon20 icon={ic_business_center} /></NavIcon>
-                <NavText>Products</NavText>
+                <NavText>Sản phẩm</NavText>
               </Nav>
             </Link>
 
             <Link to="/admin/orders" activeClassName="active">
               <Nav id="orders">
                 <NavIcon><Icon20 icon={ic_format_list_bulleted} /></NavIcon>
-                <NavText>Orders</NavText>
+                <NavText>Đơn hàng</NavText>
               </Nav>
             </Link>
             <Link to="/admin/report" activeClassName="active">
               <Nav id="sales">
                 <NavIcon><Icon20 icon={ic_business} /></NavIcon>
-                <NavText> Report </NavText>
+                <NavText> Báo cáo </NavText>
               </Nav>
             </Link>
           </SideNav>

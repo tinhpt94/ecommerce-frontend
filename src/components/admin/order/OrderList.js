@@ -73,8 +73,7 @@ export default AuthenticatedManager(
 
     handleChangeFromDate = (event, date) => {
       this.setState({
-        fromDate: date,
-        toDate: this.getToDate(date)
+        fromDate: date
       });
     };
 
@@ -102,7 +101,6 @@ export default AuthenticatedManager(
                 value={this.state.fromDate}
                 shouldDisableDate={this.disableFuture}
                 autoOk={true}
-                maxDate={this.state.toDate}
                 onChange={this.handleChangeFromDate}
                 className="date-picker"
                 formatDate={this.formatDate}
@@ -115,7 +113,6 @@ export default AuthenticatedManager(
                 value={this.state.toDate}
                 shouldDisableDate={this.disableFuture}
                 minDate={this.state.fromDate}
-                maxDate={this.getMaxDate()}
                 autoOk={true}
                 onChange={this.handleChangeToDate}
                 className="date-picker"
@@ -144,7 +141,7 @@ export default AuthenticatedManager(
 
           <div className="row">
             <div className="col-md-12">
-              <OrderTable orders={orders} />
+              {orders && orders.length > 0 ? <OrderTable orders={orders} /> : <div className="text-center">Không có đơn hàng thoả mãn</div>}
             </div>
           </div>
         </div>

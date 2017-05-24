@@ -7,6 +7,7 @@ import OrderItemTable from "../../order/OrderItemTable";
 import { FormattedNumber } from "react-intl";
 import RaisedButton from "material-ui/RaisedButton";
 import CustomizedDialog from "../../common/CustomizedDialog";
+import { Step, Stepper, StepLabel } from "material-ui/Stepper";
 
 const style = {
   margin: 12
@@ -58,6 +59,22 @@ export default AuthenticatedManager(
       OrderAction.updateOrderError();
     }
 
+    getStepIndex = () => {
+      let index = 0;
+      switch (this.state.order.status) {
+        case "PENDING":
+          index = 1;
+          break;
+        case "SHIPPING":
+          index = 2;
+          break;
+        case "DELIVERED":
+          index = 4;
+          break;
+      }
+      return index;
+    };
+
     getVNStatus = engStatus => {
       let vnStatus = "";
       switch (engStatus) {
@@ -79,6 +96,7 @@ export default AuthenticatedManager(
     render() {
       const order = this.state.order;
       const lineItems = order ? order.line_items : undefined;
+      const stepIndex = order ? this.getStepIndex() : -1;
       const actions = [
         <RaisedButton
           label="Cancel"
@@ -95,10 +113,25 @@ export default AuthenticatedManager(
                   <div className="tracking-order-title text-center">
                     {"Mã đơn hàng: " + order.id}
                   </div>
-                  <div className="tracking-order-title text-center">
-                    {"Trạng thái đơn hàng: " + this.getVNStatus(order.status)}
-                  </div>
 
+                  {order.status !== "CANCELLED" ? <div className="tracking-order-step">
+                    <div style={{ width: "100%", margin: "auto" }}>
+                      <Stepper activeStep={stepIndex}>
+                        <Step>
+                          <StepLabel>Đặt hàng thành công</StepLabel>
+                        </Step>
+                        <Step>
+                          <StepLabel>Đang chờ xác nhận</StepLabel>
+                        </Step>
+                        <Step>
+                          <StepLabel>Đang giao hàng</StepLabel>
+                        </Step>
+                        <Step>
+                          <StepLabel>Đã giao hàng</StepLabel>
+                        </Step>
+                      </Stepper>
+                    </div>
+                  </div> : <div className="tracking-order-title text-center">Đơn hàng đã huỷ</div>}
                 </div>
 
                 <div className="tracking-order-info-content">
@@ -112,19 +145,19 @@ export default AuthenticatedManager(
 
                   <div className="tracking-order-info-content-items">
                     <h4 className="text-center">Đơn hàng bao gồm</h4>
-                    <OrderItemTable items={lineItems} />
+                    <OrderItemTable items={order.line_items} />
                     <div className="tracking-order-total">
                       <div className="title">{"Tổng thanh toán: "}</div>
                       <div className="price">
                         <FormattedNumber
-                          value={order.total_cost}
-                          style="currency"
-                          currency="VND"
-                        />
-                      </div>
+                            value={order.total_cost}
+                            style="currency"
+                            currency="VND"
+                          /></div>
                     </div>
                   </div>
                 </div>
+              
 
                 <div className="row">
                   <div className="col-md-12">
