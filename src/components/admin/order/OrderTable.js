@@ -24,8 +24,8 @@ export default AuthenticatedManager(
         itemParPage: 12
       };
     }
-    onCellClick(index) {
-      browserHistory.push("/admin/orders/" + this.props.orders[index].id);
+    onCellClick = (index) => {
+      browserHistory.push("/admin/orders/" + this.props.orders[(this.state.activePage - 1) * this.state.itemParPage + index].id);
     }
 
     handleSelectPage = eventKey => {
@@ -43,11 +43,11 @@ export default AuthenticatedManager(
       const { orders } = this.props;
       const { activePage, itemParPage } = this.state;
       const items = orders && orders.length > 0
-        ? (orders.length / this.state.itemParPage).toFixed(0)
+        ? parseInt((orders.length / this.state.itemParPage).toFixed(0))
         : 0;
       return (
         <div className="order-table">
-          <Table onCellClick={this.onCellClick.bind(this)}>
+          <Table fixedHeader onCellClick={this.onCellClick}>
             <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
               <TableRow>
                 <TableHeaderColumn style={{ width: "10%" }}>
@@ -67,12 +67,12 @@ export default AuthenticatedManager(
                 </TableHeaderColumn>
               </TableRow>
             </TableHeader>
-            <TableBody displayRowCheckbox={false}>
+            <TableBody displayRowCheckbox={false} showRowHover>
               {orders &&
                 orders
                   .slice(
-                    (activePage - 1) * itemParPage + 1,
-                    activePage * itemParPage + 1
+                    (activePage - 1) * itemParPage,
+                    activePage * itemParPage
                   )
                   .map((order, index) => {
                     return (

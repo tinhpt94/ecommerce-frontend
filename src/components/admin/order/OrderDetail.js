@@ -43,6 +43,13 @@ export default AuthenticatedManager(
       OrderService.fetchById(this.state.orderId);
     }
 
+    componentReceiveProps(nextProps) {
+      this.setState({
+        orderId: nextProps.params.orderId
+      })
+      OrderService.fetchById(nextProps.params.orderId);
+    }
+
     componentWillUnmount() {
       OrderStore.removeChangeListener(this._onChange);
     }
