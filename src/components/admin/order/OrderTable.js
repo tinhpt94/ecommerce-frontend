@@ -43,7 +43,7 @@ export default AuthenticatedManager(
       const { orders } = this.props;
       const { activePage, itemParPage } = this.state;
       const items = orders && orders.length > 0
-        ? parseInt((orders.length / this.state.itemParPage).toFixed(0))
+        ? Math.ceil(orders.length / itemParPage)
         : 0;
       return (
         <div className="order-table">
