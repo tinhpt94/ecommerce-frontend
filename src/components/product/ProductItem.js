@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router";
-import CustomizedDialog from "../common/CustomizedDialog";
 import RaisedButton from "material-ui/RaisedButton";
 import ShippingIcon from "material-ui/svg-icons/maps/local-shipping";
 import Stars from "react-stars";
@@ -8,51 +7,15 @@ import { FormattedNumber } from "react-intl";
 import { isNew } from "../../utils/date";
 import { PromotionBadge, NewBadge } from "../common/Badge";
 import classnames from "classnames";
-import FloatingActionButton from 'material-ui/FloatingActionButton';
-import DeleteIcon from "material-ui/svg-icons/content/delete-sweep";
 
 export default class ProductItem extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      showDialog: false
-    };
-    this.handleCloseDialog = this.handleCloseDialog.bind(this);
-    this.handleShowDialog = this.handleShowDialog.bind(this);
-    this.handleDelete = this.handleDelete.bind(this);
-  }
-
-  handleCloseDialog() {
-    this.setState({
-      showDialog: false
-    });
-  }
-
-  handleShowDialog() {
-    this.setState({
-      showDialog: true
-    });
-  }
-
-  handleDelete(product) {
-    this.setState({
-      showDialog: false
-    });
-    this.props.onDelete(product);
-  }
 
   render() {
     const { cols, product } = this.props;
     const role = localStorage.getItem("user")
       ? JSON.parse(localStorage.getItem("user")).role
       : "";
-    const actions = [
-      <RaisedButton
-        label="Xoá"
-        primary={true}
-        onTouchTap={e => this.handleDelete.call({}, product)}
-      />
-    ];
+    
     return (
       <div className={classnames("col-md-" + cols, "no-padding-right")}>
         <div className="view-product-item">
@@ -119,23 +82,8 @@ export default class ProductItem extends React.Component {
                 </div>
               </div>
             </div>
-
           </Link>
-
-          <div className="product-item-delete">
-                  <FloatingActionButton onTouchTap={this.handleShowDialog}>
-                    <DeleteIcon />
-                  </FloatingActionButton>
-          </div>
         </div>
-
-        <CustomizedDialog
-          title="Thông báo"
-          content={"Bạn có chắc chắn muốn xoá sản phẩm " + product.name + " ?"}
-          open={this.state.showDialog}
-          handleClose={this.handleCloseDialog}
-          actions={actions}
-        />
       </div>
     );
   }

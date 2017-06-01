@@ -79,8 +79,8 @@ class LoginForm extends React.Component {
   get errorMessage() {
     if (this.state.errorServer) {
       return (
-        <div className="text-danger form-group error">
-          Login false! Plz check your password or ID.
+        <div className="text-danger form-group error text-center">
+          Tài khoản hoặc mật khẩu không đúng
         </div>
       );
     }
@@ -94,7 +94,7 @@ class LoginForm extends React.Component {
         <TextFieldGroup
           field="username"
           value={this.state.username}
-          label="Tài khoản"
+          label="Tài khoản *"
           onChange={this.onChange}
           error={this.state.errors.username}
         />
@@ -102,7 +102,7 @@ class LoginForm extends React.Component {
         <TextFieldGroup
           field="password"
           value={this.state.password}
-          label="Mật khẩu"
+          label="Mật khẩu *"
           onChange={this.onChange}
           error={this.state.errors.password}
           type="password"

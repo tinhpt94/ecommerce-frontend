@@ -21,14 +21,17 @@ import { isNew } from "../../utils/date";
 import { PromotionBadge, NewBadge } from "../common/Badge";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import DeleteIcon from "material-ui/svg-icons/content/delete-sweep";
+import CustomizedDialog from "../common/CustomizedDialog";
+import EditIcon from "material-ui/svg-icons/image/edit";
+import {browserHistory} from "react-router";
+import ProductAction from "../../actions/ProductAction"
 
 export default class ProductDetail extends Component {
   constructor(props) {
     super(props);
     this.state = this._getState();
     this._onChange = this._onChange.bind(this);
-    this.ratingChanged = this.ratingChanged.bind(this);
-    this.validateNumber = this.validateNumber.bind(this);
     this.onInputChange = this.onInputChange.bind(this);
   }
 
@@ -36,7 +39,9 @@ export default class ProductDetail extends Component {
     return {
       product: ProductStore.getSelectedProduct(),
       code: this.props.params.code,
-      quantity: 1
+      quantity: 1,
+      showDialog: false,
+      deleteSuccess: ProductStore.deleteSuccess
     };
   }
 
@@ -52,29 +57,22 @@ export default class ProductDetail extends Component {
     ProductService.fetchByCode(this.state.code);
   }
 
-  componentWillReceiveProps = (nextProps) => {
+  componentWillReceiveProps = nextProps => {
     if (nextProps.params.code !== this.props.params.code) {
-      ProductService.fetchByCode(nextProps.params.code)
+      ProductService.fetchByCode(nextProps.params.code);
     }
-  }
+  };
 
   componentWillUnmount() {
     ProductStore.removeChangeListener(this._onChange);
   }
 
   componentDidUpdate = () => {
+    if (this.state.deleteSuccess) {
+      browserHistory.push("/admin");
+    }
     ReactDOM.findDOMNode(this).scrollIntoView();
   };
-
-  ratingChanged(newRating) {
-    console.log(newRating);
-  }
-
-  validateNumber(event) {
-    const evt = event ? event : window.event;
-    const charCode = evt.which ? evt.which : evt.keyCode;
-    return !(charCode > 31 && (charCode < 48 || charCode > 57));
-  }
 
   onInputChange(quantity) {
     this.setState({
@@ -87,6 +85,22 @@ export default class ProductDetail extends Component {
     addedProduct.amount = this.state.quantity;
     CartAction.addToCart(addedProduct);
   };
+
+  handleCloseDialog = () => {
+    this.setState({
+      showDialog: false
+    });
+  };
+
+  handleShowDialog = () => {
+    this.setState({
+      showDialog: true
+    });
+  };
+
+  redirectToEdit = () => {
+    browserHistory.push("/admin/products/" + this.state.product.id + "/edit");
+  }
 
   addViewedProduct(product) {
     const loggedInUser = JSON.parse(localStorage.getItem("user"));
@@ -105,6 +119,13 @@ export default class ProductDetail extends Component {
     }
   }
 
+  handleDelete = product => {
+    this.setState({
+      showDialog: false
+    });
+    ProductService.delete(product);
+  };
+
   render() {
     const product = this.state.product;
     const loggedInUser = JSON.parse(localStorage.getItem("user"));
@@ -120,6 +141,14 @@ export default class ProductDetail extends Component {
       centerMode: true,
       pauseOnHover: true
     };
+
+    const actions = [
+      <RaisedButton
+        label="Xoá"
+        primary={true}
+        onTouchTap={e => this.handleDelete.call({}, product)}
+      />
+    ];
 
     return (
       <div className="single">
@@ -171,7 +200,9 @@ export default class ProductDetail extends Component {
                             edit={false}
                           />
                           <div>Xuất xứ: {product.made_in.made_in}</div>
-                          <div>Loại sản phẩm: {product.product_type.type_name}</div>
+                          <div>
+                            Loại sản phẩm: {product.product_type.type_name}
+                          </div>
                           <div>Thương hiệu: {product.brand.brand}</div>
                         </div>
 
@@ -182,40 +213,43 @@ export default class ProductDetail extends Component {
                         </div>
                       </div>
 
-                      {loggedInUser && loggedInUser.role === "USER" && <div className="product-info-body">
-                        <div className="product-info-body-order-block">
-                          <div className="product-info-body-row">
-                            <div
-                              className="product-info-body-label"
-                              style={{ width: "100px" }}
-                            >
-                              Số lượng:
-                            </div>
-                            <div className="product-info-body-content">
-                              <div className="product-info-body-order-quantity">
-                                <div className="product-info-body-input-quantity">
-                                  <NumericInput
-                                    className="form-control"
-                                    defaultValue={1}
-                                    max={product.quantity}
-                                    min={1}
-                                    value={this.state.quantity}
-                                    onChange={this.onInputChange}
-                                  />
-                                </div>
-                                <div className="product-info-body-order-quantity-stock-count">
-                                  <FormattedNumber value={product.quantity} />
-                                  {" "}
-                                  sản phẩm có sẵn
+                      {loggedInUser &&
+                        loggedInUser.role === "USER" &&
+                        <div className="product-info-body">
+                          <div className="product-info-body-order-block">
+                            <div className="product-info-body-row">
+                              <div
+                                className="product-info-body-label"
+                                style={{ width: "100px" }}
+                              >
+                                Số lượng:
+                              </div>
+                              <div className="product-info-body-content">
+                                <div className="product-info-body-order-quantity">
+                                  <div className="product-info-body-input-quantity">
+                                    <NumericInput
+                                      className="form-control"
+                                      defaultValue={1}
+                                      max={product.quantity}
+                                      min={1}
+                                      value={this.state.quantity}
+                                      onChange={this.onInputChange}
+                                    />
+                                  </div>
+                                  <div className="product-info-body-order-quantity-stock-count">
+                                    <FormattedNumber value={product.quantity} />
+                                    {" "}
+                                    sản phẩm có sẵn
+                                  </div>
                                 </div>
                               </div>
+
                             </div>
-
                           </div>
-                        </div>
-                      </div>}
+                        </div>}
 
-                      {loggedInUser && loggedInUser.role === "USER" &&
+                      {loggedInUser &&
+                        loggedInUser.role === "USER" &&
                         <div className="product-info-footer">
                           <div className="shop-button">
                             <RaisedButton
@@ -253,12 +287,15 @@ export default class ProductDetail extends Component {
                     </div>
                   </Tab>
                   <Tab label="Đánh giá">
-                    {loggedInUser && loggedInUser.role === "USER" && <CommentForm product={product} />}
+                    {loggedInUser &&
+                      loggedInUser.role === "USER" &&
+                      <CommentForm product={product} />}
                     <CommentList comments={product.comments} />
                   </Tab>
                 </Tabs>
 
-                {viewedProducts.length > 0 &&
+                {(!loggedInUser || loggedInUser.role === "USER") &&
+                  viewedProducts.length > 0 &&
                   <div className="row">
                     <div className="col-md-12">
                       <h3>Các sản phẩm đã xem</h3>
@@ -273,7 +310,37 @@ export default class ProductDetail extends Component {
                       </Slider>
                     </div>
                   </div>}
+
+                {loggedInUser &&
+                  loggedInUser.role === "MANAGER" &&
+                  <div className="row text-center margin-top-15">
+                    <RaisedButton
+                      icon={<DeleteIcon />}
+                      label="Xoá sản phẩm"
+                      labelPosition="after"
+                      backgroundColor="#F44336"
+                      onTouchTap={this.handleShowDialog}
+                    />
+                    <RaisedButton
+                      icon={<EditIcon />}
+                      label="Sửa sản phẩm"
+                      labelPosition="after"
+                      backgroundColor="#26A69A"
+                      onTouchTap={this.redirectToEdit}
+                    />
+                  </div>}
               </div>}
+
+          {product &&
+            <CustomizedDialog
+              title="Thông báo"
+              content={
+                "Bạn có chắc chắn muốn xoá sản phẩm " + product.name + " ?"
+              }
+              open={this.state.showDialog}
+              handleClose={this.handleCloseDialog}
+              actions={actions}
+            />}
         </div>
       </div>
     );

@@ -11,6 +11,7 @@ class ProductStore extends BaseStore {
     this.productByMadeIn = [];
     this.addNewSuccess = false;
     this.editSuccess = false;
+    this.deleteSuccess = false;
     this.subscribe(() => this.handler.bind(this));
   }
 
@@ -56,12 +57,12 @@ class ProductStore extends BaseStore {
         this.editSuccess = false;
         this.emitChange();
         break;
-      case ProductConstant.DELETE:
-        const index = this.products.indexOf(action.product);
-        const tempProducts = this.products
-          .slice(0, index)
-          .concat(this.products.slice(index + 1, this.products.length));
-        this.products = tempProducts;
+      case ProductConstant.DELETE_SUCCESS:
+        this.deleteSuccess = true;
+        this.emitChange();
+        break;
+      case ProductConstant.DELETE_ERROR:
+        this.deleteSuccess = false;
         this.emitChange();
         break;
       case ProductConstant.ADD_COMMENT:

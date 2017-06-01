@@ -67,10 +67,16 @@ export default {
     });
   },
 
-  delete: product => {
+  deleteSuccess: product => {
     Dispatcher.dispatch({
-      actionType: ProductConstant.DELETE,
+      actionType: ProductConstant.DELETE_SUCCESS,
       product
+    });
+  },
+
+  deleteError: () => {
+    Dispatcher.dispatch({
+      actionType: ProductConstant.DELETE_ERROR
     });
   },
 

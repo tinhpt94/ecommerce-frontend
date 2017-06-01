@@ -16,7 +16,6 @@ export default AuthenticatedManager(
       super(props);
       this.state = this.getState();
       this._onchange = this._onchange.bind(this);
-      this.onDelete = this.onDelete.bind(this);
       this.onSearchNameChange = this.onSearchNameChange.bind(this);
     }
 
@@ -47,10 +46,6 @@ export default AuthenticatedManager(
       this.setState({
         searchName: e.target.value
       });
-    }
-
-    onDelete(product) {
-      ProductService.delete(product);
     }
 
     redirectToAddScreen = () => {

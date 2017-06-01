@@ -28,6 +28,9 @@ export default function validateSignUp(data) {
   if (_.isEmpty(data.phone)) {
     errors.phone = "Bạn chưa nhập số điện thoại";
   }
+  if (_.isEmpty(data.address)) {
+    errors.address = "Bạn chưa nhập địa chỉ";
+  }
   return {
     errors: errors,
     isValid: isEmpty(errors)

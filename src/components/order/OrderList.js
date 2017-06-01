@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import AuthenticatedUser from "../common/AuthenticatedUser";
 import OrderStore from "../../stores/OrderStore";
 import OrderService from "../../services/OrderService";
+import OrderConstant from "../../constants/OrderConstant"
 import {
   Table,
   TableBody,
@@ -73,7 +74,7 @@ export default AuthenticatedUser(
                       <TableRowColumn>
                         <FormattedNumber value={order.total_cost} />
                       </TableRowColumn>
-                      <TableRowColumn>{order.status}</TableRowColumn>
+                      <TableRowColumn>{OrderConstant[order.status]}</TableRowColumn>
                     </TableRow>
                   );
                 })}

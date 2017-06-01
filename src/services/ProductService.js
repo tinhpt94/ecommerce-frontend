@@ -233,7 +233,7 @@ class ProductService {
       .then(response => {
         switch (response.status) {
           case 200:
-            ProductAction.delete(product);
+            ProductAction.deleteSuccess(product);
             break;
           default:
             break;

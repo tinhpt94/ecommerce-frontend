@@ -32,16 +32,7 @@ class LoginService {
       })
       .catch(function(error) {
         if (error.response) {
-          switch (error.response.status) {
-            case 401:
-              LoginAction.error(error.response.data);
-              break;
-            case 403:
-              LoginAction.error(error.response.data);
-              break;
-            default:
-              break;
-          }
+          LoginAction.error(error.response.data);
         } else {
           console.log("Error", error.message);
         }
@@ -79,6 +70,7 @@ class LoginService {
         Accept: "application/json",
         "Content-Type": "application/json"
       },
+      crossDomain: true,
       withCredentials: true
     })
       .then(function(response) {

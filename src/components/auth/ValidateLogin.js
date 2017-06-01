@@ -4,10 +4,10 @@ import isEmpty from "lodash/isEmpty";
 export default function validateSignUp(data) {
   let errors = {};
   if (Validator.isEmpty(data.username)) {
-    errors.username = "Please insert username";
+    errors.username = "Vui lòng nhập tên tài khoản";
   }
   if (Validator.isEmpty(data.password)) {
-    errors.password = "Please insert password";
+    errors.password = "Vui lòng nhập mật khẩu";
   }
 
   return {
